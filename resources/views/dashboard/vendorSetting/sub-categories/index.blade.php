@@ -175,7 +175,7 @@
                             render:function (data,two,three){
                                 let edit ='subCategories/'+data+'/edit';
                                 let changeStatus = 'subCategories/'+data+'/changeStatus';
-                                let show ='subCategories/'+data;
+                                // let show ='subCategories/'+data;
                                 @can('edit sub-category','show sub-category')
                                     return `<div class="btn-group">
                                 <div class="dropdown">
@@ -187,9 +187,9 @@
                                     <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
                                     <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
                                 @endcan
-                                @can('show sub-category')
-                                    <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>
-                                @endcan
+{{--                                @can('show sub-category')--}}
+{{--                                    <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>--}}
+{{--                                @endcan--}}
                                 </div>
                                 </div>
                             </div>`;
