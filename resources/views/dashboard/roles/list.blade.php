@@ -76,7 +76,7 @@
                                 <div class="plus-one mb-2">
                                     <label>{{__('dashboard.add permission')}}</label>
                                     <input type="text" name="name[]" class="form-control" placeholder="{{__('dashboard.add permission')}}">
-                                    @error('name')
+                                    @error('name.*')
                                     <span class="text text-danger">{{$message}}</span>
                                     @enderror
                                 </div>

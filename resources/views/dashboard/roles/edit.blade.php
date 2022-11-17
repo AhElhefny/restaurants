@@ -44,12 +44,13 @@
                                                 </div>
                                             @endforeach
 
-                                            @error('permission')
-                                            <span style="font-size: 14px;" class="text-danger">{{$message}}</span>
-                                            @enderror
+
                                         </div>
                                     </div>
                                 </div>
+                                @error('permission')
+                                <span style="font-size: 14px;" class="alert alert-danger d-flex justify-content-center">{{$message}}</span>
+                                @enderror
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary mr-1 mb-1">{{__('dashboard.submit')}}</button>
                                 </div>

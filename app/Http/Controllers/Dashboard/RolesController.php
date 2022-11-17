@@ -57,7 +57,7 @@ class RolesController extends Controller
     {
         $rules = [
             'name' => ['required','string',Rule::unique('roles','name')],
-            'permission.*' => ['numeric',Rule::exists('permissions','id')]
+            'permission.*' => ['numeric','required',Rule::exists('permissions','id')]
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
@@ -102,9 +102,11 @@ class RolesController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+//        dd($role);
         $rules = [
             'name' => ['required','string',Rule::unique('roles','name')->ignore($role->id)],
-            'permission.*' => ['numeric',Rule::exists('permissions','id')]
+            'permission.*' => ['required',Rule::exists('permissions','id')],
+            'permission' => ['required','array']
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
@@ -130,6 +132,7 @@ class RolesController extends Controller
     public function add_permission(Request $request){
         $rules = [
             'name.*' => ['required','string',Rule::unique('permissions','name')],
+            'name' =>['required']
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
@@ -137,9 +140,10 @@ class RolesController extends Controller
         }
         $super_admin = Role::findOrCreate('super_admin');
         foreach ($request->name as $name){
-            $permission[] = Permission::create(['name' =>$name,'guard_name' => 'web']);
+            $permission = Permission::create(['name' =>$name,'guard_name' => 'web']);
+            $super_admin->givePermissionTo($permission);
         }
-        $super_admin->syncPermissions($permission);
+
         return back()->with(['success'=>__('dashboard.item added successfully')]);
     }
 }
