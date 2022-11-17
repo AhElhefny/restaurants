@@ -175,7 +175,7 @@
                             render:function (data,two,three){
                                 let edit ='subCategories/'+data+'/edit';
                                 let changeStatus = 'subCategories/'+data+'/changeStatus';
-                                // let show ='subCategories/'+data;
+                                let show ='subCategories/'+data;
                                 @can('edit sub-category','show sub-category')
                                     return `<div class="btn-group">
                                 <div class="dropdown">
