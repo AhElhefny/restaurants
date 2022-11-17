@@ -89,8 +89,7 @@
                                                         <select name="sub_category_id" id="sub-category"
                                                                 class="select2 form-control">
                                                             {{--                                                        <optgroup label="{{__('dashboard.choose sub category')}}">--}}
-                                                            <option disabled
-                                                                    selected>{{__('dashboard.choose sub category')}}</option>
+                                                            <option disabled selected>{{__('dashboard.choose sub category')}}</option>
                                                             {{--                                                        </optgroup>--}}
                                                         </select>
                                                     </div>
@@ -283,10 +282,8 @@
                         },
                         success: function (response) {
                             if (response) {
-                                $.each(response, function (i) {
-                                    $.each(response[i], function (j) {
-                                        $("#sub-category").append("<option value='" + response[i][j].id + "'>" + response[i][j].name + "</option>");
-                                    });
+                                $.each(response.data, function (j,i) {
+                                    $("#sub-category").append("<option value='" + i.id + "'>" + i.name + "</option>");
                                 });
                             }
                         }

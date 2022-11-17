@@ -34,6 +34,7 @@ class SizeController extends Controller
                 $user->branch->vendor_id)->first() ;
         }elseif ($user->type == User::ADMIN){
             $vendors = Vendor::where('active',1)->get();
+
         }
 
         if(\request()->ajax()){
