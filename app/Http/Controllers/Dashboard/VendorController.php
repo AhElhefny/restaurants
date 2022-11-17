@@ -70,7 +70,7 @@ use HelperTrait;
             $data['longitude'] = $request->longitude ? : 0;
             $data['latitude'] = $request->latitude ? : 0;
             if ($request->file('image')){
-                $data['image'] = $this->storeImage($request->file('image'),'vendors');
+                $data['image'] = $this->storeImage($request->file('image'),'users/vendors');
             }
             $user = User::create($data);
 
@@ -85,7 +85,7 @@ use HelperTrait;
             $vendor['category_id'] = $request->category_id;
             $vendor['user_id'] = $user->id;
             Vendor::create($vendor);
-            $user->syncRole(['vendor']);
+            $user->assignRole('vendor');
             DB::commit();
             return redirect()->route('admin.vendors.index')->with(['success' => __('dashboard.item added successfully')]);
         }catch (\Exception $exception){
@@ -141,7 +141,7 @@ use HelperTrait;
             $data['longitude'] = $request->longitude ? : 0;
             $data['latitude'] = $request->latitude ? : 0;
             if ($request->file('image')){
-                $data['image'] = $this->storeImage($request->file('image'),'vendors');
+                $data['image'] = $this->storeImage($request->file('image'),'users/vendors');
             }
             $vendor->user->update($data);
 
