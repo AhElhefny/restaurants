@@ -275,14 +275,15 @@
                     var selectedVendor = $(this).find('option:selected');
                     let vendor_id = selectedVendor.val();
                     $.ajax({
-                        url: "{{route('admin.subCategories.index')}}",
+                        url: "{{route('admin.vendors.sub_categories')}}",
                         type: "GET",
                         data: {
                             vendor_id: vendor_id,
                         },
                         success: function (response) {
+                            $("#sub-category").empty();
                             if (response) {
-                                $.each(response.data, function (j,i) {
+                                $.each(response, function (j,i) {
                                     $("#sub-category").append("<option value='" + i.id + "'>" + i.name + "</option>");
                                 });
                             }

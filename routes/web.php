@@ -56,6 +56,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::resource('services',ServiceController::class);
                 Route::resource('subCategories',SubCategoryController::class);
                 Route::get('subCategories/{vendorCategory}/changeStatus',[SubCategoryController::class,'changeStatus']);
+                Route::get('vendor/subCategories',[SubCategoryController::class,'get_sub_category_by_vendor'])->name('vendors.sub_categories');
             });
         });
     });

@@ -139,4 +139,8 @@ class SubCategoryController extends Controller
         $vendorCategory->update(['active'=>!$vendorCategory->active]);
         return back();
     }
+
+    public function get_sub_category_by_vendor(Request $request){
+        return response()->json(VendorCategory::where('vendor_id',$request->vendor_id)->get());
+    }
 }
