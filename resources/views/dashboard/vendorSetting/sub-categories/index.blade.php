@@ -187,9 +187,9 @@
                                     <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
                                     <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
                                 @endcan
-{{--                                @can('show sub-category')--}}
-{{--                                    <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>--}}
-{{--                                @endcan--}}
+                                @can('show sub-category')
+                                    <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>
+                                @endcan
                                 </div>
                                 </div>
                             </div>`;
