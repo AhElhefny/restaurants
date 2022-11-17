@@ -19,7 +19,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">{{__('dashboard.role name')}}</label>
-                                    <input type="text" class="form-control" name="name" placeholder="{{__('dashboard.role name')}}" value="{{old('name')}}">
+                                    <input type="text" class="form-control" name="name" value="{{old('name')}}"  placeholder="{{__('dashboard.role name')}}" >
                                     @error('name')
                                     <span style="font-size: 14px;" class="text-danger">{{$message}}</span>
                                     @enderror

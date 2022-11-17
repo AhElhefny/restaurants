@@ -70,6 +70,12 @@ class PermissionsSeeder extends Seeder
         $role = Role::create([
             'name' => 'super_admin'
         ]);
+        Role::create([
+            'name' => 'vendor'
+        ]);
+        Role::create([
+            'name' => 'branch_manager'
+        ]);
         $user = User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
