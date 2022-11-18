@@ -53,6 +53,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getNameAttribute($val){
+        return $val;
+    }
+
     public function branch()
     {
         return $this->hasOne(Branch::class);
