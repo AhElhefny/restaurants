@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => __('api.otp sent successfully'),
-            'data' => $user
+            'data' => $user->otp
         ],Response::HTTP_OK);
     }
 
@@ -58,7 +59,7 @@ class AuthController extends Controller
 
             $data['flag'] = 'old';
             $data['token'] = $token;
-            $data['user'] = $user;
+            $data['user'] = new UserResource($user);
             return response()->json([
                 'success' => true,
                 'message' => __('api.you are logged in successfully'),
@@ -67,7 +68,7 @@ class AuthController extends Controller
         }
 
         $data['flag'] = 'new';
-        $data['user'] = $user;
+        $data['user'] = new UserResource($user);
         return response()->json([
             'success' => true,
             'message' => __('api.continue to complete the registration process'),
@@ -97,7 +98,7 @@ class AuthController extends Controller
            'email' => $request->email
         ]);
         $data['token'] = $user->createToken('api_token')->plainTextToken;;
-        $data['user']= $user;
+        $data['user'] = new UserResource($user);
         return response()->json([
             'success' => true,
             'message' => __('api.you are logged in successfully'),

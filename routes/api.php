@@ -23,8 +23,10 @@ Route::group(['prefix'=>'auth','controller' => AuthController::class],function (
     Route::post('register','register');
 });
 
+Route::get('categories',[CategoryController::class,'index']);
+
 Route::group(['middleware'=>'auth:sanctum'],function (){
-   Route::get('categories',[CategoryController::class,'index']);
+
    Route::post('logout',[AuthController::class,'logout']);
 });
 
