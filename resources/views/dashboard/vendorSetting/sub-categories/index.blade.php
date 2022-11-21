@@ -104,6 +104,9 @@
                     </div>
                 </div>
             @endcan
+            @if(\Session::get('success'))
+                <x-dashboard.layouts.message/>
+            @endif
             @can('sub-categories')
                 <div class="col-12 mt-3">
                     <div class="card">
@@ -135,6 +138,7 @@
                         </div>
                     </div>
                 </div>
+
             @endcan
         </div>
     </div>
@@ -160,7 +164,7 @@
                         {data: 'name', name:'name'},
                         {data: 'description', name:'description'},
                         {data: 'image', name:'image',render:function (data){
-                            return `<img src="${data}" width="100" height="80"></img>`
+                            return `<img src="${data}" width="100" height="80">`
                             }},
                         {data: 'active', render:function(data){
                                 return `<span class="badge badge-${data==0?'danger':'success'}">${data==0?'Disabled':'Active'}</span>`

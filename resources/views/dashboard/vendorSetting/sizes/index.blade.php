@@ -25,10 +25,8 @@
                                                 <input type="text" id="name_ar" class="form-control" name="name_ar"
                                                        placeholder="{{__('dashboard.table name').__('dashboard.in arabic')}}"
                                                        value="{{old('name_ar')}}">
-                                                {{--                                            @error('name_ar')--}}
                                                 <span style="font-size: 14px;" class="text-danger"
                                                       id="name_ar_error"></span>
-                                                {{--                                            @enderror--}}
                                             </div>
                                             <div class="form-group col-6">
                                                 <label
@@ -36,10 +34,8 @@
                                                 <input type="text" id="name_en" class="form-control" name="name_en"
                                                        placeholder="{{__('dashboard.table name').__('dashboard.in english')}}"
                                                        value="{{old('name_en')}}">
-                                                {{--                                            @error('name_en')--}}
                                                 <span style="font-size: 14px;" class="text-danger"
                                                       id="name_en_error"></span>
-                                                {{--                                            @enderror--}}
                                             </div>
                                             <div class="form-group col-6">
                                                 <label
@@ -48,10 +44,8 @@
                                                        name="description_ar"
                                                        placeholder="{{__('dashboard.table description').__('dashboard.in arabic')}}"
                                                        value="{{old('description_ar')}}">
-                                                {{--                                            @error('description_ar')--}}
                                                 <span style="font-size: 14px;" class="text-danger"
                                                       id="description_ar_error"></span>
-                                                {{--                                            @enderror--}}
                                             </div>
                                             <div class="form-group col-6">
                                                 <label
@@ -60,10 +54,8 @@
                                                        name="description_en"
                                                        placeholder="{{__('dashboard.table description').__('dashboard.in english')}}"
                                                        value="{{old('description_en')}}">
-                                                {{--                                            @error('description_en')--}}
                                                 <span style="font-size: 14px;" class="text-danger"
                                                       id="description_en_error"></span>
-                                                {{--                                            @enderror--}}
                                             </div>
                                             @if(auth()->user()->type == App\Models\User::ADMIN)
                                                 <div class="col-6">
@@ -78,8 +70,9 @@
                                                                 @endforeach
                                                             </optgroup>
                                                         </select>
-                                                        <span style="font-size: 14px;" class="text-danger"
-                                                              id="vendor_id_error"></span>
+                                                        @error('vendor_id')
+                                                        <span style="font-size: 14px;" class="text-danger" id="vendor_id_error">{{$message}}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -88,9 +81,9 @@
                                                             for="first-name-icon">{{__('dashboard.sub category')}}</label>
                                                         <select name="sub_category_id" id="sub-category"
                                                                 class="select2 form-control">
-                                                            {{--                                                        <optgroup label="{{__('dashboard.choose sub category')}}">--}}
+{{--                                                        <optgroup label="{{__('dashboard.choose sub category')}}">--}}
                                                             <option disabled selected>{{__('dashboard.choose sub category')}}</option>
-                                                            {{--                                                        </optgroup>--}}
+{{--                                                        </optgroup>--}}
                                                         </select>
                                                     </div>
                                                 </div>

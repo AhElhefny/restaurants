@@ -15,8 +15,8 @@ class CreateDeliveryTypesTable extends Migration
     {
         Schema::create('delivery_types', function (Blueprint $table) {
             $table->id();
-            $table->enum('type_ar',['توصيل','الإستلام من المتجر']);
-            $table->enum('type_en', ['delivery','from the store']);
+            $table->string('type_ar');
+            $table->string('type_en');
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();

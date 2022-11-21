@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SizeController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\VendorController;
+use App\Http\Controllers\DeliveryTypesController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -52,11 +53,19 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::get('vendors/{vendor}/changeStatus',[VendorController::class,'changeStatus']);
 
                 Route::resource('branches',BranchController::class);
+
                 Route::resource('sizes',SizeController::class);
+
                 Route::resource('services',ServiceController::class);
+                Route::get('service/{service}/changeStatus',[ServiceController::class,'changeStatus'])->name('change_service_status');
+
                 Route::resource('subCategories',SubCategoryController::class);
                 Route::get('subCategories/{vendorCategory}/changeStatus',[SubCategoryController::class,'changeStatus']);
                 Route::get('vendor/subCategories',[SubCategoryController::class,'get_sub_category_by_vendor'])->name('vendors.sub_categories');
+
+                Route::resource('deliveryTypes',DeliveryTypesController::class);
+                Route::get('deliveryTypes/{deliveryType}/changeStatus',[DeliveryTypesController::class,'changeStatus'])->name('change_deliveryTypes_status');
+
             });
         });
     });

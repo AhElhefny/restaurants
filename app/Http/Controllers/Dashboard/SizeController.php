@@ -34,16 +34,16 @@ class SizeController extends Controller
                 $user->branch->vendor_id)->first() ;
         }elseif ($user->type == User::ADMIN){
             $vendors = Vendor::where('active',1)->get();
-
         }
 
+        $query=Size::with(['vendor','subCategories']);
         if(\request()->ajax()){
             if($user->type == User::ADMIN || $user->type == User::VENDOR){
                 $sizes = $user->type == User::ADMIN ?
-                    Size::with(['vendor','subCategories'])->get() :
-                    Size::with(['vendor','subCategories'])->where('vendor_id',$user->vendor->id)->get();
+                    $query->get() :
+                    $query->where('vendor_id',$user->vendor->id)->get();
             }else{
-                $sizes =Size::with(['vendor','subCategories'])->where('vendor_id',$user->branch->vendor_id)->get();
+                $sizes =$query->where('vendor_id',$user->branch->vendor_id)->get();
             }
 //            dd($sizes);
             return DataTables::of($sizes)->make(true);

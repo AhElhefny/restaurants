@@ -69,13 +69,11 @@
                                                             for="first-name-icon">{{__('dashboard.sub category')}}</label>
                                                         <select name="vendor_category_id" id="sub-category"
                                                                 class="select2 form-control">
-{{--                                                        <optgroup label="{{__('dashboard.choose sub category')}}">--}}
                                                             <option disabled selected>{{__('dashboard.choose sub category')}}</option>
                                                             @foreach($size->vendor->vendorCategories as $sub_category)
                                                                 <option
                                                                     value="{{$sub_category->id}}" {{$sub_category->id == $size->vendor_category_id?'selected':''}}>{{$sub_category->name}}</option>
                                                             @endforeach
-{{--                                                        </optgroup>--}}
                                                         </select>
                                                     </div>
                                                 </div>
@@ -113,24 +111,25 @@
     </div>
 @section('script')
 <script>
-    $('#vendor').on('change', function () {
-        var selectedVendor = $(this).find('option:selected');
-        let vendor_id = selectedVendor.val();
-        $.ajax({
-            url: "{{route('admin.subCategories.index')}}",
-            type: "GET",
-            data: {
-            vendor_id: vendor_id,
-            },
-            success: function (response) {
-                if (response) {
-                    $.each(response, function (i) {
-                        $.each(response[i], function (j) {
-                            $("#sub-category").append("<option value='" + response[i][j].id + "'>" + response[i][j].name + "</option>");
+    $(document).ready(function () {
+        $('#vendor').on('change', function () {
+            var selectedVendor = $(this).find('option:selected');
+            let vendor_id = selectedVendor.val();
+            $.ajax({
+                url: "{{route('admin.vendors.sub_categories')}}",
+                type: "GET",
+                data: {
+                    vendor_id: vendor_id,
+                },
+                success: function (response) {
+                    $("#sub-category").empty();
+                    if (response) {
+                        $.each(response, function (j,i) {
+                            $("#sub-category").append("<option value='" + i.id + "'>" + i.name + "</option>");
                         });
-                    });
+                    }
                 }
-            }
+            });
         });
     });
 </script>

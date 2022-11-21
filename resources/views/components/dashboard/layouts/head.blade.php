@@ -28,6 +28,8 @@
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css-rtl/components.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css-rtl/themes/dark-layout.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css-rtl/themes/semi-dark-layout.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css-rtl/plugins/forms/wizard.css')}}">
+
 
         <!-- BEGIN: Page CSS-->
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css-rtl/core/menu/menu-types/vertical-menu.css')}}">
@@ -64,6 +66,7 @@
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css/components.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css/themes/dark-layout.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css/themes/semi-dark-layout.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css/plugins/forms/wizard.css')}}">
 
 
         <!-- BEGIN: Page CSS-->
@@ -74,6 +77,7 @@
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css/plugins/tour/tour.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css/pages/app-user.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/css/pages/app-ecommerce-details.css')}}">
+
 
         <!-- END: Page CSS-->
 

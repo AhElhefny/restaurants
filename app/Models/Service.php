@@ -15,6 +15,7 @@ class Service extends Model
     use SoftDeletes;
     use DefaultModelAttributesTrait;
     protected $appends=['name', 'description'];
+    public $folder = 'services';
     protected $hidden = [
         'name_ar',
         'name_en',

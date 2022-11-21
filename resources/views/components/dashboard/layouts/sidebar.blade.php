@@ -44,6 +44,16 @@
                     </ul>
                 </li>
             @endcan
+            @can('delivery-types')
+                <li class=" nav-item"><a href="#"><i class="feather icon-truck"></i><span class="menu-title" data-i18n="Data List">{{__('dashboard.delivery type')}}</span></a>
+                    <ul class="menu-content">
+                        @can('delivery-types')
+                            <li class="{{Route::is('admin.deliveryTypes.index')? 'active':''}}"><a href="{{route('admin.deliveryTypes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List View">{{__('dashboard.delivery list')}}</span></a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
 
             {{--          start users management--}}
             <li class=" navigation-header"><span>{{__('dashboard.users management')}}</span>
@@ -87,31 +97,33 @@
                         <li class="{{Route::is('admin.subCategories.index')? 'active':''}}"><a href="{{route('admin.subCategories.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add sub-category')}}</span></a>
                         </li>
                     @endcan
-{{--                    @can('services')--}}
-{{--                        <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add service')}}</span></a>--}}
-{{--                        </li>--}}
-{{--                    @endcan--}}
                     @can('sizes')
                         <li class="{{Route::is('admin.sizes.index')? 'active':''}}"><a href="{{route('admin.sizes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add size')}}</span></a>
                         </li>
                     @endcan
+                    @can('services')
+                        <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add service')}}</span></a>
+                        </li>
+                    @endcan
+
                 </ul>
             </li>
-{{--            @can('branches')--}}
-{{--                <li class=" nav-item"><a href="#"><i class="feather icon-layout"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.branches')}}</span></a>--}}
-{{--                    <ul class="menu-content">--}}
-{{--                        @can('branches')--}}
-{{--                            <li class="{{Route::is('admin.branches.index')? 'active':''}}"><a href="{{route('admin.branches.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.branches list')}}</span></a>--}}
-{{--                            </li>--}}
-{{--                        @endcan--}}
-{{--                        @can('add branch')--}}
-{{--                            <li class="{{Route::is('admin.branches.create')? 'active':''}}"> <a href="{{route('admin.branches.create')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.add branch')}}</span></a>--}}
-{{--                            </li>--}}
-{{--                        @endcan--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
-{{--            @endcan--}}
+            @can('branches')
+                <li class=" nav-item"><a href="#"><i class="feather icon-layout"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.branches')}}</span></a>
+                    <ul class="menu-content">
+                        @can('branches')
+                            <li class="{{Route::is('admin.branches.index')? 'active':''}}"><a href="{{route('admin.branches.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.branches list')}}</span></a>
+                            </li>
+                        @endcan
+                        @can('add branch')
+                            <li class="{{Route::is('admin.branches.create')? 'active':''}}"> <a href="{{route('admin.branches.create')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.add branch')}}</span></a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
             {{--          end vendors settings        --}}
+
 
 
         </ul>

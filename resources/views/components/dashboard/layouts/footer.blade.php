@@ -18,6 +18,8 @@
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/extensions/shepherd.min.js')}}"></script>
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/extensions/swiper.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/extensions/jquery.steps.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Theme JS-->
@@ -26,6 +28,8 @@
 <script src="{{asset('dashboardAssets/app-assets/js/scripts/components.js')}}"></script>
 <!-- END: Theme JS-->
 <!-- BEGIN: Page Vendor JS-->
+<script src="{{asset('dashboardAssets/app-assets/js/scripts/forms/wizard-steps.js')}}"></script>
+
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/pdfmake.min.js')}}"></script> --}}
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/vfs_fonts.js')}}"></script> --}}
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>

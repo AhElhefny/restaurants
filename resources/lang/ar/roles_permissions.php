@@ -72,6 +72,11 @@ return [
     'edit sub-category' => 'تعديل قسم فرعي' ,
     'delete sub-category' => 'حذف قسم فرعي' ,
     'show sub-category' => 'معاينة قسم فرعي' ,
+
+    'delivery-types' => 'طرق التوصيل' ,
+    'add delivery-types' => 'إضافة طريقة توصيل' ,
+    'edit delivery-types' => 'تعديل طريقة توصيل' ,
+    'delete delivery-types' => 'حذف طريقة توصيل' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,
