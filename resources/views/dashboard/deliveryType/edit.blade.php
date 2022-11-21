@@ -6,6 +6,7 @@
             <div class="content-header row">
             </div>
             <x-dashboard.layouts.breadcrumb now="{{__('dashboard.edit delivery-type')}}">
+                <li class="breadcrumb-item"><a href="{{route('admin.deliveryTypes.index')}}">{{__('dashboard.delivery list')}}</a></li>
             </x-dashboard.layouts.breadcrumb>
             @can('edit delivery-types')
                 <div class="col-12 mt-3">
