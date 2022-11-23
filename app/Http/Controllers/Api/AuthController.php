@@ -9,28 +9,24 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Http\services\ApiResponseTrait;
 
 class AuthController extends Controller
 {
+    use ApiResponseTrait;
     public function verifyMobile(Request $request){
         $rules = [
             'phone' => ['required','digits:9']
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()){
-            return response()->json([
-               'success' => false,
-               'message' => $validator->errors(),
-            ]);
+            $message = $validator->getMessageBag()->messages()['phone'][0]??null;
+            return $this->ApiResponse(false,$message??'wrong data',401,$validator->errors());
         }
         $user = User::firstOrCreate(['phone' => $request->phone]);
         $otp =rand(1111,9999);
         $user->update(['otp' => $otp]);
-        return response()->json([
-            'success' => true,
-            'message' => __('api.otp sent successfully'),
-            'data' => $user->otp
-        ],Response::HTTP_OK);
+        return $this->ApiResponse(true,__('api.otp sent successfully'),Response::HTTP_OK,['otp'=>$user->otp]);
     }
 
     public function verifyOTP(Request $request){
@@ -40,17 +36,12 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors(),
-            ],Response::HTTP_UNPROCESSABLE_ENTITY);
+            $message = $validator->getMessageBag()->messages()['otp'][0]??null;
+            return $this->ApiResponse(false,$message??'wrong data',Response::HTTP_UNPROCESSABLE_ENTITY,$validator->errors());
         }
         $user = User::where(['phone'=>$request->phone,'otp'=>$request->otp])->first();
         if(!$user){
-            return response()->json([
-                'success' => false,
-                'message' => __('api.wrong otp'),
-            ],Response::HTTP_UNAUTHORIZED);
+            return $this->ApiResponse(false,__('api.wrong otp'),Response::HTTP_UNAUTHORIZED,[]);
         }
         if(isset($user->name) && isset($user->email)){
             // user exist before
@@ -60,21 +51,12 @@ class AuthController extends Controller
             $data['flag'] = 'old';
             $data['token'] = $token;
             $data['user'] = new UserResource($user);
-            return response()->json([
-                'success' => true,
-                'message' => __('api.you are logged in successfully'),
-                'data' => $data
-            ],Response::HTTP_OK);
+            return $this->ApiResponse(true,__('api.you are logged in successfully'),Response::HTTP_OK,$data);
         }
 
         $data['flag'] = 'new';
         $data['user'] = new UserResource($user);
-        return response()->json([
-            'success' => true,
-            'message' => __('api.continue to complete the registration process'),
-            'data' => $data
-        ],Response::HTTP_OK);
-
+        return $this->ApiResponse(true,__('api.continue to complete the registration process'),Response::HTTP_OK,$data);
     }
 
     public function register(Request $request){
@@ -86,10 +68,8 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors(),
-            ],Response::HTTP_UNPROCESSABLE_ENTITY);
+            $message = $validator->getMessageBag()->messages()['name'][0].'name'??null;
+            return $this->ApiResponse(false,$message??'wrong data',Response::HTTP_UNPROCESSABLE_ENTITY,$validator->errors());
         }
         $user = User::where(['phone'=>$request->phone,'otp'=>$request->otp])->first();
         $user->update([
@@ -99,19 +79,11 @@ class AuthController extends Controller
         ]);
         $data['token'] = $user->createToken('api_token')->plainTextToken;;
         $data['user'] = new UserResource($user);
-        return response()->json([
-            'success' => true,
-            'message' => __('api.you are logged in successfully'),
-            'data' => $data
-        ],Response::HTTP_OK);
-
+        return $this->ApiResponse(true,__('api.you are logged in successfully'),Response::HTTP_OK,$data);
     }
 
     public function logout(){
         auth('api')->user()->tokens()->delete();
-        return response()->json([
-            'success' => true,
-            'message' => __('api.you are logged out successfully'),
-        ],Response::HTTP_OK);
+        return $this->ApiResponse(true,__('api.you are logged out successfully'),Response::HTTP_OK);
     }
 }
