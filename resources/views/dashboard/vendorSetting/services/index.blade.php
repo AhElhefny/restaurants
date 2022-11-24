@@ -256,23 +256,28 @@
                            if(response){
                                console.log('success')
                                $('#available-sizes').empty();
-                               $("#available-sizes").append("<h4 class='card-title col-12''>{{__('dashboard.choose available sizes')}}</h4>");
-                               $.each(response, function (j,i) {
-                                   $("#available-sizes").append("<div class='form-group row col-12'>"+
-                                   "<fieldset class='checkbox  col-2'>"+
-                                       "<div class='vs-checkbox-con vs-checkbox-primary'>"+
-                                       "<input type='checkbox'  id='"+i.id+"' name='sizes["+i.id+"]' class='get-Sizes'>"+
-                                       "<span class='vs-checkbox'>"+
-                                       "<span class='vs-checkbox--check'>"+
-                                       "<i class='vs-icon feather icon-check'></i>"+
-                                       "</span>"+
-                                       "</span>"+
-                                       "<span>"+i.name+"</span>"+
-                                       "</div>"+
-                                       "</fieldset>"+
-                                       "<input type='number' class='col-2  form-control inputCheckBox-"+i.id+"' style='display: none' id='price"+i.id+"' name='price["+i.id+"]' placeholder='{{__('dashboard.enter the price')}}'>"+
-                                       "</div>");
-                               });
+                               console.log(response.length);
+                               if (response.length ==0){
+                                   $("#available-sizes").append("<h4 class='card-title col-12''>{{__('dashboard.not available sizes for this sub category')}}</h4>");
+                               }else{
+                                   $("#available-sizes").append("<h4 class='card-title col-12''>{{__('dashboard.choose available sizes')}}</h4>");
+                                   $.each(response, function (j,i) {
+                                       $("#available-sizes").append("<div class='form-group row col-12'>"+
+                                           "<fieldset class='checkbox  col-2'>"+
+                                           "<div class='vs-checkbox-con vs-checkbox-primary'>"+
+                                           "<input type='checkbox'  id='"+i.id+"' name='sizes["+i.id+"]' class='get-Sizes'>"+
+                                           "<span class='vs-checkbox'>"+
+                                           "<span class='vs-checkbox--check'>"+
+                                           "<i class='vs-icon feather icon-check'></i>"+
+                                           "</span>"+
+                                           "</span>"+
+                                           "<span>"+i.name+"</span>"+
+                                           "</div>"+
+                                           "</fieldset>"+
+                                           "<input type='number' class='col-2  form-control inputCheckBox-"+i.id+"' style='display: none' id='price"+i.id+"' name='price["+i.id+"]' placeholder='{{__('dashboard.enter the price')}}'>"+
+                                           "</div>");
+                                   });
+                               }
                            }
                         },
                         error:function (xhr){

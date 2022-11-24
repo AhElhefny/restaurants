@@ -100,7 +100,7 @@ return [
     'choose available sizes' => 'اختر الاحجام المناسبه للخدمه' ,
     'enter the price' => 'ادخل ثمن المنتج لهذا الحجم' ,
     'something went wrong' => 'حدث خطا ما يرجي المحاوله لاحقا' ,
-    '' => '' ,
+    'not available sizes for this sub category' => 'لا يوجد احجام مضافه الي القسم' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

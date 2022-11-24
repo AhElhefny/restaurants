@@ -99,7 +99,7 @@ return [
     'choose available sizes' => 'Choose Available Sizes',
     'enter the price' => 'Enter the Price of the service with this size ',
     'something went wrong' => 'Something went wrong please try again',
-    '' => '',
+    'not available sizes for this sub category' => 'Not Available sizes for this Sub-Category',
     '' => '',
     '' => '',
     '' => '',

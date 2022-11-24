@@ -19,8 +19,8 @@ class CreateServicesTable extends Migration
             $table->string('name_en');
             $table->text('description_ar');
             $table->text('description_en');
-            $table->string('type_ar');
-            $table->string('type_en');
+            $table->string('type_ar')->default('خدمه اساسيه');
+            $table->string('type_en')->default('service');
             $table->string('image')->nullable();
             $table->boolean('active')->default(1);
             $table->foreignId('vendor_id')->constrained();
