@@ -64,6 +64,10 @@ class PermissionsSeeder extends Seeder
             ['guard_name' => 'web', 'name' => 'edit sub-category'],
             ['guard_name' => 'web', 'name' => 'delete sub-category'],
             ['guard_name' => 'web', 'name' => 'show sub-category'],
+            ['guard_name' => 'web', 'name' => 'delivery-types'],
+            ['guard_name' => 'web', 'name' => 'add delivery-types'],
+            ['guard_name' => 'web', 'name' => 'edit delivery-types'],
+            ['guard_name' => 'web', 'name' => 'delete delivery-types'],
 
 
         ];

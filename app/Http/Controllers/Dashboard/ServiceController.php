@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Vendor;
 use App\Http\services\HelperTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class ServiceController extends Controller
@@ -62,14 +63,29 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-        $data = $request->except(['_token']);
-        $data['active'] = $request->active == 'on' ? 1 : 0 ;
-        $data['vendor_category_id'] = $request->sub_category_id;
-        if($request->file('image')){
-            $data['image'] = $this->storeImage($request->file('image'),'services');
+        try {
+            DB::beginTransaction();
+            $data = $request->except(['_token']);
+            $data['active'] = $request->active == 'on' ? 1 : 0 ;
+            $data['vendor_category_id'] = $request->sub_category_id;
+            if($request->file('image')){
+                $data['image'] = $this->storeImage($request->file('image'),'services');
+            }
+            $service = Service::create($data);
+            $services['price'] = $request->price;
+            $sizes_ids = array_keys($request->sizes);
+            foreach ($sizes_ids as $id){
+                $size_id = $id;
+                $price = $services['price'][$id];
+                $service->sizes()->attach($size_id,['price'=>$price,'active'=>$data['active']]);
+            }
+            DB::commit();
+            return back()->with(['success' => __('dashboard.item added successfully')]);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            return back()->with(['success' => __('dashboard.something went wrong')]);
         }
-        Service::create($data);
-        return back()->with(['success' => __('dashboard.item added successfully')]);
+
     }
 
     /**

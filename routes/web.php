@@ -3,12 +3,12 @@
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BranchController;
 use App\Http\Controllers\dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\DeliveryTypesController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SizeController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\VendorController;
-use App\Http\Controllers\DeliveryTypesController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -55,6 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::resource('branches',BranchController::class);
 
                 Route::resource('sizes',SizeController::class);
+                Route::get('sizesForSubCat',[SizeController::class,'gettingSizesAccordingToSubCategory'])->name('sizes.getSizesForSubCategory');
 
                 Route::resource('services',ServiceController::class);
                 Route::get('service/{service}/changeStatus',[ServiceController::class,'changeStatus'])->name('change_service_status');

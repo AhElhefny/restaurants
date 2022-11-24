@@ -84,9 +84,9 @@
                                                     <select name="sub_category_id" id="sub-category"
                                                             class="select2 form-control">
                                                         <optgroup label="{{__('dashboard.choose sub category')}}">
+                                                            <option value="" selected disabled>{{__('dashboard.choose sub category')}}</option>
                                                             @foreach($vendors->vendorCategories as $sub_category)
-                                                                <option
-                                                                    value="{{$sub_category->id}}">{{$sub_category->name}}</option>
+                                                                <option value="{{$sub_category->id}}">{{$sub_category->name}}</option>
                                                             @endforeach
                                                         </optgroup>
                                                     </select>
@@ -110,15 +110,19 @@
                                         <div class="form-group col-6">
                                             <fieldset class="checkbox">
                                                 <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" name="active">
+                                                    <input type="checkbox"  name="active">
                                                     <span class="vs-checkbox">
-                                                                    <span class="vs-checkbox--check">
-                                                                        <i class="vs-icon feather icon-check"></i>
-                                                                    </span>
-                                                                </span>
+                                                        <span class="vs-checkbox--check">
+                                                            <i class="vs-icon feather icon-check"></i>
+                                                        </span>
+                                                    </span>
                                                     <span class="">{{__('dashboard.table status')}}</span>
                                                 </div>
                                             </fieldset>
+                                        </div>
+
+                                        <div id="available-sizes" class="col-12">
+
                                         </div>
                                         <div class="col-12">
                                             <button type="submit" class="btn btn-primary mr-1 mb-1">{{__('dashboard.submit')}}</button>
@@ -238,6 +242,55 @@
                     ]
                 });
 
+                $('#sub-category').on('change',function (){
+                    let vendor_id = $('#vendor').val();
+                    let sub_category_id = $('#sub-category').val();
+                    $.ajax({
+                       type:"GET",
+                       url:"{{route('admin.sizes.getSizesForSubCategory')}}",
+                       data:{
+                           vendor_id:vendor_id,
+                           sub_category_id:sub_category_id
+                       } ,
+                        success:function (response){
+                           if(response){
+                               console.log('success')
+                               $('#available-sizes').empty();
+                               $("#available-sizes").append("<h4 class='card-title col-12''>{{__('dashboard.choose available sizes')}}</h4>");
+                               $.each(response, function (j,i) {
+                                   $("#available-sizes").append("<div class='form-group row col-12'>"+
+                                   "<fieldset class='checkbox  col-2'>"+
+                                       "<div class='vs-checkbox-con vs-checkbox-primary'>"+
+                                       "<input type='checkbox'  id='"+i.id+"' name='sizes["+i.id+"]' class='get-Sizes'>"+
+                                       "<span class='vs-checkbox'>"+
+                                       "<span class='vs-checkbox--check'>"+
+                                       "<i class='vs-icon feather icon-check'></i>"+
+                                       "</span>"+
+                                       "</span>"+
+                                       "<span>"+i.name+"</span>"+
+                                       "</div>"+
+                                       "</fieldset>"+
+                                       "<input type='number' class='col-2  form-control inputCheckBox-"+i.id+"' style='display: none' id='price"+i.id+"' name='price["+i.id+"]' placeholder='{{__('dashboard.enter the price')}}'>"+
+                                       "</div>");
+                               });
+                           }
+                        },
+                        error:function (xhr){
+                           console.log(xhr);
+                        }
+                    });
+                });
+
+                $(document).on('change','.get-Sizes',function(){
+                   let value = $(this).attr("id");
+                   console.log(value);
+                   if($(this).is(':checked')){
+                       $(`.inputCheckBox-${value}`).show();
+                   }else {
+                       $(`.inputCheckBox-${value}`).hide();
+                   }
+                });
+
                 {{--    $('#Form-Size').submit(function (e) {
                     e.preventDefault();
                     let name_ar = $('#name_ar').val();
@@ -298,6 +351,7 @@
                         success: function (response) {
                             $("#sub-category").empty();
                             if (response) {
+                                $("#sub-category").append("<option value='' disabled selected>{{__('dashboard.choose sub category')}}</option>")
                                 $.each(response, function (j,i) {
                                     $("#sub-category").append("<option value='" + i.id + "'>" + i.name + "</option>");
                                 });

@@ -130,4 +130,9 @@ class SizeController extends Controller
         $size->delete();
         return back()->with(['success'=>__('dashboard.item deleted successfully')]);
     }
+
+    public function gettingSizesAccordingToSubCategory(Request $request){
+        $sizes = Size::where(['vendor_id'=>$request->vendor_id,'vendor_category_id'=>$request->sub_category_id])->get();
+        return response()->json($sizes,200);
+    }
 }

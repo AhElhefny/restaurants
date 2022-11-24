@@ -32,7 +32,7 @@ class Service extends Model
     }
 
     public function sizes(){
-        return $this->belongsToMany(Sizes::class,'service_sizes');
+        return $this->belongsToMany(Size::class,'service_sizes');
     }
 
     public function branches()
