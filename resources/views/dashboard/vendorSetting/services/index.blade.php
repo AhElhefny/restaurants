@@ -258,7 +258,7 @@
                                $('#available-sizes').empty();
                                console.log(response.length);
                                if (response.length ==0){
-                                   $("#available-sizes").append("<h4 class='card-title col-12''>{{__('dashboard.not available sizes for this sub category')}}</h4>");
+                                   $("#available-sizes").append("<p class='alert alert-danger text-center col-12''>{{__('dashboard.not available sizes for this sub category')}}@can('add size')  <a href='{{route('admin.sizes.index')}}' class='btn btn-black btn-sm ml-1'>Add One</a>@endcan</h4>");
                                }else{
                                    $("#available-sizes").append("<h4 class='card-title col-12''>{{__('dashboard.choose available sizes')}}</h4>");
                                    $.each(response, function (j,i) {
