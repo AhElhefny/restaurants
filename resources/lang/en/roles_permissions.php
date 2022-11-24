@@ -76,6 +76,11 @@ return [
     'add delivery-types' => 'Add Delivery-Types' ,
     'edit delivery-types' => 'Edit Delivery-Types' ,
     'delete delivery-types' => 'Delete Delivery-Types' ,
+
+    'works-time' => 'Works-Time' ,
+    'add works-time' => 'Add Works-Time' ,
+    'edit works-time' => 'Edit Works-Time' ,
+    'delete works-time' => 'Delete Works-Time' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

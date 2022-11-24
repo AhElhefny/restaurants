@@ -7,7 +7,6 @@
 <!-- END: Footer-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 <!-- BEGIN: Vendor JS-->
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/vendors.min.js')}}"></script>
 <!-- BEGIN Vendor JS-->
@@ -20,6 +19,8 @@
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/extensions/swiper.min.js')}}"></script>
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/extensions/jquery.steps.min.js')}}"></script>
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Theme JS-->
@@ -29,21 +30,24 @@
 <!-- END: Theme JS-->
 <!-- BEGIN: Page Vendor JS-->
 <script src="{{asset('dashboardAssets/app-assets/js/scripts/forms/wizard-steps.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/js/scripts/pages/app-ecommerce-details.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/js/scripts/forms/number-input.js')}}"></script>
+
 
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/pdfmake.min.js')}}"></script> --}}
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/vfs_fonts.js')}}"></script> --}}
-<script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js')}}"></script> --}}
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/buttons.html5.min.js')}}"></script> --}}
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/buttons.print.min.js')}}"></script> --}}
 {{-- <script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js')}}"></script> --}}
-<script src="{{asset('dashboardAssets/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('dashboardAssets/app-assets/js/scripts/pages/app-ecommerce-details.js')}}"></script>
-<script src="{{asset('dashboardAssets/app-assets/js/scripts/forms/number-input.js')}}"></script>
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Page JS-->
 <script src="{{asset('dashboardAssets/app-assets/js/scripts/datatables/datatable.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
+
 <!-- END: Page JS-->
 
 <!-- BEGIN: Page JS-->

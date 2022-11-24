@@ -105,6 +105,10 @@
                         <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add service')}}</span></a>
                         </li>
                     @endcan
+                    @can('works-time')
+                        <li class="{{Route::is('admin.worksTime.index')? 'active':''}}"><a href="{{route('admin.worksTime.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add worksTime')}}</span></a>
+                        </li>
+                    @endcan
 
                 </ul>
             </li>

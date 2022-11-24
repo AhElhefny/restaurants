@@ -15,6 +15,15 @@ use Yajra\DataTables\Facades\DataTables;
 class ServiceController extends Controller
 {
     use HelperTrait;
+    public function __construct()
+    {
+        $this->middleware('permission:services',['only'=>['index']]);
+        $this->middleware('permission:add service',['only'=>['create','store']]);
+        $this->middleware('permission:edit service',['only'=>['edit','update','changeStatus']]);
+        $this->middleware('permission:delete service',['only'=>['destroy']]);
+        $this->middleware('permission:show service',['only'=>['show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

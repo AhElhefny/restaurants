@@ -19,6 +19,8 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/vendors-rtl.min.css')}}/">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/extensions/swiper.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/forms/select/select2.min.css')}}">
+
         <!-- END: Vendor CSS-->
 
         <!-- BEGIN: Theme CSS-->
@@ -57,6 +59,8 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/vendors.min.css')}}/">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/extensions/swiper.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/forms/select/select2.min.css')}}">
+
         <!-- END: Vendor CSS-->
 
         <!-- BEGIN: Theme CSS-->

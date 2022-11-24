@@ -12,11 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 class CategoryController extends Controller
 {
     use HelperTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function __construct()
     {
         $this->middleware('permission:add category', ['only' => ['create','store']]);
@@ -25,6 +21,11 @@ class CategoryController extends Controller
         $this->middleware('permission:edit category', ['only' => ['edit','update','change_status']]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         if (\request()->ajax()) {

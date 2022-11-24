@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SizeController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\VendorController;
+use App\Http\Controllers\Dashboard\WorksTimeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -66,6 +67,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('deliveryTypes',DeliveryTypesController::class);
                 Route::get('deliveryTypes/{deliveryType}/changeStatus',[DeliveryTypesController::class,'changeStatus'])->name('change_deliveryTypes_status');
+
+                Route::resource('worksTime',WorksTimeController::class);
 
             });
         });

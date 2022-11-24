@@ -1,3 +1,4 @@
+@php use App\Models\DeliveryType; @endphp
 <x-dashboard.layouts.master title="{{__('dashboard.add branch')}}">
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -73,22 +74,6 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="password-icon">{{__('dashboard.range of delivery price')}}</label>
-                                                            <div class="position-relative has-icon-left">
-                                                                <input type="text"  class="form-control" value="{{old('range_of_delivery_price')}}" name="range_of_delivery_price" placeholder="From:0 To:max">
-                                                                <div class="form-control-position">
-                                                                    <i class="fa fa-usb"></i>
-                                                                </div>
-                                                            </div>
-                                                            @error('range_of_delivery_price')
-                                                            <span class="text text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="form-group">
                                                             <label for="password-icon">{{__('dashboard.table address')}}</label>
                                                             <div class="position-relative has-icon-left">
                                                                 <input type="text" id="address" class="form-control" value="{{old('address')}}" name="address" placeholder="{{__('dashboard.table address')}}">
@@ -103,6 +88,8 @@
                                                         <input type="hidden" name="latitude" id="latitude" value="" >
                                                         <input type="hidden" name="longitude" id="longitude" value="" >
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="email-id-icon">{{__('dashboard.table image')}}</label>
@@ -117,8 +104,6 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     @if(auth()->user()->type == App\Models\User::ADMIN)
                                                         <div class="col-6">
                                                             <div class="form-group">
@@ -135,6 +120,9 @@
                                                     @else
                                                         <input type="hidden" name="vendor_id" value="{{$vendors->id}}">
                                                     @endif
+                                                </div>
+                                                <div class="row">
+
                                                     <div class="form-group col-6">
                                                         <fieldset class="checkbox">
                                                             <div class="vs-checkbox-con vs-checkbox-primary">
@@ -218,12 +206,12 @@
                                                         <div class="form-group">
                                                             <label for="password-icon">{{__('dashboard.table phone')}}</label>
                                                             <div class="position-relative has-icon-left">
-                                                                <input type="text"  class="form-control" value="{{old('phone')}}" name="phone" placeholder="{{__('dashboard.table phone')}}">
+                                                                <input type="text"  class="form-control" value="{{old('userPhone')}}" name="userPhone" placeholder="{{__('dashboard.table phone')}}">
                                                                 <div class="form-control-position">
                                                                     <i class="fa fa-phone"></i>
                                                                 </div>
                                                             </div>
-                                                            @error('phone')
+                                                            @error('userPhone')
                                                             <span class="text text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
@@ -245,11 +233,47 @@
                                                 </div>
                                             </fieldset>
                                             <!-- Step 3 -->
-                                            <h6><i class="step-icon feather icon-briefcase"></i> {{__('dashboard.add branch manager')}}</h6>
+                                            <h6><i class="step-icon feather icon-truck"></i> {{__('dashboard.delivery type')}}</h6>
                                             <fieldset>
-                                                <div class="row">
-
-                                                </div>
+                                                <section class="multiple-select2">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="card">
+                                                                <div class="card-header">
+                                                                    <h4 class="card-title">{{__('dashboard.choose delivery type')}}</h4>
+                                                                </div>
+                                                                <div class="card-content">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                                <div class="form-group col-6">
+                                                                                    <select class="select2 form-control delivery-select" name="deliveryTypes[]" multiple="multiple">
+                                                                                        <optgroup label="{{__('dashboard.delivery type')}}">
+                                                                                            @foreach(DeliveryType::all() as $type)
+                                                                                            <option value="{{$type->id}}" id="{{$type->type}}">{{$type->type}}</option>
+                                                                                            @endforeach
+                                                                                        </optgroup>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="form-group col-6">
+{{--                                                                                    <label for="password-icon">{{__('dashboard.range of delivery price')}}</label>--}}
+                                                                                    <div class="position-relative has-icon-left">
+                                                                                        <input type="text"  class="form-control" value="{{old('range_of_delivery_price')}}" name="range_of_delivery_price" placeholder="{{__('dashboard.range of delivery price')}}">
+                                                                                        <div class="form-control-position">
+                                                                                            <i class="fa fa-usd"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    @error('range_of_delivery_price')
+                                                                                    <span class="text text-danger">{{$message}}</span>
+                                                                                    @enderror
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <button type="submit">submit</button>
                                             </fieldset>
                                         </form>
                                     </div>
@@ -259,7 +283,6 @@
                     </div>
                 </section>
                 <!-- Form wizard with step validation section end -->
-
             </div>
         </div>
     </div>
@@ -291,5 +314,7 @@
                 });
             }
         </script>
+
+
     @endsection
 </x-dashboard.layouts.master>

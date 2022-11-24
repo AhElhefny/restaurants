@@ -10,6 +10,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DeliveryTypesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:delivery-types',['only'=>['index']]);
+        $this->middleware('permission:add delivery-types',['only'=>['create','store']]);
+        $this->middleware('permission:edit delivery-types',['only'=>['edit','update','changeStatus']]);
+        $this->middleware('permission:delete delivery-types',['only'=>['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

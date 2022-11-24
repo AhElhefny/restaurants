@@ -15,8 +15,14 @@ class Branch extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public $folder = 'branches';
     protected $guarded = [''];
+    protected $appends=['name'];
+    protected $hidden=['name_ar','name_en'];
 
+    public function getNameAttribute(){
+        return app()->getLocale() == 'ar' ? $this->name_ar : $this->name_en;
+    }
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);
@@ -38,7 +44,7 @@ class Branch extends Model
 
     public function deliveryTypes()
     {
-        return $this->belongsToMany(DeliveryType::class, 'branch_delivery')->wherePivot('active', 1);
+        return $this->belongsToMany(DeliveryType::class, 'branch_deliveries')->wherePivot('active', 1);
     }
 
 }
