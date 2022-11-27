@@ -39,9 +39,9 @@
 
 
                                                     <tr class="text text-center">
-                                                         <th>#</th>
                                                         <th>{{__('dashboard.table name')}}</th>
                                                         <th>{{__('dashboard.users count')}}</th>
+                                                        <th>{{__('dashboard.table create date')}}</th>
                                                         <th>{{__('dashboard.actions')}}</th>
                                                     </tr>
                                                     </thead>
@@ -98,9 +98,7 @@
     @section('script')
         <script>
             $(document).ready(function () {
-                let i=0;
                 $('#roles-table').DataTable({
-
                     processing: true,
                     serverSide: true,
                     lengthMenu: [10, 20, 40, 60, 80, 100],
@@ -113,16 +111,14 @@
                         }
                     },
                     "paging": true,
+                    order : [[2,'desc']],
                     columns: [
-                        {data: 'id', name: 'id',render:function (){
-
-                            return i+=1;
-                            }},
                         {data: 'name', name:'name'},
                         {data: 'users_count', name:'users_count',
                             render:function (data){
                                 return `<span class="badge badge-primary text text-center font-medium-2">${data}</span><i class="fa fa-users fa-2x text text-primary ml-2"></i>`;
                             }},
+                        {data: 'created_at',name: 'created_at'},
                         {data: 'id',
                             render:function (data,two,three){
                                 let edit ='roles/'+data+'/edit';
@@ -141,6 +137,7 @@
                                 @can('edit role')
                                     <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
                                     @endcan
+
                                 @can('delete role')
                                     <form action='${deleting}' method='POST' class="role-${data}">
                                     @csrf

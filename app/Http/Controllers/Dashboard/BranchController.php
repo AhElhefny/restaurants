@@ -11,6 +11,7 @@ use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\services\HelperTrait;
+use Yajra\DataTables\Facades\DataTables;
 
 class BranchController extends Controller
 {
@@ -30,6 +31,11 @@ class BranchController extends Controller
      */
     public function index()
     {
+        $query = Branch::with(['vendor','user'])->withCount('orders');
+        $branches = auth()->user()->type == User::ADMIN ? $query->get() : $query->where('vendor_id',auth()->user()->vendor->id)->get();
+        if (\request()->ajax()){
+            return DataTables::of($branches)->make(true);
+        }
         return view('dashboard.branches.index');
     }
 
@@ -61,13 +67,14 @@ class BranchController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'address' =>  $request->address,
+                'address' =>  $request->user_address,
                 'phone' => $request->userPhone,
                 'type' => User::BRANCH_MANAGER,
                 'type_ar' => 'مدير فرع',
                 'type_en' =>'branch manager',
             ];
             $user = User::create($userData);
+            $user->assignRole('branch_manager');
             $branchData =[
                 'name_ar' => $request->name_ar,
                 'name_en' => $request->name_en,
@@ -113,7 +120,10 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch)
     {
-        //
+        $vendors = auth()->user()->type == User::ADMIN ?
+            Vendor::where('active',1)->get() :
+            auth()->user()->vendor ;
+        return view('dashboard.branches.edit',['vendors' => $vendors,'branch'=>$branch]);
     }
 
     /**
@@ -123,9 +133,47 @@ class BranchController extends Controller
      * @param  \App\Models\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Branch $branch)
+    public function update(BranchRequest $request, Branch $branch)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $userData =[
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' =>  $request->user_address,
+                'phone' => $request->userPhone,
+            ];
+            if($request->password){
+                $user['password'] = bcrypt($request->password);
+            }
+            $branch->user->update($userData);
+            $branchData =[
+                'name_ar' => $request->name_ar,
+                'name_en' => $request->name_en,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'vendor_id' => $request->vendor_id,
+                'range_of_delivery_price' => $request->range_of_delivery_price,
+                'active' => $request->active == 'on'? 1 : 0 ,
+            ];
+            if($request->latitude){
+                $branchData['latitude'] = $request->latitude;
+            }
+            if($request->longitude){
+                $branchData['longitude'] = $request->longitude;
+            }
+            if($request->hasFile('image')){
+                $branchData['image'] = $this->storeImage($request->file('image'),'branches');
+            }
+            $branch ->update($branchData);
+            $branch->deliveryTypes()->sync($request->deliveryTypes);
+//            $services = Service::where('active',1)->get();
+//            $branch->services()->attach($services->pluck('id')->toArray());
+            DB::commit();
+            return redirect()->route('admin.branches.index')->with(['success'=>__('dashboard.item updated successfully')]);
+        }catch (\Exception $exception){
+            return back()->with(['success'=>__('dashboard.something went wrong')]);
+        }
     }
 
     /**
@@ -137,5 +185,17 @@ class BranchController extends Controller
     public function destroy(Branch $branch)
     {
         //
+    }
+
+    /**
+     * Change Status of the specified resource from storage.
+     *
+     * @param  \App\Models\Branch  $branch
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus(Branch $branch)
+    {
+        $branch->update(['active'=>!$branch->active]);
+        return back()->with(['success'=>__('dashboard.item updated successfully')]);
     }
 }

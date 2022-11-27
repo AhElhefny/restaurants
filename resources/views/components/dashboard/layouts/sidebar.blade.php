@@ -54,11 +54,11 @@
                     </ul>
                 </li>
             @endcan
-
+            @if(auth()->user()->can('users') || auth()->user()->can('vendors'))
             {{--          start users management--}}
             <li class=" navigation-header"><span>{{__('dashboard.users management')}}</span>
             </li>
-
+            @endcan
             @can('vendors')
                 <li class=" nav-item"><a href="#"><i class="feather icon-shopping-cart"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.vendors')}}</span></a>
                     <ul class="menu-content">
@@ -73,17 +73,14 @@
                     </ul>
                 </li>
             @endcan
-
-{{--            <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.users')}}</span></a>--}}
-{{--                <ul class="menu-content">--}}
-{{--                    <li><a href="app-user-list.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">List</span></a>--}}
-{{--                    </li>--}}
-{{--                    <li><a href="app-user-view.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View</span></a>--}}
-{{--                    </li>--}}
-{{--                    <li><a href="app-user-edit.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Edit">Edit</span></a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+            @can('users')
+            <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.users')}}</span></a>
+                <ul class="menu-content">
+                    <li><a href="app-user-list.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.users list')}}</span></a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
             {{--          end users management--}}
 
             {{--          start vendors settings        --}}
@@ -94,19 +91,19 @@
             <li class=" nav-item"><a href="#"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.vendors settings')}}</span></a>
                 <ul class="menu-content">
                     @can('sub-categories')
-                        <li class="{{Route::is('admin.subCategories.index')? 'active':''}}"><a href="{{route('admin.subCategories.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add sub-category')}}</span></a>
+                        <li class="{{Route::is('admin.subCategories.index')? 'active':''}}"><a href="{{route('admin.subCategories.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.sub category list')}}</span></a>
                         </li>
                     @endcan
                     @can('sizes')
-                        <li class="{{Route::is('admin.sizes.index')? 'active':''}}"><a href="{{route('admin.sizes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add size')}}</span></a>
+                        <li class="{{Route::is('admin.sizes.index')? 'active':''}}"><a href="{{route('admin.sizes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.sizes list')}}</span></a>
                         </li>
                     @endcan
                     @can('services')
-                        <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add service')}}</span></a>
+                        <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.service list')}}</span></a>
                         </li>
                     @endcan
                     @can('works-time')
-                        <li class="{{Route::is('admin.worksTime.index')? 'active':''}}"><a href="{{route('admin.worksTime.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add worksTime')}}</span></a>
+                        <li class="{{Route::is('admin.worksTime.index')? 'active':''}}"><a href="{{route('admin.worksTime.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.worksTime list')}}</span></a>
                         </li>
                     @endcan
 
@@ -127,7 +124,12 @@
                 </li>
             @endcan
             {{--          end vendors settings        --}}
-
+            <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.orders')}}</span></a>
+                <ul class="menu-content">
+                    <li class="{{Route::is('admin.orders.index')? 'active':''}}"><a href="{{route('admin.orders.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.orders list')}}</span></a>
+                    </li>
+                </ul>
+                </li>
 
 
         </ul>

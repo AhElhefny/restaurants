@@ -30,14 +30,14 @@ class BranchRequest extends FormRequest
             'name_ar' => ['required','min:3','max:255'],
             'phone' => ['required','digits:9'],
             'address' => ['required','min:5','max:255'],
-            'image' => ['required','image'],
+            'image' => request()->method() == 'POST'?['required','image']:'',
             'vendor_id' => ['required',Rule::exists('vendors','id')],
             //user data
             'name' => ['required','min:3','max:100'],
-            'email' => ['required',Rule::unique('users','email')],
-            'password' => ['required','confirmed','min:6','max:100'],
+            'email' => ['required',request()->method()=='POST'?Rule::unique('users','email'):Rule::unique('users','email')->ignore($this->branch->user->id)],
+            'password' => request()->method()=='POST'?['required','confirmed','min:6','max:100']:['confirmed'],
             'user_address' => ['required','min:5','max:255'],
-            'userPhone' => ['required',Rule::unique('users','phone')],
+            'userPhone' => ['required',request()->method()=='POST'?Rule::unique('users','phone'):Rule::unique('users','phone')->ignore($this->branch->user->id)],
             // delivery type data
             'deliveryTypes' => ['required','array'],
             'deliveryTypes.*' => [Rule::exists('delivery_types','id')]

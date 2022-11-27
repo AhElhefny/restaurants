@@ -31,7 +31,7 @@ use HelperTrait;
     public function index()
     {
         if(\request()->ajax()){
-            $data = Vendor::with(['category','user'])->get();
+            $data = Vendor::with(['category','user'])->withCount('branches')->get();
             return Datatables::of($data)->make(true);
 
         }

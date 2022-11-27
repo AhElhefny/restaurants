@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\services\DefaultModelAttributesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,10 +11,11 @@ use App\Models\Vendor;
 use App\Models\DeliveryType;
 use App\Models\Order;
 
+
 class Branch extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    use SoftDeletes, DefaultModelAttributesTrait;
 
     public $folder = 'branches';
     protected $guarded = [''];
@@ -35,11 +37,11 @@ class Branch extends Model
 
     public function orders()
     {
-        return $this->belongsTo(Order::class);
+        return $this->hasMany(Order::class);
     }
 
     public function services(){
-        return $this->belongsToMany(Service::class,'branch_services')->wherePivot('available', 1);
+        return $this->belongsToMany(Service::class,'branch_services')->where('active','=',1)->with(['vendor','vendorCategory'])->withPivot(['available']);
     }
 
     public function deliveryTypes()

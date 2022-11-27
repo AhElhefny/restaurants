@@ -123,7 +123,7 @@
                                             <th>{{__('dashboard.table description')}}</th>
                                             <th>{{__('dashboard.table image')}}</th>
                                             <th>{{__('dashboard.table status')}}</th>
-                                            @if(auth()->user()->type != App\Models\User::VENDOR)
+                                            @if(auth()->user()->type == App\Models\User::ADMIN)
                                             <th>{{__('dashboard.vendors')}}</th>
                                             @endif
                                             <th>{{__('dashboard.table create date')}}</th>
@@ -145,7 +145,7 @@
     @section('script')
         <script>
             $(document).ready(function () {
-                let table = $('#sub-category-table').DataTable({
+                $('#sub-category-table').DataTable({
 
                     processing: true,
                     serverSide: true,
@@ -159,7 +159,7 @@
                         }
                     },
                     "paging": true,
-                    order:[[{{auth()->user()->type == 3?5:6}},'desc']],
+                    order: [[{{auth()->user()->type == App\Models\User::ADMIN ? 6 : 5}} , 'desc']],
                     columns: [
                         {data: 'name', name:'name'},
                         {data: 'description', name:'description'},
@@ -175,69 +175,35 @@
                             }},
                         @endif
                         {data: 'created_at', name: 'created_at'},
-                        {data: 'id',
-                            render:function (data,two,three){
-                                let edit ='subCategories/'+data+'/edit';
-                                let changeStatus = 'subCategories/'+data+'/changeStatus';
-                                // let show ='subCategories/'+data;
-                                @can('edit sub-category','show sub-category')
-                                    return `<div class="btn-group">
-                                <div class="dropdown">
-                                    <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{__('dashboard.actions')}}
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton700">
-                                @can('edit sub-category')
-                                    <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
-                                    <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
-                                @endcan
-{{--                                @can('show sub-category')--}}
-{{--                                    <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>--}}
-{{--                                @endcan--}}
-                                </div>
-                                </div>
-                            </div>`;
-                                @endcan
+                        @if(auth()->user()->can('edit sub-category') || auth()->user()->can('show sub-category'))
+                            {data: 'id',
+                                render:function (data,two,three){
+                                    let edit ='subCategories/'+data+'/edit';
+                                    let changeStatus = 'subCategories/'+data+'/changeStatus';
+                                    let show ='subCategories/'+data;
+
+                                        return `<div class="btn-group">
+                                    <div class="dropdown">
+                                        <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{__('dashboard.actions')}}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton700">
+                                    @can('edit sub-category')
+                                        <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
+                                        <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
+                                    @endcan
+                                    @can('show sub-category')
+                                        <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>
+                                    @endcan
+                                    </div>
+                                    </div>
+                                </div>`;
+
+                                }
                             }
-                        },
+                        @endif
                     ]
                 });
-
-                {{-- $('#Form-sub-category').submit(function (e){
-                e.preventDefault();
-                let name_ar =$('#name_ar').val();
-                let name_en =$('#name_en').val();
-                let description_ar =$('#description_ar').val();
-                let description_en =$('#description_en').val();
-                let vendor_id =$('#vendor').val();
-                var fd = new FormData();
-                var files = $('#image-sub-cat')[0].files[0];
-                fd.append('file',files);
-                $.ajax({
-                    url:'{{route('admin.subCategories.store')}}',
-                    headers: { 'X-CSRF-Token': "{{ csrf_token() }}" },
-                    type:"POST",
-                    data:{
-                        name_ar:name_ar,
-                        name_en:name_en,
-                        description_en:description_en,
-                        description_ar:description_ar,
-                        vendor_id:vendor_id,
-                        fd,
-                    } ,
-                    contentType: false,
-                    processData: false,
-                    success:function (response){
-                        if(response){
-                            $('#Form-sub-category')[0].reset();
-                            table.ajax.reload();
-                        }
-                    },
-                    error:function (xhr){
-                        console.log(xhr.responseJSON);
-                    }
-                });
-            });--}}
         });
 
         </script>

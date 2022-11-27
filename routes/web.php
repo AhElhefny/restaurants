@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BranchController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DeliveryTypesController;
+use App\Http\Controllers\Dashboard\OrdersController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SizeController;
@@ -54,6 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::get('vendors/{vendor}/changeStatus',[VendorController::class,'changeStatus']);
 
                 Route::resource('branches',BranchController::class);
+                Route::get('branches/{branch}/changeStatus',[BranchController::class,'changeStatus']);
 
                 Route::resource('sizes',SizeController::class);
                 Route::get('sizesForSubCat',[SizeController::class,'gettingSizesAccordingToSubCategory'])->name('sizes.getSizesForSubCategory');
@@ -70,6 +72,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('worksTime',WorksTimeController::class);
 
+                Route::get('orders',OrdersController::class)->name('orders.index');
             });
         });
     });

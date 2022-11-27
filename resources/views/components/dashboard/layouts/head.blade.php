@@ -91,5 +91,10 @@
         <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/assets/css/style.css')}}">
         <!-- END: Custom CSS-->
     @endif
+    <style>
+        body{
+            /*font-family: 'Courier New', Courier, monospace;*/
+        }
+    </style>
     <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 </head>

@@ -35,13 +35,15 @@
 
 
                                                     <tr class="text text-center">
-                                                         <th>#</th>
                                                         <th>{{__('dashboard.table name')}}</th>
-                                                        <th style="width: 35%">{{__('dashboard.table description')}}</th>
+                                                        <th>{{__('dashboard.table phone')}}</th>
+                                                        <th>{{__('dashboard.branches count')}}</th>
+                                                        <th>{{__('dashboard.orders count')}}</th>
                                                         <th>{{__('dashboard.table email')}}</th>
                                                         <th>{{__('dashboard.table image')}}</th>
                                                         <th>{{__('dashboard.table status')}}</th>
                                                         <th>{{__('dashboard.category')}}</th>
+                                                        <th>{{__('dashboard.table create date')}}</th>
                                                         @if(auth()->user()->can('show vendor') || auth()->user()->can('edit vendor'))
                                                         <th>{{__('dashboard.actions')}}</th>
                                                         @endif
@@ -68,7 +70,6 @@
     @section('script')
         <script>
             $(document).ready(function () {
-                let i=0;
                 $('#vendors-table').DataTable({
 
                     processing: true,
@@ -83,18 +84,18 @@
                         }
                     },
                     "paging": true,
+                    order: [[9,'desc']],
                     columns: [
-                        {data: 'id', name: 'id',render:function (){
-
-                            return i+=1;
-                            }},
                         {data: 'name', name:'name'},
-                        {data: 'description', render:function (data){
-                            return `<p class="text-justify">${data}</p>`;
+                        {data: 'user', render:function (data){
+                            return `<p class="text-justify">${data.phone}</p>`;
+                            }},
+                        {data: 'branches_count', name:'branches_count'},
+                        {data: 'id', render:function () {
+                                return 0 ;
                             }},
                         {data: 'email', name:'email'},
                         {data:'user',render:function(data){
-                            console.log(data.image);
                                 return  `<img width="100" height="80" src="${data.image}">`
                             }},
                         {data: 'active', render:function(data){
@@ -103,6 +104,7 @@
                         {data: 'category', render:function (data){
                                 return data.name;
                             }},
+                        {data: 'created_at', name:'created_at'},
                         {data: 'id',
                             render:function (data,two,three){
                                 let edit ='vendors/'+data+'/edit';

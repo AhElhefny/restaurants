@@ -47,7 +47,8 @@ class ServiceController extends Controller
                     $query->get() :
                     $query->where('vendor_id',$user->vendor->id)->get();
             }else{
-                $services =$query->where('vendor_id',$user->branch->vendor_id)->get();
+                $services = $user->branch->services;
+//                    $query->where('vendor_id',$user->branch->vendor_id)->get();
             }
             return DataTables::of($services)->make(true);
         }
@@ -87,6 +88,11 @@ class ServiceController extends Controller
                 $size_id = $id;
                 $price = $services['price'][$id];
                 $service->sizes()->attach($size_id,['price'=>$price,'active'=>$data['active']]);
+            }
+//            $allVendorServices = Service::where('vendor_id',$request->vendor_id)->pluck('id')->toArray();
+            $vendor = Vendor::find($request->vendor_id);
+            foreach ($vendor->branches as $branch){
+                $branch->services()->attach($service,['available'=>1]);
             }
             DB::commit();
             return back()->with(['success' => __('dashboard.item added successfully')]);
@@ -167,7 +173,13 @@ class ServiceController extends Controller
      */
     public function changeStatus(Service $service)
     {
-        $service->update(['active'=>!$service->active]);
+        if(!auth()->user()->hasRole('branch_manager')){
+            $service->update(['active'=>!$service->active]);
+        }else{
+            $available = DB::table('branch_services')->where(['branch_id'=>auth()->user()->branch->id,'service_id'=>$service->id])->pluck('available')->toArray();
+            auth()->user()->branch->services()->updateExistingPivot($service->id,['available'=>!$available[0]]);
+        }
+
         return back()->with(['success'=>__('dashboard.item updated successfully')]);
     }
 }

@@ -78,7 +78,7 @@ class User extends Authenticatable
 
     public function vendor()
     {
-        return $this->hasOne(Vendor::class)->where('active',1);
+        return $this->hasOne(Vendor::class);
     }
 
     public function deliveryMan()

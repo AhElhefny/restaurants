@@ -154,13 +154,15 @@
                                             <th>{{__('dashboard.table name')}}</th>
                                             <th>{{__('dashboard.table description')}}</th>
                                             <th>{{__('dashboard.table image')}}</th>
-                                        @if(auth()->user()->type != App\Models\User::VENDOR)
+                                            @if(auth()->user()->type == App\Models\User::ADMIN)
                                                 <th>{{__('dashboard.vendors')}}</th>
                                             @endif
                                             <th>{{__('dashboard.sub category')}}</th>
                                             <th>{{__('dashboard.table status')}}</th>
                                             <th>{{__('dashboard.table create date')}}</th>
-                                            <th>{{__('dashboard.actions')}}</th>
+{{--                                            @if(auth()->user()->can('edit service') ||auth()->user()->can('delete service'))--}}
+                                                <th>{{__('dashboard.actions')}}</th>
+{{--                                            @endif--}}
                                         </tr>
                                         </thead>
                                         <tbody class="text text-center ">
@@ -190,7 +192,7 @@
                             d.page = 1;
                         },
                     },
-                    order: [[@if(auth()->user()->type == 3)6 @else 7 @endif, 'desc']],
+                    order: [[{{auth()->user()->type == App\Models\User::ADMIN ? 7 : 6}} , 'desc']],
                     "paging": true,
                     columns: [
                         {data: 'name', name: 'name'},
@@ -206,39 +208,51 @@
                         {data: 'vendor_category', render:function (data){
                                 return data.name
                             }},
+                        @if(!auth()->user()->hasRole('branch_manager'))
                         {data: 'active',render:function (data){
                                 return `<span class="badge badge-${data==0?'danger':'success'}">${data==0?'Disabled':'Active'}</span>`
                             }},
+                        @else
+                        {data: 'pivot',render:function (data){
+                                return `<span class="badge badge-${data.available==0?'danger':'success'}">${data.available==0?'Not Available':'Available'}</span>`
+                            }},
+                        @endif
                         {data: 'created_at', name: 'created_at'},
-                        {data: 'id',
-                            render: function (data, two, three) {
-                                let edit = 'services/' + data + '/edit';
-                                let changeStatus = 'service/'+data+'/changeStatus';
-                                let deleting = 'services/' + data;
-                                @can('edit service','delete service')
-                                    return `<div class="btn-group">
-                                <div class="dropdown">
-                                    <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{__('dashboard.actions')}}
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton700">
-                                @can('edit service')
-                                    <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
-                                    <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
-                                @endcan
-                                @can('delete service')
-                                <form action='${deleting}' method='POST' class="role-${data}">
-                                    @csrf
-                                @method('DELETE')
-                                </form>
-                                <button class="dropdown-item" onClick="remove(${data},'role')"><i class="fa fa-trash mr-1"></i>{{__('dashboard.delete')}}</button>
-                                @endcan
-                                </div>
-                                </div>
-                            </div>`;
-                                @endcan
+
+                            {data: 'id', render: function (data, two, three) {
+                                    @if(!auth()->user()->can('edit service') && !auth()->user()->can('delete service'))
+                                    return '';
+                                    @endif
+                                    let edit = 'services/' + data + '/edit';
+                                    let changeStatus = 'service/'+data+'/changeStatus';
+                                    let deleting = 'services/' + data;
+
+                                        return `<div class="btn-group">
+                                        <div class="dropdown">
+                                            <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {{__('dashboard.actions')}}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton700">
+                                        @can('edit service')
+                                            @if(!auth()->user()->hasRole('branch_manager'))
+                                            <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
+                                            @endif
+                                            <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
+                                        @endcan
+                                        @can('delete service')
+                                        <form action='${deleting}' method='POST' class="role-${data}">
+                                            @csrf
+                                        @method('DELETE')
+                                        </form>
+                                        <button class="dropdown-item" onClick="remove(${data},'role')"><i class="fa fa-trash mr-1"></i>{{__('dashboard.delete')}}</button>
+                                        @endcan
+                                        </div>
+                                        </div>
+                                        </div>`;
+
+                                }
                             }
-                        },
+
                     ]
                 });
 

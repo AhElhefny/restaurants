@@ -31,13 +31,28 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
+
         $user = auth()->user();
         if(\request()->ajax()){
-            $sub_categories = $user->type == User::ADMIN ? VendorCategory::with('vendor')->get() : VendorCategory::with('vendor')->where('vendor_id',$user->vendor->id)->get();
+            $query = VendorCategory::with('vendor');
+            if ($user->type != User::ADMIN){
+                $sub_categories = $query->where(function ($q)use($user){
+                    $q->when($user->type == User::VENDOR,function($s) use($user){
+                        $s->where('vendor_id',$user->vendor->id);
+                    })->when($user->type != User::VENDOR,function($s) use($user){
+                        $s->where('vendor_id',$user->branch->vendor_id);
+                    });
+                })->get();
+            }else{
+                $sub_categories = $query->get();
+            }
             return DataTables::of($sub_categories)->make(true);
         }
-        $vendors = $user->type == User::ADMIN ? Vendor::all() : Vendor::find($user->vendor->id);
-        return view('dashboard.vendorSetting.sub-categories.index',['vendors' => $vendors]);
+        if($user->type == User::ADMIN || $user->type == User::VENDOR){
+            $vendors = $user->type == User::ADMIN ? Vendor::all() : Vendor::find($user->vendor->id);
+            return view('dashboard.vendorSetting.sub-categories.index',['vendors' => $vendors]);
+        }
+        return view('dashboard.vendorSetting.sub-categories.index');
     }
 
     /**
