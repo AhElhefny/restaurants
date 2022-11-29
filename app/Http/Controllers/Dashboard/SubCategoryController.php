@@ -88,9 +88,10 @@ class SubCategoryController extends Controller
      * @param  \App\Models\VendorCategory  $vendorCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(VendorCategory $vendorCategory)
+    public function show($id)
     {
-        //
+        $vendorCategory = VendorCategory::find($id);
+        return view('dashboard.vendorSetting.sub-categories.details',['subCategory'=>$vendorCategory]);
     }
 
     /**

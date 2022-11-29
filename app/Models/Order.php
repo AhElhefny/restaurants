@@ -24,4 +24,12 @@ class Order extends Model
         return $this->belongsTo(Branch::class);
     }
 
+    public function paymentMathod(){
+        return $this->hasOne(PaymentMethod::class);
+    }
+
+    public function oredrStatus(){
+        return $this->hasOne(OrderStatus::class);
+    }
+
 }

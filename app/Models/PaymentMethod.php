@@ -12,4 +12,8 @@ class PaymentMethod extends Model
     use SoftDeletes;
 
     protected $guarded = [''];
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
 }

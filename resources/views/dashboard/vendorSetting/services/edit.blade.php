@@ -128,6 +128,23 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
+{{--                                            <h4 class='card-title col-12'>{{__('dashboard.choose available sizes')}}</h4>--}}
+{{--                                            @foreach($service->vendorCategory->sizes as $size)--}}
+{{--                                            <div class='form-group row col-12'>--}}
+{{--                                                <fieldset class='checkbox  col-2'>--}}
+{{--                                                    <div class='vs-checkbox-con vs-checkbox-primary'>--}}
+{{--                                                        <input type='checkbox'  id='{{$size->id}}' name='sizes[{{$size->id}}]' class='get-Sizes' >--}}
+{{--                                                        <span class='vs-checkbox'>--}}
+{{--                                                            <span class='vs-checkbox--check'>--}}
+{{--                                                                <i class='vs-icon feather icon-check'></i>--}}
+{{--                                                            </span>--}}
+{{--                                                        </span>--}}
+{{--                                                        <span>{{$size->name}}</span>--}}
+{{--                                                   </div>--}}
+{{--                                               </fieldset>--}}
+{{--                                               <input type='number' class='col-2  form-control inputCheckBox-"{{$size->id}}"' style="display: none"  id='price"{{$size->id}}"' name='price[{{$size->id}}]' placeholder='{{__('dashboard.enter the price')}}'>--}}
+{{--                                            </div>--}}
+{{--                                            @endforeach--}}
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary mr-1 mb-1">{{__('dashboard.submit')}}</button>
                                             </div>
@@ -165,7 +182,15 @@
                     });
                 });
             });
-
+            // $(document).on('change','.get-Sizes',function(){
+            //     let value = $(this).attr("id");
+            //     console.log(value);
+            //     if($(this).is(':checked')){
+            //         $(`.inputCheckBox-${value}`).show();
+            //     }else {
+            //         $(`.inputCheckBox-${value}`).hide();
+            //     }
+            // });
         </script>
     @endsection
 </x-dashboard.layouts.master>

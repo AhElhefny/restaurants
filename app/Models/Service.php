@@ -32,7 +32,7 @@ class Service extends Model
     }
 
     public function sizes(){
-        return $this->belongsToMany(Size::class,'service_sizes');
+        return $this->belongsToMany(Size::class,'service_sizes')->withPivot(['price','active']);
     }
 
     public function branches()

@@ -31,7 +31,8 @@ class ServiceRequest extends FormRequest
             'description_en' => ['required','min:5',],
             'vendor_id' => ['required',Rule::exists('vendors','id')],
             'sub_category_id' => ['required',Rule::exists('vendor_categories','id')],
-            'image' => [Rule::requiredIf(request()->method()=='POST')]
+            'image' => [Rule::requiredIf(request()->method()=='POST')],
+            ''
         ];
     }
 }

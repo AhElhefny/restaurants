@@ -225,7 +225,7 @@
                                     @endif
                                     let edit = 'services/' + data + '/edit';
                                     let changeStatus = 'service/'+data+'/changeStatus';
-                                    let deleting = 'services/' + data;
+                                    // let deleting = 'services/' + data;
 
                                         return `<div class="btn-group">
                                         <div class="dropdown">
@@ -239,13 +239,13 @@
                                             @endif
                                             <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
                                         @endcan
-                                        @can('delete service')
-                                        <form action='${deleting}' method='POST' class="role-${data}">
-                                            @csrf
-                                        @method('DELETE')
-                                        </form>
-                                        <button class="dropdown-item" onClick="remove(${data},'role')"><i class="fa fa-trash mr-1"></i>{{__('dashboard.delete')}}</button>
-                                        @endcan
+{{--                                        @can('delete service')--}}
+{{--                                        <form action='${deleting}' method='POST' class="role-${data}">--}}
+{{--                                            @csrf--}}
+{{--                                        @method('DELETE')--}}
+{{--                                        </form>--}}
+{{--                                        <button class="dropdown-item" onClick="remove(${data},'role')"><i class="fa fa-trash mr-1"></i>{{__('dashboard.delete')}}</button>--}}
+{{--                                        @endcan--}}
                                         </div>
                                         </div>
                                         </div>`;
