@@ -27,7 +27,7 @@ class VendorCategory extends Model
     ];
     protected $guarded = [''];
 
-    protected $folder = 'sub category';
+    protected $folder = 'sub_category';
     public function vendor(){
         return $this->belongsTo(Vendor::class);
     }

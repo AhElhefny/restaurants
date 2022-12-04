@@ -128,23 +128,32 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
-{{--                                            <h4 class='card-title col-12'>{{__('dashboard.choose available sizes')}}</h4>--}}
-{{--                                            @foreach($service->vendorCategory->sizes as $size)--}}
-{{--                                            <div class='form-group row col-12'>--}}
-{{--                                                <fieldset class='checkbox  col-2'>--}}
-{{--                                                    <div class='vs-checkbox-con vs-checkbox-primary'>--}}
-{{--                                                        <input type='checkbox'  id='{{$size->id}}' name='sizes[{{$size->id}}]' class='get-Sizes' >--}}
-{{--                                                        <span class='vs-checkbox'>--}}
-{{--                                                            <span class='vs-checkbox--check'>--}}
-{{--                                                                <i class='vs-icon feather icon-check'></i>--}}
-{{--                                                            </span>--}}
-{{--                                                        </span>--}}
-{{--                                                        <span>{{$size->name}}</span>--}}
-{{--                                                   </div>--}}
-{{--                                               </fieldset>--}}
-{{--                                               <input type='number' class='col-2  form-control inputCheckBox-"{{$size->id}}"' style="display: none"  id='price"{{$size->id}}"' name='price[{{$size->id}}]' placeholder='{{__('dashboard.enter the price')}}'>--}}
-{{--                                            </div>--}}
-{{--                                            @endforeach--}}
+                                            <div id="available-sizes" class="col-12">
+                                               <div id="inner-available">
+                                                   <h4 class='card-title col-12' >{{__('dashboard.choose available sizes')}}</h4>
+                                                   @foreach($service->vendorCategory->sizes as $size)
+                                                       <div class='form-group row col-12'>
+                                                           <fieldset class='checkbox  col-2'>
+                                                               <div class='vs-checkbox-con vs-checkbox-primary'>
+
+                                                                   <input type='checkbox'  id='{{$size->id}}' name='sizes[{{$size->id}}]' {{in_array($size->id ,$service->sizes()->pluck('size_id')->toArray())?'checked':''}} class='get-Sizes' >
+
+                                                                   <span class='vs-checkbox'>
+                                                            <span class='vs-checkbox--check'>
+                                                                <i class='vs-icon feather icon-check'></i>
+                                                            </span>
+                                                        </span>
+                                                                   <span>{{$size->name}}</span>
+                                                               </div>
+                                                           </fieldset>
+                                                               <?php
+                                                               $index = array_search($size->id,$service->sizes()->pluck('size_id')->toArray());
+                                                               ?>
+                                                           <input type='number' class='col-2  form-control inputCheckBox-{{$size->id}}' value="{{$index!==false?$service->sizes[$index]->pivot->price:''}}" style="{{in_array($size->id ,$service->sizes()->pluck('size_id')->toArray())?:'display: none'}}"  id='price"{{$size->id}}"' name='price[{{$size->id}}]' placeholder='{{__('dashboard.enter the price')}}'>
+                                                       </div>
+                                                   @endforeach
+                                               </div>
+                                            </div>
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary mr-1 mb-1">{{__('dashboard.submit')}}</button>
                                             </div>
@@ -162,6 +171,7 @@
     @section('script')
         <script>
             $(document).ready(function () {
+                let test = $('#available-sizes #inner-available').clone();
                 $('#vendor').on('change', function () {
                     var selectedVendor = $(this).find('option:selected');
                     let vendor_id = selectedVendor.val();
@@ -181,16 +191,64 @@
                         }
                     });
                 });
+
+            $('#sub-category').on('change',function (){
+                let vendor_id = $('#vendor').val();
+                let sub_category_id = $('#sub-category').val();
+                if(sub_category_id =='{{$service->vendor_category_id}}'){
+                    $('#available-sizes').empty();
+                    $('#available-sizes').append(test);
+                }else{
+                    $.ajax({
+                        type:"GET",
+                        url:"{{route('admin.sizes.getSizesForSubCategory')}}",
+                        data:{
+                            vendor_id:vendor_id,
+                            sub_category_id:sub_category_id
+                        } ,
+                        success:function (response){
+                            if(response){
+                                $('#available-sizes ').empty();
+                                $('#available-sizes').append('<div id="inner-available"><div>');
+                                if (response.length ==0){
+                                    $("#available-sizes #inner-available").append("<p class='alert alert-danger text-center col-12''>{{__('dashboard.not available sizes for this sub category')}}@can('add size')  <a href='{{route('admin.sizes.index')}}' class='btn btn-black btn-sm ml-1'>Add One</a>@endcan</h4>");
+                                }else{
+                                    $("#available-sizes #inner-available").append("<h4 class='card-title col-12''>{{__('dashboard.choose available sizes')}}</h4>");
+                                    $.each(response, function (j,i) {
+                                        $("#available-sizes #inner-available").append("<div class='form-group row col-12'>"+
+                                            "<fieldset class='checkbox  col-2'>"+
+                                            "<div class='vs-checkbox-con vs-checkbox-primary'>"+
+                                            "<input type='checkbox'  id='"+i.id+"' name='sizes["+i.id+"]' class='get-Sizes'>"+
+                                            "<span class='vs-checkbox'>"+
+                                            "<span class='vs-checkbox--check'>"+
+                                            "<i class='vs-icon feather icon-check'></i>"+
+                                            "</span>"+
+                                            "</span>"+
+                                            "<span>"+i.name+"</span>"+
+                                            "</div>"+
+                                            "</fieldset>"+
+                                            "<input type='number' class='col-2  form-control inputCheckBox-"+i.id+"' style='display: none' id='price"+i.id+"' name='price["+i.id+"]' placeholder='{{__('dashboard.enter the price')}}'>"+
+                                            "</div>");
+                                    });
+                                }
+                            }
+                        },
+                        error:function (xhr){
+                            console.log(xhr);
+                        }
+                    });
+                }
             });
-            // $(document).on('change','.get-Sizes',function(){
-            //     let value = $(this).attr("id");
-            //     console.log(value);
-            //     if($(this).is(':checked')){
-            //         $(`.inputCheckBox-${value}`).show();
-            //     }else {
-            //         $(`.inputCheckBox-${value}`).hide();
-            //     }
-            // });
+            $(document).on('change','.get-Sizes',function(){
+                let value = $(this).attr("id");
+                console.log(value);
+                if($(this).is(':checked')){
+                    $(`.inputCheckBox-${value}`).show();
+                }else {
+                    $(`.inputCheckBox-${value}`).hide();
+                }
+            });
+            });
         </script>
     @endsection
 </x-dashboard.layouts.master>

@@ -81,7 +81,8 @@ return [
     'add works-time' => 'Add Works-Time' ,
     'edit works-time' => 'Edit Works-Time' ,
     'delete works-time' => 'Delete Works-Time' ,
-    '' => '' ,
+
+    'bank-accounts' => 'Bank-Accounts' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

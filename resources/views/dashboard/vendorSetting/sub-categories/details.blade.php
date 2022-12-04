@@ -25,7 +25,7 @@
                                         <img src="{{$subCategory->image}}" class="users-avatar-shadow w-100 rounded mb-2 pr-2 ml-1" alt="avatar">
                                     </div>
                                     <div class="col-12 col-sm-9 col-md-6 col-lg-5">
-                                        <table class="mb-2">
+                                        <table class="mb-2 h-100" >
                                             <tr>
                                                 <td class="font-weight-bold">{{__('dashboard.table name')}}</td>
                                                 <td>{{$subCategory->name}}</td>
@@ -37,7 +37,7 @@
                                         </table>
                                     </div>
                                     <div class="col-12 col-md-12 col-lg-5">
-                                        <table class="ml-0 ml-sm-0 ml-lg-0">
+                                        <table class="ml-0 ml-sm-0 ml-lg-0 h-100">
                                             <tr>
                                                 <td class="font-weight-bold">{{__('dashboard.table status')}}</td>
                                                 <td>{{ $subCategory->active == 1 ? 'Active' : 'Disabled'}}</td>

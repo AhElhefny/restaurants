@@ -92,19 +92,24 @@
                             render:function (data,two,three){
                                 let edit ='branches/'+data+'/edit';
                                 let changeStatus ='branches/'+data+'/changeStatus';
-                                @can('edit branch')
+                                let show ='branches/'+data;
+
                                     return `<div class="btn-group">
-                                <div class="dropdown">
-                                    <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{__('dashboard.actions')}}
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton700">
-                                    <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
-                                        <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
-                                    </div>
-                                </div>
-                            </div>`;
-                                @endcan
+                                                <div class="dropdown">
+                                                    <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {{__('dashboard.actions')}}
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton700">
+                                                    @can('edit branch')
+                                                        <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
+                                                        <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
+                                                    @endcan
+                                                    @can('show branch')
+                                                        <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>
+                                                    @endcan
+                                                    </div>
+                                                </div>
+                                            </div>`;
                             }
                         },
                     ]

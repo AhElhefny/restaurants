@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\BankController;
 use App\Http\Controllers\Dashboard\BranchController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DeliveryTypesController;
@@ -73,6 +74,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::resource('worksTime',WorksTimeController::class);
 
                 Route::get('orders',OrdersController::class)->name('orders.index');
+
+                Route::get('bankAccounts',[BankController::class,'index'])->name('bank.index');
+                Route::get('bank/{bank}/changeStatus',[BankController::class,'change_status']);
             });
         });
     });

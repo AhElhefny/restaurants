@@ -129,9 +129,20 @@
                     <li class="{{Route::is('admin.orders.index')? 'active':''}}"><a href="{{route('admin.orders.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.orders list')}}</span></a>
                     </li>
                 </ul>
-                </li>
-
-
+            </li>
+            {{-- other --}}
+            @if(auth()->user()->can('bank-accounts'))
+            <li class=" navigation-header"><span>{{__('dashboard.other')}}</span>
+            </li>
+            @can('bank-accounts')
+            <li class=" nav-item"><a href="#"><i class="fa fa-bank"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.bank accounts')}}</span></a>
+                <ul class="menu-content">
+                    <li class="{{Route::is('admin.bank.index')? 'active':''}}"><a href="{{route('admin.bank.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.bank accounts')}}</span></a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
+            @endif
         </ul>
     </div>
 </div>

@@ -41,12 +41,14 @@ class Branch extends Model
     }
 
     public function services(){
-        return $this->belongsToMany(Service::class,'branch_services')->where('active','=',1)->with(['vendor','vendorCategory'])->withPivot(['available']);
+        return $this->belongsToMany(Service::class,'branch_services')->when(request()->has('with_available'),function ($q){
+            $q->where('available',1);
+        })->where('active','=',1)->with(['vendor','vendorCategory'])->withPivot(['available']);
     }
 
     public function deliveryTypes()
     {
-        return $this->belongsToMany(DeliveryType::class, 'branch_deliveries')->wherePivot('active', 1);
+        return $this->belongsToMany(DeliveryType::class, 'branch_deliveries')->wherePivot('active', '=',1);
     }
 
 }

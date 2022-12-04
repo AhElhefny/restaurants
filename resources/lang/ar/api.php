@@ -18,7 +18,7 @@ return [
     'you are logged in successfully' => 'تم تسجيل الدخول بنجاح' ,
     'you are logged out successfully' => 'تم تسجيل الخروج بنجاح' ,
     'continue to complete the registration process' => 'واصل عمليه التسجيل' ,
-    '' => '' ,
+    'no such this data' => 'لا يوجد فروع تطابق هذه البيانات' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

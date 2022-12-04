@@ -22,7 +22,6 @@
                                     <div class="card-body">
                                         <form class="steps-validation wizard-circle" method="POST" action="{{route('admin.branches.store')}}" enctype="multipart/form-data" id="branchForm">
                                             @csrf
-
                                             <!-- Step 1 -->
                                             <h6><i class="step-icon feather icon-home"></i> {{__('dashboard.add branch')}}</h6>
                                             <fieldset>

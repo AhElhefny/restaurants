@@ -86,6 +86,10 @@ class User extends Authenticatable
         return $this->hasOne(DeliveryMan::class);
     }
 
+    public function bank_accounts(){
+        return $this->hasMany(Bank::class);
+    }
+
     public function selecetFolder($type){
         switch ($type){
             case $type == self::ADMIN:

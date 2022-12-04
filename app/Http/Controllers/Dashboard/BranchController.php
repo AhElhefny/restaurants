@@ -109,7 +109,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        //
+        return view('dashboard.branches.details',['branch'=>$branch]);
     }
 
     /**
