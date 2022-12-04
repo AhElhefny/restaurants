@@ -45,4 +45,8 @@ class Service extends Model
         return $this->belongsTo(Vendor::class);
     }
 
+//    public function item(){
+//        return $this->hasOne(OrderItems::class,'service_id');
+//    }
+
 }

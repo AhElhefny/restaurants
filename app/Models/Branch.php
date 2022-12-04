@@ -18,6 +18,7 @@ class Branch extends Model
     use SoftDeletes, DefaultModelAttributesTrait;
 
     public $folder = 'branches';
+    protected $with = ['vendor'];
     protected $guarded = [''];
     protected $appends=['name'];
     protected $hidden=['name_ar','name_en'];

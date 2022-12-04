@@ -124,12 +124,14 @@
                 </li>
             @endcan
             {{--          end vendors settings        --}}
+            @can('orders')
             <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.orders')}}</span></a>
                 <ul class="menu-content">
                     <li class="{{Route::is('admin.orders.index')? 'active':''}}"><a href="{{route('admin.orders.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.orders list')}}</span></a>
                     </li>
                 </ul>
             </li>
+            @endcan
             {{-- other --}}
             @if(auth()->user()->can('bank-accounts'))
             <li class=" navigation-header"><span>{{__('dashboard.other')}}</span>

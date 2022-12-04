@@ -159,8 +159,8 @@
                          <td>{{$order->user->name}}</td>
                          <td>{{$order->total_after_discount_and_tax}}</td>
                          <td>{{$order->branch->name}}</td>
-                         <td>{{$order->paymentMathod->method_en}}</td>
-                         <td>{{$order->oredrStatus->name_en}}</td>
+                         <td>{{$order->paymentMethod->method_en}}</td>
+                         <td>{{$order->orderStatus->name_en}}</td>
                          <td>{{$order->created_at}}</td>
                      </tr>
                          @endforeach

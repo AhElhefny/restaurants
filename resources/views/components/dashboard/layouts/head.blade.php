@@ -12,6 +12,7 @@
     @if(app()->getLocale()=='ar')
         <!-- BEGIN: Vendor CSS-->
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/vendors-rtl.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/charts/apexcharts.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/extensions/tether-theme-arrows.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/extensions/tether.min.css')}}">
@@ -52,6 +53,7 @@
     @else
         <!-- BEGIN: Vendor CSS-->
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/vendors.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/charts/apexcharts.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/extensions/tether-theme-arrows.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('dashboardAssets/app-assets/vendors/css/extensions/tether.min.css')}}">
@@ -96,5 +98,4 @@
             /*font-family: 'Courier New', Courier, monospace;*/
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboardAssets/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 </head>

@@ -73,7 +73,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('worksTime',WorksTimeController::class);
 
-                Route::get('orders',OrdersController::class)->name('orders.index');
+                Route::get('orders',[OrdersController::class,'index'])->name('orders.index');
+                Route::get('order/{order}',[OrdersController::class,'show'])->name('orders.show');
+                Route::get('order/{order}/changeStatus',[OrdersController::class,'changeStatus'])->name('orders.changeStatus');
 
                 Route::get('bankAccounts',[BankController::class,'index'])->name('bank.index');
                 Route::get('bank/{bank}/changeStatus',[BankController::class,'change_status']);
