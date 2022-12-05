@@ -108,7 +108,9 @@ class User extends Authenticatable
     }
 
     public function getImageAttribute($value){
-//        dd(asset('dashboardAssets/images/'.$this->selecetFolder($this->type).'/'.$value));
+        if (!$value){
+            return asset('dashboardAssets/images/default_user.jpeg');
+        }
         return asset('dashboardAssets/images/users'.$this->selecetFolder($this->type).$value);
     }
 }
