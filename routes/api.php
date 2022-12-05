@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\DeliveryTypesControllr;
+use App\Http\Controllers\Api\PaymentMethodsControllr;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SubCategoryController;
 use Illuminate\Http\Request;
@@ -32,6 +34,8 @@ Route::get('branch/{branch}/show',[BranchController::class,'show']);
 Route::get('sub_categories',[SubCategoryController::class,'index']);
 Route::get('services',[ServiceController::class,'index']);
 Route::get('service/{service}/show',[ServiceController::class,'show']);
+Route::get('delivery_types',DeliveryTypesControllr::class);
+Route::get('payment_methods',PaymentMethodsControllr::class);
 
 Route::group(['middleware'=>'auth:sanctum'],function (){
 

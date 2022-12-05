@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\BranchController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DeliveryTypesController;
 use App\Http\Controllers\Dashboard\OrdersController;
+use App\Http\Controllers\Dashboard\PaymentMethodsControllr;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SizeController;
@@ -79,6 +80,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::get('bankAccounts',[BankController::class,'index'])->name('bank.index');
                 Route::get('bank/{bank}/changeStatus',[BankController::class,'change_status']);
+
+                Route::resource('payment_methods',PaymentMethodsControllr::class)->except(['create','destroy']);
+                Route::get('payment_methods/{method}/changeStatus',[PaymentMethodsControllr::class,'changeStatus']);
             });
         });
     });

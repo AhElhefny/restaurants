@@ -54,6 +54,18 @@
                     </ul>
                 </li>
             @endcan
+            @can('payment-methods')
+                <li class=" nav-item"><a href="#"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Data List">{{__('dashboard.payment_methods')}}</span></a>
+                    <ul class="menu-content">
+                        @can('payment-methods')
+                            <li class="{{Route::is('admin.payment_methods.index')? 'active':''}}"><a href="{{route('admin.payment_methods.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List View">{{__('dashboard.payment_methods')}}</span></a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
+
+
             @if(auth()->user()->can('users') || auth()->user()->can('vendors'))
             {{--          start users management--}}
             <li class=" navigation-header"><span>{{__('dashboard.users management')}}</span>

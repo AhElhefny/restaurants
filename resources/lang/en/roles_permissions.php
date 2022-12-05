@@ -83,7 +83,14 @@ return [
     'delete works-time' => 'Delete Works-Time' ,
 
     'bank-accounts' => 'Bank-Accounts' ,
-    '' => '' ,
+    'payment-methods' => 'Payment Methods' ,
+    'add payment-methods' => 'Add Payment Methods' ,
+    'edit payment-methods' => 'Edit Payment Methods' ,
+
+    'orders' => 'Orders' ,
+    'add-order' => 'Add Order' ,
+    'edit-order' => 'Edit Order' ,
+    'show-order' => 'Show Order' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

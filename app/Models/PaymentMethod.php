@@ -14,6 +14,7 @@ class PaymentMethod extends Model
     use DefaultModelAttributesTrait;
 
     protected $guarded = [''];
+    public $folder = 'payment_method';
     protected $appends=['method'];
     protected $hidden=[
       'method_ar',
@@ -24,7 +25,7 @@ class PaymentMethod extends Model
        return app()->getLocale() == 'ar' ? $this->method_ar:$this->method_en;
     }
 
-//    public function orders(){
-//        return $this->hasMany(Order::class,'payment_method_id');
-//    }
+    public function getIconAttribute($val){
+        return asset('dashboardAssets/images/'.$this->folder.'/'.$val);
+    }
 }
