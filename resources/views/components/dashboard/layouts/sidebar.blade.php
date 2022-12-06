@@ -16,6 +16,14 @@
             @if(auth()->user()->can('categories') ||auth()->user()->can('roles'))
             <li class=" navigation-header"><span>{{__('dashboard.main settings')}}</span></li>
             @endif
+            @can('admins')
+                <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.admins')}}</span></a>
+                    <ul class="menu-content">
+                        <li class=""><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.admins list')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
             @can('categories')
             <li class=" nav-item"><a href="#"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="User">{{__('dashboard.categories')}}</span></a>
                 <ul class="menu-content">
@@ -70,7 +78,15 @@
             @can('users')
                 <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.users')}}</span></a>
                     <ul class="menu-content">
-                        <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.users list')}}</span></a>
+                        <li class="{{Route::is('admin.customers.index')? 'active':''}}"><a href="{{route('admin.customers.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.users list')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+            @can('delivery-man')
+                <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.deliveryMan')}}</span></a>
+                    <ul class="menu-content">
+                        <li class=""><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.deliveryMan list')}}</span></a>
                         </li>
                     </ul>
                 </li>

@@ -91,9 +91,10 @@ return [
     'add-order' => 'Add Order' ,
     'edit-order' => 'Edit Order' ,
     'show-order' => 'Show Order' ,
-    '' => '' ,
-    '' => '' ,
-    '' => '' ,
+
+    'offers' => 'Offers' ,
+    'add offer' => 'Add Offer' ,
+    'edit offer' => 'Edit Offer' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

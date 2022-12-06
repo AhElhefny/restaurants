@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SizeController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
 use App\Http\Controllers\Dashboard\WorksTimeController;
 use Illuminate\Support\Facades\Route;
@@ -83,6 +84,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('payment_methods',PaymentMethodsControllr::class)->except(['create','destroy']);
                 Route::get('payment_methods/{method}/changeStatus',[PaymentMethodsControllr::class,'changeStatus']);
+
+                Route::resource('customers',UserController::class);
+                Route::get('customers/{user}/changeStatus',[UserController::class,'changeStatus']);
             });
         });
     });

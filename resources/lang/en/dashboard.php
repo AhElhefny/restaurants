@@ -21,6 +21,7 @@ return [
     'New' => 'New',
     'Admin Panel' => 'Admin Panel',
     'users' => 'Customers',
+    'add user' => 'Add Customers',
     'users list' => 'Customers List',
     'categories' => 'Categories',
     'category list' => 'Category List',
@@ -113,6 +114,7 @@ return [
     'choosing branch services' => 'Choosing Branch Services',
     'choose delivery type' => 'Choose Delivery Types',
     'deliveryMan' => 'Delivery Man' ,
+    'deliveryMan list' => 'Delivery Man List' ,
     'branches count' => 'Branches Count',
     'orders count' => 'Orders Count',
     'orders list' => 'Orders List',
@@ -151,8 +153,8 @@ return [
     'edit payment_method' => 'Edit Payment Method',
     'offers' => 'Offers',
     'offers list' => 'Offers List',
-    '' => '',
-    '' => '',
+    'admins' => 'Admins',
+    'admins list' => 'Admins List',
     '' => '',
 
 ];
