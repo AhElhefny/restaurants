@@ -14,8 +14,17 @@ class BankController extends Controller
     }
 
     public function index(){
+        if(request('filter'))
+        {
+            $userType = request('filter');
+        }
+        $userType = $userType??'vendor';
+
+        $accounts = Bank::with('user')->whereHas('user',function ($q)use($userType){
+           return $q->where('type_en',$userType);
+        })->get();
         if (\request()->ajax()){
-            return Datatables::of(Bank::with('user')->get())->make(true);
+            return Datatables::of($accounts)->make(true);
         }
         return view('dashboard.banks.index');
     }

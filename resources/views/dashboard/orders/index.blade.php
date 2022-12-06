@@ -116,6 +116,11 @@
                             },
                         ]
                     });
+                    // var divToPrint=document.getElementById("orders-table");
+                    // newWin= window.open("");
+                    // newWin.document.write(divToPrint.outerHTML);
+                    // newWin.print();
+                    // newWin.close();
                 });
             </script>
     @endsection

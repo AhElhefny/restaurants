@@ -65,11 +65,15 @@
                 </li>
             @endcan
 
-
-            @if(auth()->user()->can('users') || auth()->user()->can('vendors'))
-            {{--          start users management--}}
-            <li class=" navigation-header"><span>{{__('dashboard.users management')}}</span>
+            <li class=" navigation-header"><span></span>
             </li>
+            @can('users')
+                <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.users')}}</span></a>
+                    <ul class="menu-content">
+                        <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.users list')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
             @endcan
             @can('vendors')
                 <li class=" nav-item"><a href="#"><i class="feather icon-shopping-cart"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.vendors')}}</span></a>
@@ -85,42 +89,6 @@
                     </ul>
                 </li>
             @endcan
-            @can('users')
-            <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.users')}}</span></a>
-                <ul class="menu-content">
-                    <li><a href="app-user-list.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.users list')}}</span></a>
-                    </li>
-                </ul>
-            </li>
-            @endcan
-            {{--          end users management--}}
-
-            {{--          start vendors settings        --}}
-            @if(auth()->user()->can('vendorSetting') ||auth()->user()->can('branches') ||auth()->user()->can('sub-categories'))
-            <li class=" navigation-header"><span>{{__('dashboard.vendors settings')}}</span>
-            </li>
-            @endif
-            <li class=" nav-item"><a href="#"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.vendors settings')}}</span></a>
-                <ul class="menu-content">
-                    @can('sub-categories')
-                        <li class="{{Route::is('admin.subCategories.index')? 'active':''}}"><a href="{{route('admin.subCategories.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.sub category list')}}</span></a>
-                        </li>
-                    @endcan
-                    @can('sizes')
-                        <li class="{{Route::is('admin.sizes.index')? 'active':''}}"><a href="{{route('admin.sizes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.sizes list')}}</span></a>
-                        </li>
-                    @endcan
-                    @can('services')
-                        <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.service list')}}</span></a>
-                        </li>
-                    @endcan
-                    @can('works-time')
-                        <li class="{{Route::is('admin.worksTime.index')? 'active':''}}"><a href="{{route('admin.worksTime.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.worksTime list')}}</span></a>
-                        </li>
-                    @endcan
-
-                </ul>
-            </li>
             @can('branches')
                 <li class=" nav-item"><a href="#"><i class="feather icon-layout"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.branches')}}</span></a>
                     <ul class="menu-content">
@@ -135,28 +103,67 @@
                     </ul>
                 </li>
             @endcan
-            {{--          end vendors settings        --}}
-            @can('orders')
-            <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.orders')}}</span></a>
+            <li class=" nav-item"><a href="#"><i class="feather icon-command"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.sub category')}}</span></a>
                 <ul class="menu-content">
-                    <li class="{{Route::is('admin.orders.index')? 'active':''}}"><a href="{{route('admin.orders.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.orders list')}}</span></a>
-                    </li>
+                    @can('sub-categories')
+                        <li class="{{Route::is('admin.subCategories.index')? 'active':''}}"><a href="{{route('admin.subCategories.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.sub category list')}}</span></a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
-            @endcan
-            {{-- other --}}
-            @if(auth()->user()->can('bank-accounts'))
-            <li class=" navigation-header"><span>{{__('dashboard.other')}}</span>
+            <li class=" nav-item"><a href="#"><i class="feather icon-alert-circle"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.sizes')}}</span></a>
+
+                <ul class="menu-content">
+                @can('sizes')
+                        <li class="{{Route::is('admin.sizes.index')? 'active':''}}"><a href="{{route('admin.sizes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.sizes list')}}</span></a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class=" nav-item"><a href="#"><i class="feather icon-briefcase"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.services')}}</span></a>
+
+                <ul class="menu-content">
+                @can('services')
+                        <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.service list')}}</span></a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class=" nav-item"><a href="#"><i class="feather icon-clock"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.works time')}}</span></a>
+                <ul class="menu-content">
+                    @can('works-time')
+                        <li class="{{Route::is('admin.worksTime.index')? 'active':''}}"><a href="{{route('admin.worksTime.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.worksTime list')}}</span></a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class=" nav-item"><a href="#"><i class="feather icon-award"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.offers')}}</span></a>
+                <ul class="menu-content">
+                    @can('works-time')
+                        <li class="{{Route::is('admin.worksTime.index')? '':''}}"><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.offers list')}}</span></a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+
+            <li class=" navigation-header"><span></span>
             </li>
             @can('bank-accounts')
-            <li class=" nav-item"><a href="#"><i class="fa fa-bank"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.bank accounts')}}</span></a>
-                <ul class="menu-content">
-                    <li class="{{Route::is('admin.bank.index')? 'active':''}}"><a href="{{route('admin.bank.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.bank accounts')}}</span></a>
-                    </li>
-                </ul>
-            </li>
+                <li class=" nav-item"><a href="#"><i class="fa fa-bank"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.bank accounts')}}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{Route::is('admin.bank.index')? 'active':''}}"><a href="{{route('admin.bank.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.bank accounts')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
             @endcan
-            @endif
+            @can('orders')
+                <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.orders')}}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{Route::is('admin.orders.index')? 'active':''}}"><a href="{{route('admin.orders.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.orders list')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
         </ul>
     </div>
 </div>

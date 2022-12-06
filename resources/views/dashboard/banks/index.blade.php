@@ -18,8 +18,14 @@
                         <x-dashboard.layouts.message />
                     @endif
                     <div class="card-content">
+                        <div class="nav nav-tabs justify-content-center mb-4">
+                            <a class="nav-item nav-link active" data-toggle="tab" id="vendor" href="#tab-pane-1">{{__('dashboard.vendors')}}</a>
+                            <a class="nav-item nav-link" data-toggle="tab" id="user" href="#tab-pane-2">{{__('dashboard.users')}}</a>
+                            <a class="nav-item nav-link" data-toggle="tab" id="delivery man" href="#tab-pane-3">{{__('dashboard.deliveryMan')}}</a>
+                        </div>
                         <div class="card-body">
-                            <div class="table-responsive overflow-auto">
+                            <div class="tab-content">
+                                <div class="table-responsive overflow-auto">
                                 <table class="table table-striped " id="bank-accounts-table">
 
                                     <thead>
@@ -39,6 +45,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,7 +56,7 @@
         @section('script')
             <script>
                 $(document).ready(function () {
-                    $('#bank-accounts-table').DataTable({
+                   let bankAccount= $('#bank-accounts-table').DataTable({
                         processing: true,
                         serverSide: true,
                         lengthMenu: [10, 20, 40, 60, 80, 100],
@@ -92,6 +99,21 @@
                             },
                         ]
                     });
+
+                    $(document).on('click','.nav-item',function(){
+                        let value = $(this).attr("id");
+                        console.log(value);
+                        $.ajax({
+                           url: "bankAccounts",
+                           type:"GET",
+                            data:{
+                               filter:value
+                            },
+                            success:function (){
+                                bankAccount.ajax.reload();
+                            }
+                        });
+                   });
                 });
             </script>
     @endsection
