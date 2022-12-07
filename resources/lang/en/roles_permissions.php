@@ -95,6 +95,13 @@ return [
     'offers' => 'Offers' ,
     'add offer' => 'Add Offer' ,
     'edit offer' => 'Edit Offer' ,
+
+    'delivery-man' => 'Delivery-man' ,
+
+    'admins' => 'Admins' ,
+    'add admin' => 'Add Admin' ,
+    'edit admin' => 'Edit Admin' ,
+    'delete admin' => 'Delete Admin' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

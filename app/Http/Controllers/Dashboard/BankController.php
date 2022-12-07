@@ -23,7 +23,9 @@ class BankController extends Controller
         $accounts = Bank::with('user')->whereHas('user',function ($q)use($userType){
            return $q->where('type_en',$userType);
         })->get();
+//        dd($userType,$accounts);
         if (\request()->ajax()){
+
             return Datatables::of($accounts)->make(true);
         }
         return view('dashboard.banks.index');

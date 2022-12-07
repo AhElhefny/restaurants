@@ -110,8 +110,9 @@
                                     @endcan
                                         </div>
                                     </div>
-                                </div>`;
+                                    </div>`;
                                     @endif
+                                    return ''
                                 }
                             },
                         ]

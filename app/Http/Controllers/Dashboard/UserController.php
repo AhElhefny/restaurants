@@ -7,7 +7,10 @@ use App\Http\Requests\CustomerRequest;
 use App\Http\services\HelperTrait;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
+use function Symfony\Component\String\b;
 
 class UserController extends Controller
 {
@@ -75,30 +78,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        if ($id){
+            $user =User::find($id);
+        }
+        if(!$user){
+            return back()->with(['success'=>__('dashboard.no such data with this id')]);
+        }
+        return view('dashboard.users.view',['customer'=>$user]);
     }
 
     /**
@@ -121,5 +107,87 @@ class UserController extends Controller
     public function changeStatus(User $user){
         $user->update(['block' => !$user->block]);
         return back()->with(['success'=>__('dashboard.item updated successfully')]);
+    }
+
+    public function admin_index(){
+        if(\request()->ajax()){
+            $admins = User::with(['roles'])->where('type',User::ADMIN)->get();
+            return DataTables::of($admins)->make(true);
+        }
+        return view('dashboard.users.admins.index');
+    }
+
+    public function admin_create(){
+        return view('dashboard.users.admins.add_edit');
+    }
+
+    public function admin_store(Request $request){
+        $rules = [
+          'role' => ['required',Rule::exists('roles','name')],
+          'name' => ['required','min:3','max:100'],
+          'email' => ['required',Rule::unique('users','email')],
+          'phone' => ['required','digits:9'],
+          'password' => ['required','confirmed','min:6','max:100']
+        ];
+        $validator = Validator::make($request->except(['_token']),$rules);
+        if($validator->fails()){
+            return back()->withErrors($validator->errors());
+        }
+        $data = $request->except(['_token']);
+        if ($request->hasFile('image')){
+            $data['image'] = $this->storeImage($request->file('image'),'users/admins');
+        }
+        $data['password'] = bcrypt($request->password);
+        $data['type'] = User::ADMIN;
+        $data['type_ar'] = 'مسؤول التطبيق';
+        $data['type_en'] = 'admin';
+        $admin =User::create($data);
+        $admin->assignRole($request->role);
+        return redirect()->route('admin.admins.index')->with(['success'=>__('dashboard.item added successfully')]);
+    }
+
+    public function admin_changeStatus($id){
+        $admin = User::find($id);
+        if($admin){
+            $admin->update(['block'=>!$admin->block]);
+            return back()->with(['success'=>__('dashboard.item updated successfully')]);
+        }
+        return back()->with(['success'=>__('dashboard.no such data with this id')]);
+    }
+
+    public function admin_edit($id){
+        $admin =User::find($id);
+        if($admin){
+            return view('dashboard.users.admins.add_edit',['admin'=>$admin]);
+        }
+        return back()->with(['success'=>__('dashboard.no such data with this id')]);
+    }
+
+    public function admin_update(Request $request,$id){
+        $rules = [
+            'role' => ['required',Rule::exists('roles','name')],
+            'name' => ['required','min:3','max:100'],
+            'email' => ['required',Rule::unique('users','email')->ignore($id)],
+            'phone' => ['required','digits:9'],
+            'password' => ['confirmed','nullable','min:6','max:100']
+        ];
+        $validator = Validator::make($request->except(['_token']),$rules);
+        if($validator->fails()){
+            return back()->withErrors($validator->errors());
+        }
+        $data = $request->except(['_token']);
+        if ($request->hasFile('image')){
+            $data['image'] = $this->storeImage($request->file('image'),'users/admins');
+        }
+        if($request->password){
+            $data['password'] = bcrypt($request->password);
+        }
+        $admin = User::find($id);
+        if($admin){
+            $admin->update($data);
+            $admin->syncRoles([$request->role]);
+            return redirect()->route('admin.admins.index')->with(['success'=>__('dashboard.item added successfully')]);
+        }
+        return back()->with(['success'=>__('dashboard.no such data with this id')]);
     }
 }

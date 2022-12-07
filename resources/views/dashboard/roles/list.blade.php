@@ -32,7 +32,10 @@
                                                     {{__('dashboard.add permission')}}
                                                 </button>
                                                 @endcan
+
+                                                @can('add role')
                                                 <a href="{{route('admin.roles.create')}}"><button  class="mb-2 btn btn-primary"><i class="mr-1 feather icon-plus"></i>{{__('dashboard.add roles')}}</button></a>
+                                                    @endcan
                                                 <table class="table table-striped " id="roles-table">
 
                                                     <thead >
@@ -111,7 +114,7 @@
                         }
                     },
                     "paging": true,
-                    order : [[2,'desc']],
+                    order : [[3,'asc']],
                     columns: [
                         {data: 'name', name:'name'},
                         {data: 'users_count', name:'users_count',
@@ -127,7 +130,7 @@
                                 if(data == 1){
                                     return ``;
                                 }
-                                @can('edit role','delete role')
+                                @if(auth()->user()->can('edit role')||auth()->user()->can('delete role'))
                                 return `<div class="btn-group">
                                 <div class="dropdown">
                                     <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -148,7 +151,8 @@
                                 </div>
                                 </div>
                             </div>`;
-                            @endcan
+                            @endif
+                                return ''
                             }
                         },
                     ]

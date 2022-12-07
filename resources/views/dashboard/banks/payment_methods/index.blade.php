@@ -145,28 +145,30 @@
                             }},
 
                         {data: 'created_at', name: 'created_at'},
-                        @if(auth()->user()->can('edit payment-methods'))
+
                         {data: 'id',
                             render:function (data,two,three){
                                 let edit ='payment_methods/'+data+'/edit';
                                 let changeStatus = 'payment_methods/'+data+'/changeStatus';
-
+                                @if(auth()->user()->can('edit payment-methods'))
                                 return `<div class="btn-group">
                                     <div class="dropdown">
                                         <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{__('dashboard.actions')}}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton700">
-                                @can('edit sub-category')
+                                @can('edit payment-methods')
                                     <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
                                     <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
                                 @endcan
                                 </div>
                                 </div>
                             </div>`;
+                                @endif
+                                return ''
                             }
                         }
-                        @endif
+
                     ]
                 });
             });

@@ -121,7 +121,7 @@
                                 let edit = 'deliveryTypes/' + data + '/edit';
                                 let changeStatus = 'deliveryTypes/' + data + '/changeStatus';
                                 let deleting = 'deliveryTypes/' + data;
-                                @can('edit delivery-types','delete delivery-types')
+                                @if(auth()->user()->can('edit delivery-types')||auth()->user()->can('delete delivery-types'))
                                     return `<div class="btn-group">
                                 <div class="dropdown">
                                     <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -142,7 +142,8 @@
                                 </div>
                                 </div>
                             </div>`;
-                                @endcan
+                                @endif
+                                return ''
                             }
                         },
                     ]

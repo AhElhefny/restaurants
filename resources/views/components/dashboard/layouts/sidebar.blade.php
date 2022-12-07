@@ -1,3 +1,4 @@
+@php use App\Models\User; @endphp
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
@@ -17,9 +18,12 @@
             <li class=" navigation-header"><span>{{__('dashboard.main settings')}}</span></li>
             @endif
             @can('admins')
-                <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.admins')}}</span></a>
+                <li class=" nav-item"><a href="#"><i class="fa fa-male fa-2x"></i>  <span class="menu-title" data-i18n="User">{{__('dashboard.admins')}}</span></a>
                     <ul class="menu-content">
-                        <li class=""><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.admins list')}}</span></a>
+                        <li class=""><a href="{{route('admin.admins.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.admins list')}}</span></a>
+                        @can('add admin')
+                        <li class=""><a href="{{route('admin.admins.create')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.add admin')}}</span></a>
+                            @endcan
                         </li>
                     </ul>
                 </li>
@@ -84,7 +88,7 @@
                 </li>
             @endcan
             @can('delivery-man')
-                <li class=" nav-item"><a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="User">{{__('dashboard.deliveryMan')}}</span></a>
+                <li class=" nav-item"><a href="#"><i class="feather icon-user-check"></i><span class="menu-title" data-i18n="User">{{__('dashboard.deliveryMan')}}</span></a>
                     <ul class="menu-content">
                         <li class=""><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.deliveryMan list')}}</span></a>
                         </li>
@@ -164,14 +168,6 @@
 
             <li class=" navigation-header"><span></span>
             </li>
-            @can('bank-accounts')
-                <li class=" nav-item"><a href="#"><i class="fa fa-bank"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.bank accounts')}}</span></a>
-                    <ul class="menu-content">
-                        <li class="{{Route::is('admin.bank.index')? 'active':''}}"><a href="{{route('admin.bank.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.bank accounts')}}</span></a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
             @can('orders')
                 <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="Content">{{__('dashboard.orders')}}</span></a>
                     <ul class="menu-content">
@@ -180,6 +176,22 @@
                     </ul>
                 </li>
             @endcan
+            @can('bank-accounts')
+                <li class=" nav-item"><a href="#"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.bank accounts')}}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{Route::is('admin.bank.index')? 'active':''}}"><a href="{{route('admin.bank.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.bank accounts')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+            @if(auth()->user()->type == User::ADMIN)
+                <li class=" nav-item"><a href="#"><i class="feather icon-phone"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.contact-us')}}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{Route::is('admin.contact.index')? 'active':''}}"><a href="{{route('admin.contact.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.contact-us list')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
         </ul>
     </div>
 </div>

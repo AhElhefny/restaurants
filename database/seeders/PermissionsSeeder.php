@@ -79,6 +79,14 @@ class PermissionsSeeder extends Seeder
             ['guard_name' => 'web', 'name' => 'payment-methods'],
             ['guard_name' => 'web', 'name' => 'add payment-methods'],
             ['guard_name' => 'web', 'name' => 'edit payment-methods'],
+            ['guard_name' => 'web', 'name' => 'offers'],
+            ['guard_name' => 'web', 'name' => 'add offer'],
+            ['guard_name' => 'web', 'name' => 'edit offer'],
+            ['guard_name' => 'web', 'name' => 'delivery-man'],
+            ['guard_name' => 'web', 'name' => 'admins'],
+            ['guard_name' => 'web', 'name' => 'add admin'],
+            ['guard_name' => 'web', 'name' => 'edit admin'],
+            ['guard_name' => 'web', 'name' => 'delete admin'],
 
 
         ];

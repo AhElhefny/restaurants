@@ -83,16 +83,13 @@
                     </tr>
                  </thead>
                  <tbody>
+                 @foreach($vendor->user->bank_accounts as $bank_account)
                      <tr>
-                         <td>AHMED ELSHAHAT ELHEFNY</td>
-                         <td>352145987</td>
-                         <td>84657123459621</td>
+                         <td>{{$bank_account->name_on_card}}</td>
+                         <td>{{$bank_account->IBAN}}</td>
+                         <td>{{$bank_account->account_number}}</td>
                      </tr>
-                     <tr>
-                         <td>ABDELRAHMAN ELSHAHAT ELHEFNY</td>
-                         <td>352145987</td>
-                         <td>84657123459621</td>
-                     </tr>
+                 @endforeach
                  </tbody>
              </table>
          </div>

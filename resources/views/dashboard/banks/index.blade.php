@@ -22,6 +22,7 @@
                             <a class="nav-item nav-link active" data-toggle="tab" id="vendor" href="#tab-pane-1">{{__('dashboard.vendors')}}</a>
                             <a class="nav-item nav-link" data-toggle="tab" id="user" href="#tab-pane-2">{{__('dashboard.users')}}</a>
                             <a class="nav-item nav-link" data-toggle="tab" id="delivery man" href="#tab-pane-3">{{__('dashboard.deliveryMan')}}</a>
+                            <input type="hidden" id="tab-id" value="">
                         </div>
                         <div class="card-body">
                             <div class="tab-content">
@@ -65,7 +66,8 @@
                             url :"bankAccounts",
                             headers:{'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
                             data: function (d) {
-                                d.page = 1;
+                                d.page = 1,
+                                d.filter = $('#tab-id').val()
                             }
                         },
                         "paging": true,
@@ -102,17 +104,8 @@
 
                     $(document).on('click','.nav-item',function(){
                         let value = $(this).attr("id");
-                        console.log(value);
-                        $.ajax({
-                           url: "bankAccounts",
-                           type:"GET",
-                            data:{
-                               filter:value
-                            },
-                            success:function (){
-                                bankAccount.ajax.reload();
-                            }
-                        });
+                        $('#tab-id').val(value);
+                        bankAccount.ajax.reload();
                    });
                 });
             </script>

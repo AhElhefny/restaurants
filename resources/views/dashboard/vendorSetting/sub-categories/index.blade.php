@@ -175,13 +175,13 @@
                             }},
                         @endif
                         {data: 'created_at', name: 'created_at'},
-                        @if(auth()->user()->can('edit sub-category') || auth()->user()->can('show sub-category'))
+
                             {data: 'id',
                                 render:function (data,two,three){
                                     let edit ='subCategories/'+data+'/edit';
                                     let changeStatus = 'subCategories/'+data+'/changeStatus';
                                     let show ='subCategories/'+data;
-
+                                    @if(auth()->user()->can('edit sub-category') || auth()->user()->can('show sub-category'))
                                         return `<div class="btn-group">
                                     <div class="dropdown">
                                         <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -198,10 +198,11 @@
                                     </div>
                                     </div>
                                 </div>`;
-
+                                    @endif
+                                    return ''
                                 }
                             }
-                        @endif
+
                     ]
                 });
         });

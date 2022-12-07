@@ -93,7 +93,7 @@
                                 let edit ='branches/'+data+'/edit';
                                 let changeStatus ='branches/'+data+'/changeStatus';
                                 let show ='branches/'+data;
-
+                                    @if(auth()->user()->can('show branch')||auth()->user()->can('edit branch'))
                                     return `<div class="btn-group">
                                                 <div class="dropdown">
                                                     <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -110,6 +110,8 @@
                                                     </div>
                                                 </div>
                                             </div>`;
+                                    @endif
+                                return '';
                             }
                         },
                     ]

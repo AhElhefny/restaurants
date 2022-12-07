@@ -148,7 +148,7 @@
                             render: function (data, two, three) {
                                 let edit = 'worksTime/' + data + '/edit';
                                 let deleting = 'worksTime/' + data;
-                                @can('edit works-time','delete works-time')
+                                @if(auth()->user()->can('edit works-time')||auth()->user()->can('delete works-time'))
                                     return `<div class="btn-group">
                                 <div class="dropdown">
                                     <button class="btn btn-flat-dark dropdown-toggle mr-1 mb-1" type="button" id="dropdownMenuButton700" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -168,7 +168,8 @@
                                 </div>
                                 </div>
                             </div>`;
-                                @endcan
+                                @endif
+                                return ''
                             }
                         },
                     ]

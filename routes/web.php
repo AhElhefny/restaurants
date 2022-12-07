@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BankController;
 use App\Http\Controllers\Dashboard\BranchController;
 use App\Http\Controllers\dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ContactUsController;
 use App\Http\Controllers\Dashboard\DeliveryTypesController;
 use App\Http\Controllers\Dashboard\OrdersController;
 use App\Http\Controllers\Dashboard\PaymentMethodsControllr;
@@ -85,8 +86,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::resource('payment_methods',PaymentMethodsControllr::class)->except(['create','destroy']);
                 Route::get('payment_methods/{method}/changeStatus',[PaymentMethodsControllr::class,'changeStatus']);
 
-                Route::resource('customers',UserController::class);
+                Route::resource('customers',UserController::class)->except(['edit','update','destroy']);
                 Route::get('customers/{user}/changeStatus',[UserController::class,'changeStatus']);
+                Route::get('admins',[UserController::class,'admin_index'])->name('admins.index');
+                Route::get('admins/create',[UserController::class,'admin_create'])->name('admins.create');
+                Route::post('admins/store',[UserController::class,'admin_store'])->name('admins.store');
+                Route::get('admins/{admin}/edit',[UserController::class,'admin_edit'])->name('admins.edit');
+                Route::put('admins/{admin}/update',[UserController::class,'admin_update'])->name('admins.update');
+                Route::get('admins/{admin}/changeStatus',[UserController::class,'admin_changeStatus'])->name('admins.changeStatus');
+
+                Route::get('contact-us',[ContactUsController::class,'index'])->name('contact.index');
+                Route::delete('contact-us/{contactUs}',[ContactUsController::class,'destroy'])->name('contact.destroy');
             });
         });
     });
