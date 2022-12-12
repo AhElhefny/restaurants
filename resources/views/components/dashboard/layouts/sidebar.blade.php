@@ -76,6 +76,14 @@
                     </ul>
                 </li>
             @endcan
+            @if(auth()->user()->type == User::ADMIN)
+                <li class=" nav-item"><a href="#"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Data List">{{__('dashboard.promo-code')}}</span></a>
+                    <ul class="menu-content">
+                            <li class="{{Route::is('admin.promoCodes.index')? 'active':''}}"><a href="{{route('admin.promoCodes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List View">{{__('dashboard.promo-code list')}}</span></a>
+                            </li>
+                    </ul>
+                </li>
+            @endif
 
             <li class=" navigation-header"><span></span>
             </li>
@@ -188,6 +196,13 @@
                 <li class=" nav-item"><a href="#"><i class="feather icon-phone"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.contact-us')}}</span></a>
                     <ul class="menu-content">
                         <li class="{{Route::is('admin.contact.index')? 'active':''}}"><a href="{{route('admin.contact.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">{{__('dashboard.contact-us list')}}</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-hash"></i><span class="menu-title" data-i18n="Content">   {{__('dashboard.Terms and Conditions')}}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{Route::is('admin.terms.index_ar')? 'active':''}}"><a href="{{route('admin.terms.index_ar')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">عربي</span></a>
+                        <li class="{{Route::is('admin.terms.index_en')? 'active':''}}"><a href="{{route('admin.terms.index_en')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">English</span></a>
                         </li>
                     </ul>
                 </li>

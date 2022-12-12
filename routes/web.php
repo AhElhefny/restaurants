@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BankController;
 use App\Http\Controllers\Dashboard\BranchController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\SizeController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
+use App\Http\Controllers\Dashboard\TermsConditionsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
 use App\Http\Controllers\Dashboard\WorksTimeController;
@@ -97,6 +99,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::get('contact-us',[ContactUsController::class,'index'])->name('contact.index');
                 Route::delete('contact-us/{contactUs}',[ContactUsController::class,'destroy'])->name('contact.destroy');
+
+                Route::get('terms/ar',[TermsConditionsController::class,'index'])->name('terms.index_ar');
+                Route::get('terms/en',[TermsConditionsController::class,'index'])->name('terms.index_en');
+                Route::post('terms',[TermsConditionsController::class,'save'])->name('terms.save');
+
+                Route::resource('promoCodes',CouponController::class);
+                Route::get('promoCodes/{coupon}/changeStatus',[CouponController::class,'changeStatus'])->name('promoCodes.changeStatus');
             });
         });
     });

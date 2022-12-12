@@ -90,13 +90,13 @@ class PermissionsSeeder extends Seeder
 
 
         ];
-        $role = Role::create([
+        $Admin_role = Role::create([
             'name' => 'super_admin'
         ]);
-        Role::create([
+        $vendor_role = Role::create([
             'name' => 'vendor'
         ]);
-        Role::create([
+        $BM_role = Role::create([
             'name' => 'branch_manager'
         ]);
         $user = User::create([
@@ -109,7 +109,7 @@ class PermissionsSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
         Permission::insert($permissions);
-        $role->syncPermissions(Permission::all());
-        $user->assignRole($role);
+        $Admin_role->syncPermissions(Permission::all());
+        $user->assignRole($Admin_role);
     }
 }

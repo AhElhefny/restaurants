@@ -13,7 +13,6 @@
                 <div class="card-header">
                     <h4 class="card-title">{{__('dashboard.category list')}}</h4>
                 </div>
-
                 @if(\Session::get('success'))
                     <x-dashboard.layouts.message />
                 @endif
@@ -45,6 +44,7 @@
             </div>
         </dev>
     </div>
+</div>
 </div>
 <!-- END: Content-->
 @section('script')

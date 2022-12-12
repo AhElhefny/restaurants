@@ -20,6 +20,9 @@
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/extensions/jquery.steps.min.js')}}"></script>
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
 <script src="{{asset('dashboardAssets/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/editors/quill/katex.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/editors/quill/highlight.min.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/vendors/js/editors/quill/quill.min.js')}}"></script>
 
 <!-- END: Page Vendor JS-->
 
@@ -47,6 +50,7 @@
 <!-- BEGIN: Page JS-->
 <script src="{{asset('dashboardAssets/app-assets/js/scripts/datatables/datatable.js')}}"></script>
 <script src="{{asset('dashboardAssets/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
+<script src="{{asset('dashboardAssets/app-assets/js/scripts/editors/editor-quill.js')}}"></script>
 
 <!-- END: Page JS-->
 
