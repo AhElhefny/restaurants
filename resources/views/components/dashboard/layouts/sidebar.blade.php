@@ -143,41 +143,41 @@
                     @endcan
                 </ul>
             </li>
+            @can('sizes')
             <li class=" nav-item"><a href="#"><i class="feather icon-alert-circle"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.sizes')}}</span></a>
-
                 <ul class="menu-content">
-                @can('sizes')
+
                         <li class="{{Route::is('admin.sizes.index')? 'active':''}}"><a href="{{route('admin.sizes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.sizes list')}}</span></a>
                         </li>
-                    @endcan
+
                 </ul>
             </li>
+            @endcan
+            @can('services')
             <li class=" nav-item"><a href="#"><i class="feather icon-briefcase"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.services')}}</span></a>
-
                 <ul class="menu-content">
-                @can('services')
                         <li class="{{Route::is('admin.services.index')? 'active':''}}"><a href="{{route('admin.services.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.service list')}}</span></a>
                         </li>
-                    @endcan
+
                 </ul>
             </li>
+            @endcan
+            @can('works-time')
             <li class=" nav-item"><a href="#"><i class="feather icon-clock"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.works time')}}</span></a>
                 <ul class="menu-content">
-                    @can('works-time')
                         <li class="{{Route::is('admin.worksTime.index')? 'active':''}}"><a href="{{route('admin.worksTime.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.worksTime list')}}</span></a>
                         </li>
-                    @endcan
                 </ul>
             </li>
+            @endcan
+            @can('offers')
             <li class=" nav-item"><a href="#"><i class="feather icon-award"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.offers')}}</span></a>
                 <ul class="menu-content">
-                    @can('works-time')
-                        <li class="{{Route::is('admin.worksTime.index')? '':''}}"><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.offers list')}}</span></a>
-                        </li>
-                    @endcan
+                    <li class="{{Route::is('admin.worksTime.index')? '':''}}"><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.offers list')}}</span></a>
+                    </li>
                 </ul>
             </li>
-
+            @endcan
             <li class=" navigation-header"><span></span>
             </li>
             @can('orders')
