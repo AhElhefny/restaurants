@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="steps-validation wizard-circle" method="POST" action="{{route('admin.branches.update',$branch->id)}}" enctype="multipart/form-data">
+                                        <form class="steps-validation wizard-circle" method="POST" action="{{route('admin.branches.update',$branch->id)}}" enctype="multipart/form-data" id="branchForm">
                                             @csrf
                                             @method('PUT')
                                             <!-- Step 1 -->
@@ -273,7 +273,7 @@
                                                         </div>
                                                     </div>
                                                 </section>
-                                                <button type="submit">submit</button>
+{{--                                                <button type="submit">submit</button>--}}
                                             </fieldset>
                                         </form>
                                     </div>
@@ -312,6 +312,11 @@
                     document.getElementById("longitude").value = place.geometry['location'].lng();
                 });
             }
+        </script>
+        <script>
+            $('[href="#finish"]').click(function() {
+                $('#branchForm').submit();
+            })
         </script>
 
 
