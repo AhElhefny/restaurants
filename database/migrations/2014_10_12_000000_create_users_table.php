@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->tinyInteger('type')->default(2); // 2 => user
+            $table->enum('type',['1','2','3','4','5'])->default(User::USER); // 2 => user
             $table->enum('type_ar', ['مستخدم', 'مدير فرع', 'مسؤول التطبيق','مزود خدمه','المندوب'])->default('مستخدم');
             $table->enum('type_en', ['admin', 'branch manager', 'user','vendor','delivery man'])->default('user');
             $table->string('address')->nullable();

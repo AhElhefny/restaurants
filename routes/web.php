@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\CouponController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BankController;
 use App\Http\Controllers\Dashboard\BranchController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ContactUsController;
+use App\Http\Controllers\Dashboard\CouponController;
+use App\Http\Controllers\Dashboard\DeliveryManController;
 use App\Http\Controllers\Dashboard\DeliveryTypesController;
 use App\Http\Controllers\Dashboard\OrdersController;
 use App\Http\Controllers\Dashboard\PaymentMethodsControllr;
@@ -106,6 +107,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('promoCodes',CouponController::class);
                 Route::get('promoCodes/{coupon}/changeStatus',[CouponController::class,'changeStatus'])->name('promoCodes.changeStatus');
+
+                Route::get('deliveryMen',[DeliveryManController::class,'index'])->name('deliveryMen.index');
+                Route::get('deliveryMen/{id}/show',[DeliveryManController::class,'show'])->name('deliveryMen.show');
+                Route::get('deliveryMen/requests',[DeliveryManController::class,'requests'])->name('deliveryMen.requests');
+                Route::get('deliveryMen/{deliveryman}/edit/{status}',[DeliveryManController::class,'requestStatus'])->name('deliveryMen.requestStatus');
             });
         });
     });

@@ -95,14 +95,18 @@
                     </ul>
                 </li>
             @endcan
-            @can('delivery-man')
-                <li class=" nav-item"><a href="#"><i class="feather icon-user-check"></i><span class="menu-title" data-i18n="User">{{__('dashboard.deliveryMan')}}</span></a>
-                    <ul class="menu-content">
-                        <li class=""><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.deliveryMan list')}}</span></a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+            @if(auth()->user()->type == User::ADMIN)
+                @can('delivery-man')
+                    <li class=" nav-item"><a href="#"><i class="feather icon-user-check"></i><span class="menu-title" data-i18n="User">{{__('dashboard.deliveryMan')}}</span></a>
+                        <ul class="menu-content">
+                            <li class="{{Route::is('admin.deliveryMen.requests')? 'active':''}}"><a href="{{route('admin.deliveryMen.requests')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.requests')}}</span></a>
+                            </li>
+                            <li class="{{Route::is('admin.deliveryMen.index')? 'active':''}}"><a href="{{route('admin.deliveryMen.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">{{__('dashboard.deliveryMan list')}}</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+            @endif
             @can('vendors')
                 <li class=" nav-item"><a href="#"><i class="feather icon-shopping-cart"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.vendors')}}</span></a>
                     <ul class="menu-content">

@@ -44,7 +44,7 @@
                                                 <select name="role" class="select2 form-control">
                                                     <option disabled selected>{{__('dashboard.choose role')}}</option>
                                                     @foreach(Role::whereNotIn('name',['super_admin','vendor','branch_manager'])->get() as $role)
-                                                        <option value="{{$role->name}}" {{$admin->hasRole($role->name)?'selected':''}}>{{$role->name}}</option>
+                                                        <option value="{{$role->name}}" {{isset($admin)&&$admin->hasRole($role->name)?'selected':''}}>{{$role->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

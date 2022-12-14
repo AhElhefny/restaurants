@@ -31,7 +31,7 @@
                                                     for="name">{{__('dashboard.available until')}}</label>
                                                 <input type="date" id="available_until" class="form-control" name="available_until"
                                                        placeholder="{{__('dashboard.available until').'  .......  '.__('dashboard.in days')}}"
-                                                       value="{{old('available_until')}}">
+                                                       value="{{old('available_until')}}" min="{{date('Y-m-d')}}">
                                                 <span style="font-size: 14px;" class="text-danger"
                                                       id="available_until_error"></span>
                                             </div>
@@ -51,7 +51,7 @@
                                                 <input type="number" id="number_of_use" class="form-control"
                                                        name="number_of_use"
                                                        placeholder="{{__('dashboard.number_of_use')}}"
-                                                       value="{{old('number_of_use')}}">
+                                                       value="{{old('number_of_use')}}" min="1" max="30">
                                                 <span style="font-size: 14px;" class="text-danger"
                                                       id="number_of_use_error"></span>
                                             </div>
