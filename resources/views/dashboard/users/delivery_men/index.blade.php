@@ -77,7 +77,11 @@
                     order: [[7,'desc']],
                     columns: [
                         {data: 'user',render:function (data){
-                                return `<span><a href="deliveryMen/${data.id}/show">${data.name}</a></span>`
+                            @if(auth()->user()->can('show delivery-man'))
+                                return `<span><a href="deliveryMen/${data.id}/show">${data.name}</a></span>`;
+                                @else
+                                    return data.name;
+                                @endif
                             }},
                         {data: 'user', render:function (data){
                             return data.phone
@@ -107,6 +111,7 @@
                         {data: 'created_at', name:'created_at'},
                         {data: 'id',
                             render:function (data,two,three){
+                            @if(auth()->user()->can('edit delivery-man'))
                                 let active ='deliveryMen/'+data+'/edit/{{\App\Models\DeliveryMan::ACTIVE}}';
                                 let in_active ='deliveryMen/'+data+'/edit/{{\App\Models\DeliveryMan::INACTIVE}}';
                                 let reject ='deliveryMen/'+data+'/edit/{{\App\Models\DeliveryMan::REJECTED}}';
@@ -124,6 +129,9 @@
                                 </div>
                                 </div>
                             </div>`;
+                            @else
+                                return '';
+                            @endif
                             }
 
                         },

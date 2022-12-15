@@ -10,6 +10,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DeliveryManController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:delivery-man',['only'=>['index','requests']]);
+        $this->middleware('permission:edit delivery-man',['only'=>['requestStatus']]);
+        $this->middleware('permission:show delivery-man',['only'=>['show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

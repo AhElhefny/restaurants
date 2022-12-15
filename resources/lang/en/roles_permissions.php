@@ -32,9 +32,9 @@ return [
 
     'delivery man' => 'Delivery man' ,
     'add delivery man' => 'Add Delivery man' ,
-    'edit delivery man' => 'Edit Delivery man' ,
+    'edit delivery-man' => 'Edit Delivery man' ,
     'delete delivery man' => 'Delete Delivery man' ,
-    'show delivery man' => 'Show Delivery man' ,
+    'show delivery-man' => 'Show Delivery man' ,
 
     'branch manager' => 'Branch Manager' ,
     'add branch manager' => 'Add Branch Manager' ,

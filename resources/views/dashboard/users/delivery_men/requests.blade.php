@@ -97,6 +97,7 @@
                         {data: 'created_at', name:'created_at'},
                         {data: 'id',
                             render:function (data,two,three){
+                                @if(auth()->user()->can('edit delivery-man'))
                                 let edit ='/{{app()->getLocale()}}/admin/deliveryMen/'+data+'/edit/{{DeliveryMan::ACTIVE}}';
                                 let edit1 ='/{{app()->getLocale()}}/admin/deliveryMen/'+data+'/edit/{{DeliveryMan::REJECTED}}';
                                     return `<div class="btn-group">
@@ -110,6 +111,9 @@
                                 </div>
                                 </div>
                             </div>`;
+                                @else
+                                    return '';
+                                @endif
                             }
 
                         },

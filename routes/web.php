@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\ContactUsController;
 use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\DeliveryManController;
 use App\Http\Controllers\Dashboard\DeliveryTypesController;
+use App\Http\Controllers\Dashboard\OfferController;
 use App\Http\Controllers\Dashboard\OrdersController;
 use App\Http\Controllers\Dashboard\PaymentMethodsControllr;
 use App\Http\Controllers\Dashboard\RolesController;
@@ -112,6 +113,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::get('deliveryMen/{id}/show',[DeliveryManController::class,'show'])->name('deliveryMen.show');
                 Route::get('deliveryMen/requests',[DeliveryManController::class,'requests'])->name('deliveryMen.requests');
                 Route::get('deliveryMen/{deliveryman}/edit/{status}',[DeliveryManController::class,'requestStatus'])->name('deliveryMen.requestStatus');
+
+                Route::resource('offers',OfferController::class);
+                Route::get('offers/{offer}/changeStatus',[OfferController::class,'changeStatus'])->name('offers.changeStatus');
             });
         });
     });

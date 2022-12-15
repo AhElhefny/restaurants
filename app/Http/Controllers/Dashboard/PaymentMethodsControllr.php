@@ -8,9 +8,17 @@ use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use function Symfony\Component\Translation\t;
 
 class PaymentMethodsControllr extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:payment-methods',['only'=>['index']]);
+        $this->middleware('permission:add payment-methods',['only'=>['store']]);
+        $this->middleware('permission: edit payment-methods',['only'=>['edit','update','changeStatus']]);
+    }
+
     use HelperTrait;
     public function index(){
         if (\request()->ajax()){

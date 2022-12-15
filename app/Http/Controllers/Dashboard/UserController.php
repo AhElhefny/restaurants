@@ -14,6 +14,19 @@ use function Symfony\Component\String\b;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:users',['only'=>['index']]);
+        $this->middleware('permission:add user',['only'=>['create','store']]);
+        $this->middleware('permission:show user',['only'=>['show']]);
+        $this->middleware('permission:edit user',['only'=>['changeStatus']]);
+        $this->middleware('permission:admins',['only'=>['admin_index']]);
+        $this->middleware('permission:add admin',['only'=>['admin_create','admin_store']]);
+        $this->middleware('permission:edit admin',['only'=>['admin_changeStatus','admin_edit','admin_update']]);
+//        $this->middleware('permission:delete admin',['only'=>['']]);
+//        $this->middleware('permission:delete user',['only'=>['']]);
+    }
+
     use HelperTrait;
     /**
      * Display a listing of the resource.

@@ -33,9 +33,9 @@ return [
 
     'delivery man' => 'المندوب' ,
     'add delivery man' => 'إضافة مندوب' ,
-    'edit delivery man' => 'تعديل مندوب' ,
+    'edit delivery-man' => 'تعديل مندوب' ,
     'delete delivery man' => 'حذف مندوب' ,
-    'show delivery man' => 'معاينه مندوب' ,
+    'show delivery-man' => 'معاينه مندوب' ,
 
     'branch manager' => 'مدير فرع' ,
     'add branch manager' => 'إضافة مدير فرع' ,
