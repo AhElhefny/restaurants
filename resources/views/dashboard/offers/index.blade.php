@@ -11,7 +11,7 @@
                 <div class="row match-height">
                     @foreach($offers as $offer)
                         <div class="col-xl-4 col-md-6">
-                            <div class="card" title="{{$offer->active == 1?'ACTIVE':'IN-ACTIVE'}}">
+                            <div class="card" title="{{$offer->active == 1?'ACTIVE':'IN-ACTIVE'}}" style="height: auto">
                                 <div class="card-header mb-1">
                                     <h4 class="card-title">{{$offer->title}}</h4>
                                     <button type="button" style="margin-top: 97px;position: absolute;left: 3px" class="btn btn-icon btn-icon rounded-circle btn-outline-{{$offer->active == 1? 'primary':'danger'}}  waves-effect waves-light">
@@ -28,8 +28,8 @@
                                     </div>
                                 </div>
                                 <div class="card-content">
-                                    <img class="img-fluid" src="{{$offer->image}}" alt="Card image cap">
-                                    <div class="card-body">
+                                    <img class="" src="{{$offer->image}}" alt="Card image cap" height="294px" width="100%">
+                                    <div class="card-body" style="height: 100px; overflow: hidden">
                                         <p class="card-text">{{$offer->description}}.</p>
                                     </div>
                                 </div>

@@ -54,7 +54,8 @@
                                             <div class="form-group">
                                                 <label for="password-icon">{{__('dashboard.table description')}}</label>
                                                 <div class="position-relative has-icon-left">
-                                                    <input type="text" id="description" class="form-control" value="{{old('description',isset($offer)?$offer->description:'')}}" name="description" placeholder="{{__('dashboard.table description')}}">
+{{--                                                    <input type="text" id="description" class="form-control" value="{{old('description',isset($offer)?$offer->description:'')}}" name="description" placeholder="{{__('dashboard.table description')}}">--}}
+                                                    <textarea name="description" class="form-control">{{old('description',isset($offer)?$offer->description:'')}}</textarea>
                                                     <div class="form-control-position">
                                                         <i class="fa fa-pencil"></i>
                                                     </div>
