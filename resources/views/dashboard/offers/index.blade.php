@@ -40,13 +40,14 @@
                                         </span>
                                 </div>
                             </div>
-                    </div>
+                        </div>
                     @endforeach
-                        {!! $offers->links() !!}
                 </div>
-
             </section>
-
+            <div id="paginator-offers" style="position: relative; left: -600px; top: 5px">
+                {!! $offers->links() !!}
+            </div>
         </div>
+
     </div>
 </x-dashboard.layouts.master>

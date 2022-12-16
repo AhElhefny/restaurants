@@ -3596,10 +3596,10 @@ _:-ms-lang(x), .toast-bs-container {
   }
 }
 
-.hidden {
-  display : none;
-  visibility : hidden;
-}
+/*.hidden {*/
+/*  display : none;*/
+/*  visibility : hidden;*/
+/*}*/
 
 a:hover {
   cursor : pointer;

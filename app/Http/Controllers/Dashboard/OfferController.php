@@ -28,7 +28,7 @@ class OfferController extends Controller
     public function index()
     {
         $query = auth()->user()->type == User::ADMIN ? Offer::orderBy('id','DESC') : Offer::where(['active'=>1,'owner'=>auth()->user()->id]);
-        $offers = $query->paginate(5);
+        $offers = $query->paginate(6);
         return view('dashboard.offers.index',['offers'=>$offers]);
     }
 

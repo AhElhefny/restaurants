@@ -87,8 +87,8 @@ class PermissionsSeeder extends Seeder
             ['guard_name' => 'web', 'name' => 'add admin'],
             ['guard_name' => 'web', 'name' => 'edit admin'],
             ['guard_name' => 'web', 'name' => 'delete admin'],
-
-
+            ['guard_name' => 'web', 'name' => 'edit delivery-man'],
+            ['guard_name' => 'web', 'name' => 'show delivery-man'],
         ];
         $Admin_role = Role::create([
             'name' => 'super_admin'

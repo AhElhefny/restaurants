@@ -173,9 +173,9 @@
             @can('offers')
             <li class=" nav-item"><a href="#"><i class="feather icon-award"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.offers')}}</span></a>
                 <ul class="menu-content">
-                    <li class="{{Route::is('admin.offers.index')? '':''}}"><a href="{{route('admin.offers.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.offers list')}}</span></a>
+                    <li class="{{Route::is('admin.offers.index')? 'active':''}}"><a href="{{route('admin.offers.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.offers list')}}</span></a>
                     </li>
-                    <li class="{{Route::is('admin.offers.create')? '':''}}"><a href="{{route('admin.offers.create')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add offer')}}</span></a>
+                    <li class="{{Route::is('admin.offers.create')? 'active':''}}"><a href="{{route('admin.offers.create')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.add offer')}}</span></a>
                     </li>
                 </ul>
             </li>
