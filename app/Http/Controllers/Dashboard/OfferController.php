@@ -52,6 +52,7 @@ class OfferController extends Controller
     {
         $rules = [
           'title' => ['required','min:5'],
+            'image' => ['required']
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()){

@@ -93,9 +93,22 @@ class PermissionsSeeder extends Seeder
         $Admin_role = Role::create([
             'name' => 'super_admin'
         ]);
+
+        $vendor_permissions = [
+            'users', 'edit user', 'show user', 'branches', 'add branch', 'edit branch', 'show branch', 'delete branch',
+            'services', 'add service', 'edit service', 'delete service', 'show service', 'sizes', 'add size', 'edit size',
+            'delete size', 'sub-categories', 'add sub-category', 'edit sub-category', 'delete sub-category', 'show sub-category',
+            'works-time', 'edit works-time', 'delete works-time', 'add works-time', 'orders', 'edit-order', 'show-order',
+            'offers', 'add offer', 'edit offer',
+        ];
         $vendor_role = Role::create([
             'name' => 'vendor'
         ]);
+
+        $BM_permissions = [
+            'users', 'edit user', 'show user', 'orders', 'edit-order', 'show-order', 'services', 'edit service', 'show service',
+             'sub-categories', 'show sub-category',
+        ];
         $BM_role = Role::create([
             'name' => 'branch_manager'
         ]);
@@ -110,6 +123,8 @@ class PermissionsSeeder extends Seeder
         ]);
         Permission::insert($permissions);
         $Admin_role->syncPermissions(Permission::all());
+        $vendor_role->syncPermissions(Permission::whereIn('name',$vendor_permissions)->pluck('id')->toArray());
+        $BM_role->syncPermissions(Permission::whereIn('name',$BM_permissions)->pluck('id')->toArray());
         $user->assignRole($Admin_role);
     }
 }
