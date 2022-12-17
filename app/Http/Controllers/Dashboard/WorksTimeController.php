@@ -64,7 +64,8 @@ class WorksTimeController extends Controller
 //        dd($request->all());
         $rules =[
             'from' => ['required'],
-            'to' => ['required']//,'after_or_equal:from'
+            'to' => ['required','after_or_equal:from'],
+            'vendor_id' => ['required',Rule::exists('vendor','id')]
         ];
         $validator = Validator::make($request->except(['_token']),$rules);
         if($validator->fails()){
