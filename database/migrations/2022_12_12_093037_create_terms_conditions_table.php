@@ -16,8 +16,8 @@ class CreateTermsConditionsTable extends Migration
         Schema::create('terms_conditions', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->default('terms & conditions');
-            $table->text('terms_ar');
-            $table->text('terms_en');
+            $table->text('terms_ar')->nullable();
+            $table->text('terms_en')->nullable();
             $table->timestamps();
         });
     }

@@ -39,7 +39,8 @@ class WorksTimeController extends Controller
     public function store(Request $request){
         $rules =[
           'from' => ['required'],
-            'to' => ['required']
+            'to' => ['required'],
+            'vendor_id' => ['required',Rule::exists('vendor','id')]
         ];
         $validator = Validator::make($request->except(['_token']),$rules);
         if($validator->fails()){

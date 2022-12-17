@@ -254,10 +254,13 @@
                                                                                         @endforeach
                                                                                     </optgroup>
                                                                                 </select>
+                                                                                @error('deliveryTypes')
+                                                                                <span class="text text-danger">{{$message}}</span>
+                                                                                @enderror
                                                                             </div>
                                                                             <div class="form-group col-6">
                                                                                 <div class="position-relative has-icon-left">
-                                                                                    <input type="text"  class="form-control" value="{{old('range_of_delivery_price',$branch->range_of_delivery_price)}}" name="range_of_delivery_price" placeholder="{{__('dashboard.range of delivery price')}}">
+                                                                                    <input type="text"  class="form-control" value="{{old('range_of_delivery_price',$branch->range_of_delivery_price)}}" name="range_of_delivery_price" minlength="5" maxlength="20" placeholder="{{__('dashboard.range of delivery price')}}">
                                                                                     <div class="form-control-position">
                                                                                         <i class="fa fa-usd"></i>
                                                                                     </div>

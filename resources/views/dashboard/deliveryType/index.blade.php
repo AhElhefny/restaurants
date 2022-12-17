@@ -143,7 +143,7 @@
                                 </div>
                             </div>`;
                                 @endif
-                                return ''
+                                    return ''
                             }
                         },
                     ]
@@ -151,6 +151,8 @@
 
                 $('#Form-delivery').submit(function (e) {
                     e.preventDefault();
+                    $('#type_ar_error').html('');
+                    $('#type_en_error').html('');
                     let type_ar = $('#type_ar').val();
                     let type_en = $('#type_en').val();
                     let status = $('#active').val();
@@ -172,11 +174,13 @@
                             }
                         },
                         error: function (xhr) {
-                            if (xhr.responseJSON.errors['type_ar']) {
-                                $('#type_ar_error').html(xhr.responseJSON.errors['type_ar']);
+                            console.log(xhr);
+                            if (xhr.responseJSON['type_ar']) {
+
+                                $('#type_ar_error').html(xhr.responseJSON['type_ar'][0]);
                             }
-                            if (xhr.responseJSON.errors['type_en']) {
-                                $('#type_en_error').html(xhr.responseJSON.errors['type_en']);
+                            if (xhr.responseJSON['type_en']) {
+                                $('#type_en_error').html(xhr.responseJSON['type_en'][0]);
                             }
                         }
                     });
