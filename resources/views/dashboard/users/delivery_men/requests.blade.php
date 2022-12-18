@@ -75,7 +75,7 @@
                         }
                     },
                     "paging": true,
-                    order: [[7,'desc']],
+                    order: [[8,'desc']],
                     columns: [
                         {data: 'name', name:'name'},
                         {data: 'user', render:function (data){

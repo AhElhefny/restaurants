@@ -40,7 +40,7 @@ class WorksTimeController extends Controller
         $rules =[
           'from' => ['required'],
             'to' => ['required'],
-            'vendor_id' => ['required',Rule::exists('vendor','id')]
+            'vendor_id' => ['required',Rule::exists('vendors','id')]
         ];
         $validator = Validator::make($request->except(['_token']),$rules);
         if($validator->fails()){

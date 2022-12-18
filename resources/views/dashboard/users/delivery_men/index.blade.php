@@ -74,7 +74,7 @@
                         }
                     },
                     "paging": true,
-                    order: [[7,'desc']],
+                    order: [[8,'desc']],
                     columns: [
                         {data: 'user',render:function (data){
                             @if(auth()->user()->can('show delivery-man'))

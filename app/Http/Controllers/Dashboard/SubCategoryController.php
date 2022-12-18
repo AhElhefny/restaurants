@@ -127,7 +127,7 @@ class SubCategoryController extends Controller
         $data = $request->except(['_token']);
         $data['active'] = $request->active == 'on'?1:0;
         if($request->file('image')){
-            $data['image'] = $this->storeImage($request->file('image'),'sub category');
+            $data['image'] = $this->storeImage($request->file('image'),'sub_category');
         }
         $vendorCategory->update($data);
         return redirect()->route('admin.subCategories.index')->with(['success'=>__('dashboard.item updated successfully')]);
