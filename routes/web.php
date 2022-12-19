@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Dashboard\AppNotificationController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BankController;
 use App\Http\Controllers\Dashboard\BranchController;
@@ -92,6 +94,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('customers',UserController::class)->except(['edit','update','destroy']);
                 Route::get('customers/{user}/changeStatus',[UserController::class,'changeStatus']);
+                Route::get('users',[UserController::class,'users'])->name('users.getUsers');
                 Route::get('admins',[UserController::class,'admin_index'])->name('admins.index');
                 Route::get('admins/create',[UserController::class,'admin_create'])->name('admins.create');
                 Route::post('admins/store',[UserController::class,'admin_store'])->name('admins.store');
@@ -116,6 +119,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('offers',OfferController::class);
                 Route::get('offers/{offer}/changeStatus',[OfferController::class,'changeStatus'])->name('offers.changeStatus');
+
+                Route::view('app_notifications','dashboard.app_notifications')->name('appNotifications.index');
+                Route::post('app_notifications',AppNotificationController::class)->name('appNotifications.send');
+                Route::get('profile',[AuthController::class,'profile'])->name('profile');
             });
         });
     });

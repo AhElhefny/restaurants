@@ -203,4 +203,8 @@ class UserController extends Controller
         }
         return back()->with(['success'=>__('dashboard.no such data with this id')]);
     }
+
+    public function users(){
+        return response()->json(User::where(['block'=>0,'type'=>User::USER])->get(),200);
+    }
 }

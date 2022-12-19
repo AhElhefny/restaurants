@@ -310,54 +310,6 @@
                    }
                 });
 
-                {{--    $('#Form-Size').submit(function (e) {
-                    e.preventDefault();
-                    let name_ar = $('#name_ar').val();
-                    let name_en = $('#name_en').val();
-                    let description_ar = $('#description_ar').val();
-                    let description_en = $('#description_en').val();
-                    let vendor_id = $('#vendor').val();
-                    let vendor_category_id = $('#sub-category').val();
-                    $.ajax({
-                        url: '{{route('admin.sizes.store')}}',
-                        type: "POST",
-                        data: {
-                            name_ar: name_ar,
-                            name_en: name_en,
-                            description_en: description_en,
-                            description_ar: description_ar,
-                            vendor_id: vendor_id,
-                            vendor_category_id: vendor_category_id,
-                            _token: "{{csrf_token()}}"
-                        },
-                        success: function (response) {
-                            if (response) {
-                                $('#Form-Size')[0].reset();
-                                size_table.ajax.reload();
-                            }
-                        },
-                        error: function (xhr) {
-                            console.log();
-                            if (xhr.responseJSON.errors['description_ar']) {
-                                $('#description_ar_error').html(xhr.responseJSON.errors['description_ar']);
-                            }
-                            if (xhr.responseJSON.errors['description_en']) {
-                                $('#description_en_error').html(xhr.responseJSON.errors['description_en']);
-                            }
-                            if (xhr.responseJSON.errors['name_ar']) {
-                                $('#name_ar_error').html(xhr.responseJSON.errors['name_ar']);
-                            }
-                            if (xhr.responseJSON.errors['name_en']) {
-                                $('#name_en_error').html(xhr.responseJSON.errors['name_en']);
-                            }
-                            if (xhr.responseJSON.errors['vendor_id']) {
-                                $('#vendor_id_error').html(xhr.responseJSON.errors['vendor_id']);
-                            }
-
-                        }
-                    });
-                });--}}
-
                 $('#vendor').on('change', function () {
                     var selectedVendor = $(this).find('option:selected');
                     let vendor_id = selectedVendor.val();

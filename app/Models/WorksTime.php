@@ -23,6 +23,14 @@ class WorksTime extends Model
         return $this->belongsTo(Vendor::class);
     }
 
+    public function getFromAttribute($val){
+        return substr($val,0,5);
+    }
+
+    public function getToAttribute($val){
+        return substr($val,0,5);
+    }
+
     public function getNotesAttribute(){
         return app()->getLocale() == 'ar' ? $this->notes_ar : $this->notes_en ;
     }

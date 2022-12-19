@@ -86,6 +86,10 @@ class User extends Authenticatable
         return $this->hasOne(DeliveryMan::class);
     }
 
+    public function notifications(){
+        return $this->hasMany(Notification::class);
+    }
+
     public function bank_accounts(){
         return $this->hasMany(Bank::class);
     }

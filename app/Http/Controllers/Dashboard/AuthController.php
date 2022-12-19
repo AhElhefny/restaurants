@@ -53,5 +53,14 @@ class AuthController extends Controller
         return redirect()-> route('admin.login');
     }
 
+    public function profile(){
+        $user = User::find(\auth()->user()->id);
+        return view('dashboard.user_profile',['user'=>$user]);
+    }
+    public function update_profile(){
+        $user = User::find(\auth()->user()->id);
+        return view('dashboard.user_profile',['user'=>$user]);
+    }
+
 
 }
