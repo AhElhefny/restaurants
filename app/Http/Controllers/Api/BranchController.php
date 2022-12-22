@@ -33,6 +33,13 @@ class BranchController extends Controller
                 ->orWhere('phone','like','%'.$request->filter.'%');
         }
 
+        if($request->deliver){
+            $query->whereHas('deliveryTypes',function ($q) use ($request){
+                $q->where('type_ar','like','%'.$request->deliver.'%')
+                    ->orWhere('type_en','like','%'.$request->deliver.'%');
+            });
+        }
+
          if($request->headers->get('latitude') && $request->headers->get('longitude')){
              $latitude = $request->headers->get('latitude');
              $longitude = $request->headers->get('longitude');
