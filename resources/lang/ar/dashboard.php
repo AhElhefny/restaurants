@@ -204,7 +204,7 @@ return [
     'edit personal information' => 'تعديل البيانات الشخصيه' ,
     'bank-account' => 'البيانات البنكيه' ,
     'add bank-account' => 'إضافة بيانات بنكيه' ,
-    '' => '' ,
+    'edit bank-account' => 'تعديل بيانات بنكيه' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

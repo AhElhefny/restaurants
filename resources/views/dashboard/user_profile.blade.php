@@ -1,14 +1,18 @@
 <x-dashboard.layouts.master title="{{__('dashboard.account settings')}}">
     <div class="app-content content">
+
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
             <div class="content-header row">
+
             </div>
             <h4 class="font-weight-bold py-3 mb-4">
                 <span class="text-muted font-weight-light">{{__('dashboard.account settings')}}/</span>  <span id="var">{{__('dashboard.personal information')}}</span>
             </h4>
-
+            @if(\Session::get('success'))
+                <x-dashboard.layouts.message />
+            @endif
             <div class="card-content">
 
                 <div class="nav nav-pills  mb-4 ml-5 d-inline-flex">
@@ -189,12 +193,12 @@
                                             <a onClick="remove({{$account->id}},'role')"><i class="feather icon-trash-2"></i></a>
                                             </form>
                                         </span>
-                                        <a href="{{route('admin.users.bank_profile.edit',$account->id)}}" class="float-right mt-1 mr-1"><i class="feather icon-edit"></i></a>
+                                        <i class="feather icon-edit float-right mr-1 pop-up-edit" style="margin-top: 17px" data-id="{{$account->id}}" data-toggle="modal" data-target="#inlineForm"></i>
                                         <div class="card-body w-auto">
                                             <div class="d-inline-block float-left">
                                                 <h6 class="mb-2">{{__('dashboard.bank-name')}} :</h6>
                                                 <h6 class="mb-2">{{__('dashboard.IBAN')}} :</h6>
-                                                <h6 class="mb-2"> {{__('dashboard.bank account')}} :</h6>
+                                                <h6 class="mb-1"> {{__('dashboard.bank account')}} :</h6>
                                                 <h6 class="mb-2">{{__('dashboard.name on card')}} :</h6>
                                             </div>
                                             <div class="d-inline-block float-right">
@@ -267,7 +271,7 @@
                                                             <label for="password-icon">{{__('dashboard.IBAN')}}</label>
                                                             <div class="position-relative has-icon-left">
                                                                 <input type="number" id="password-icon" class="form-control" name="IBAN" placeholder="{{__('dashboard.IBAN')}}"
-                                                                       pattern="\d*" onKeyPress="if(this.value.length==29) return false;" min="11111111111111111111111111111">
+                                                                       pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==29) return false;" min="11111111111111111111111111111">
                                                                 <div class="form-control-position">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </div>
@@ -292,6 +296,84 @@
             </div>
         </div>
     </div>
+{{--    ///////////////////////////////////////////// edit modal--}}
+    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">{{__('dashboard.edit bank-account')}} </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form  method="POST" id="modal-edit-form">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="first-name-icon">{{__('dashboard.bank-name')}}</label>
+                            <div class="position-relative has-icon-left">
+                                <input type="text" id="modal-bank-name" class="form-control" name="E_bank_name" placeholder="{{__('dashboard.bank-name')}}">
+                                <div class="form-control-position">
+                                    <i class="feather icon-grid"></i>
+                                </div>
+                            </div>
+                            @error('E_bank_name')
+                            <span class="text text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="first-name-icon">{{__('dashboard.bank account')}}</label>
+                            <div class="position-relative has-icon-left">
+                                <input type="number" id="modal-account-num" class="form-control" name="E_account_number" placeholder="{{__('dashboard.bank account')}}"
+                                       pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" min="1111111111111111">
+                                <div class="form-control-position">
+                                    <i class="feather icon-grid"></i>
+                                </div>
+                            </div>
+                            @error('E_account_number')
+                            <span class="text text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-info-icon">{{__('dashboard.name on card')}}</label>
+                            <div class="position-relative has-icon-left">
+                                <input type="text" id="modal-card-name" class="form-control" name="E_name_on_card" placeholder="{{__('dashboard.name on card')}}"/>
+                                <div class="form-control-position">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </div>
+                            @error('E_name_on_card')
+                            <span class="text text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-icon">{{__('dashboard.IBAN')}}</label>
+                            <div class="position-relative has-icon-left">
+                                <input type="number" id="modal-bank-iban" class="form-control" name="E_IBAN" placeholder="{{__('dashboard.IBAN')}}"
+                                       pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==29) return false;" min="11111111111111111111111111111">
+                                <div class="form-control-position">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </div>
+                            @error('E_IBAN')
+                            <span class="text text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" >
+                            {{__('dashboard.save')}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{{--            /////////////////////////////////////////////////////--}}
     @section('script')
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyDrWqGIyXBP98tkCX9jSRrtzCpVJ-jI6ck&libraries=places"></script>
         <script>
@@ -322,6 +404,27 @@
                         document.getElementById("longitude").value = place.geometry['location'].lng();
                     });
                 }
+
+                $('.pop-up-edit').on('click',function (){
+                   let id = $(this).data('id');
+                   let url = 'profile/'+id+'/edit';
+                   $.ajax({
+                       url: url,
+                       type: "get",
+                       data: {},
+                       success:function (response){
+                           if(response){
+                                $('#modal-bank-name').val(response.bank_name);
+                                $('#modal-account-num').val(response.account_number);
+                                $('#modal-card-name').val(response.name_on_card);
+                                $('#modal-bank-iban').val(response.IBAN);
+                                let update_url = 'profile/'+id+'/update/bank';
+                                $('#modal-edit-form').attr('action',update_url);
+                           }
+                       }
+                   });
+                });
+
             });
         </script>
     @endsection

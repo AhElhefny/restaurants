@@ -127,6 +127,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::post('profile/bank/store',[BankController::class,'store_from_profile'])->name('users.bank_profile.store');
                 Route::delete('profile/{bank}/delete',[BankController::class,'destroy_from_profile'])->name('users.bank_profile.destroy');
                 Route::get('profile/{bank}/edit',[BankController::class,'edit_from_profile'])->name('users.bank_profile.edit');
+                Route::put('profile/{bank}/update/bank',[BankController::class,'update_from_profile'])->name('users.bank_profile.update');
             });
         });
     });

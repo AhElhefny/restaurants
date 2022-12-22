@@ -25,7 +25,6 @@ class BankController extends Controller
         $accounts = Bank::with('user')->whereHas('user',function ($q)use($userType){
            return $q->where('type_en',$userType);
         })->get();
-//        dd($userType,$accounts);
         if (\request()->ajax()){
 
             return Datatables::of($accounts)->make(true);
@@ -60,19 +59,24 @@ class BankController extends Controller
     }
 
     public function edit_from_profile(Bank $bank){
-        dd($bank);
+        return response()->json($bank);
     }
 
-    public function update_from_profile(Request $request){
+    public function update_from_profile(Request $request,Bank $bank){
         $rules = [
-            'bank_name' => ['required'],
-            'account_number' => ['required'],
-            'IBAN' => ['required'],
+            'E_bank_name' => ['required'],
+            'E_account_number' => ['required'],
+            'E_IBAN' => ['required'],
         ];
         $validator = Validator::make($request->except(['_token']),$rules);
         if ($validator->fails()){
             return back()->withErrors($validator->errors());
         }
-
+        $data['bank_name'] = $request->E_bank_name;
+        $data['account_number'] = $request->E_account_number;
+        $data['name_on_card'] = $request->E_name_on_card;
+        $data['IBAN'] = $request->E_IBAN;
+        $bank->update($data);
+        return back()->with(['success'=>__('dashboard.item updated successfully')]);
     }
 }
