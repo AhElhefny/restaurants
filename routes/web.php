@@ -123,6 +123,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::view('app_notifications','dashboard.app_notifications')->name('appNotifications.index');
                 Route::post('app_notifications',AppNotificationController::class)->name('appNotifications.send');
                 Route::get('profile',[AuthController::class,'profile'])->name('profile');
+                Route::put('profile/{user}/update',[AuthController::class,'update_profile'])->name('users.update.profile');
+                Route::post('profile/bank/store',[BankController::class,'store_from_profile'])->name('users.bank_profile.store');
+                Route::delete('profile/{bank}/delete',[BankController::class,'destroy_from_profile'])->name('users.bank_profile.destroy');
+                Route::get('profile/{bank}/edit',[BankController::class,'edit_from_profile'])->name('users.bank_profile.edit');
             });
         });
     });

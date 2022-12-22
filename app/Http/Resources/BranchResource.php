@@ -22,7 +22,7 @@ class BranchResource extends JsonResource
           'reviews'        => $this->reviews,
           'is_open'        => $this->is_open,
           'phone'          => $this->phone,
-          'distance'       => $this->distance,
+          'distance'       => round($this->distance,2),
           'name'           => $this->name,
           'owner'          => $this->vendor->name,
           'category'       => $this->vendor->category->name,

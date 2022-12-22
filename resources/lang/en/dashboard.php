@@ -123,7 +123,7 @@ return [
     'bank accounts' => 'Bank Accounts',
     'name on card' => 'Name On Card',
     'IBAN' => 'IBAN',
-    'bank account' => 'Bank Account Number',
+    'bank account' => 'Account Number',
     'order_number' => 'Order Number',
     'order user' => 'Customer',
     'payment method' => 'Payment Method',

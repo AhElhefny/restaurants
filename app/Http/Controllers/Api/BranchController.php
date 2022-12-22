@@ -32,10 +32,13 @@ class BranchController extends Controller
                 ->orWhere('address','like','%'.$request->filter.'%')
                 ->orWhere('phone','like','%'.$request->filter.'%');
         }
-        if(isset($request->latitude) && isset($request->longitude)){
-            $query = $query->select('*',DB::raw("6371 * acos(cos(radians(" . $request->latitude . "))
-                * cos(radians(latitude)) * cos(radians(longitude) - radians(" . $request->longitude . "))
-                + sin(radians(" .$request->latitude. ")) * sin(radians(latitude))) AS distance"))->orderBy('distance','ASC');
+
+         if($request->headers->get('latitude') && $request->headers->get('longitude')){
+             $latitude = $request->headers->get('latitude');
+             $longitude = $request->headers->get('longitude');
+            $query = $query->select('*',DB::raw("6371 * acos(cos(radians(" . $latitude . "))
+                * cos(radians(latitude)) * cos(radians(longitude) - radians(" . $longitude . "))
+                + sin(radians(" .$latitude. ")) * sin(radians(latitude))) AS distance"))->orderBy('distance','ASC');
         }
         $branches = $query->get();
         if($branches->count()>0){

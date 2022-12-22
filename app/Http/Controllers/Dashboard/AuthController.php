@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerRequest;
+use App\Http\services\HelperTrait;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +13,7 @@ use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
+    use HelperTrait;
     public function index(){
         return view('dashboard.auth-login');
     }
@@ -57,9 +60,21 @@ class AuthController extends Controller
         $user = User::find(\auth()->user()->id);
         return view('dashboard.user_profile',['user'=>$user]);
     }
-    public function update_profile(){
+    public function update_profile(CustomerRequest $request){
         $user = User::find(\auth()->user()->id);
-        return view('dashboard.user_profile',['user'=>$user]);
+        $data =$request->except(['_token','latitude','longitude','password']);
+        if ($request->hasFile('image')){
+            $data['image'] = $this->storeImage($request->file('image'),'users/'.$user->selecetFolder($user->type));
+        }
+        if($request->latitude)
+            $data['latitude'] = $request->latitude;
+        if($request->longitude)
+            $data['longitude'] = $request->longitude;
+        if($request->password)
+            $data['password'] = bcrypt($request->password);
+
+        $user->update($data);
+        return back()->with(['success'=>__('dashboard.item updated successfully')]);
     }
 
 

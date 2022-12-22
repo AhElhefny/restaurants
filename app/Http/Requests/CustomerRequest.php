@@ -26,9 +26,15 @@ class CustomerRequest extends FormRequest
     {
         return [
             'name' => ['required','min:3'],
-            'email' => ['required','min:3',Rule::unique('users','email')],
+            'email' => ['required','min:3',request()->method() == 'POST'?
+                Rule::unique('users','email'):
+                Rule::unique('users','email')->ignore(auth()->user()->id)
+            ],
             'address' => ['required'],
-            'password' => ['required','confirmed','min:5'],
+            'password' => request()->method() == 'POST'?
+                ['required','confirmed','min:5']:
+                ['confirmed',request('password')?'min:5':'']
+            ,
             'phone' => ['nullable','digits:9']
         ];
     }
