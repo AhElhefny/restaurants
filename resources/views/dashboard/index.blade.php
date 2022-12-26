@@ -1,5 +1,6 @@
 @php use App\Models\Order;use App\Models\User;use Illuminate\Support\Facades\App; @endphp
 <x-dashboard.layouts.master title="{{__('dashboard.dashboard')}}">
+{{--    @dd(url()->previous())--}}
 
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -544,8 +545,10 @@
     @section('script')
         <script>
 {{--            @if(app('router')->getRoutes(url()->previous())->match(app('request')->create(url()->previous()))->getName() == 'admin.login')--}}
+{{--            @if(url()->previous()== 'http://127.0.0.1:8000/'.\app()->getLocale().'/admin')--}}
+            @if(url()->previous()== 'https://restaurants.badee.com.sa/'.\app()->getLocale().'/admin')
                 initFirebaseMessagingRegistration();
-{{--            @endif--}}
+            @endif
         </script>
     @endsection
 </x-dashboard.layouts.master>
