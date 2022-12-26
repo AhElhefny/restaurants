@@ -20,9 +20,9 @@ trait pushTrait
             'notification' => $fcmMsg,
             'data' => $notification
         );
-//        $API_ACCESS_KEY='AAAAre3RJU8:APA91bHeonKredCDpy_HnNYl07_MLz4VAS8UnOzHCYrw6AacgtWu7YndAQx-gFPnIlSBoJTNtGM9UvEpU9ExwnGFmzSnOsq5lvHPLQFjJCigOv9YgZpz2xRczfxL2V4sQmgH5wHf8uEX';
+        $API_ACCESS_KEY='AAAAre3RJU8:APA91bHeonKredCDpy_HnNYl07_MLz4VAS8UnOzHCYrw6AacgtWu7YndAQx-gFPnIlSBoJTNtGM9UvEpU9ExwnGFmzSnOsq5lvHPLQFjJCigOv9YgZpz2xRczfxL2V4sQmgH5wHf8uEX';
         $headers = array(
-            'Authorization: key=' . env('FCM_SERVER_KEY',env('SERVER_KEY')),
+            'Authorization: key=' . env('FCM_SERVER_KEY',$API_ACCESS_KEY),
             'Content-Type: application/json'
         );
         $req = json_encode($fcmFields,true);
