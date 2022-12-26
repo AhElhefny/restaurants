@@ -84,6 +84,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::get('orders',[OrdersController::class,'index'])->name('orders.index');
                 Route::get('order/{order}',[OrdersController::class,'show'])->name('orders.show');
+                Route::get('order/{order}/invoice',[OrdersController::class,'invoice'])->name('orders.invoice');
+                Route::get('order/{order}/editPaySetting',[OrdersController::class,'editPaySetting'])->name('orders.editPaySetting');
                 Route::get('order/{order}/changeStatus',[OrdersController::class,'changeStatus'])->name('orders.changeStatus');
 
                 Route::get('bankAccounts',[BankController::class,'index'])->name('bank.index');

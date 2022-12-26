@@ -205,6 +205,6 @@ class UserController extends Controller
     }
 
     public function users(){
-        return response()->json(User::where(['block'=>0,'type'=>User::USER])->get(),200);
+        return response()->json(User::where(['block' => 0 ,'type' => User::USER])->get(),200);
     }
 }

@@ -21,6 +21,7 @@ class CreateCouponsTable extends Migration
             $table->tinyInteger('number_of_use')->default(1);
             $table->double('min_amount')->default(0);
             $table->boolean('active')->default(1);
+            $table->unsignedBigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
         });

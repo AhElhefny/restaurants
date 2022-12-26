@@ -76,7 +76,7 @@
                     </ul>
                 </li>
             @endcan
-            @if(auth()->user()->type == User::ADMIN)
+            @if(auth()->user()->type == User::ADMIN || auth()->user()->type == User::VENDOR)
                 <li class=" nav-item"><a href="#"><i class="feather icon-life-buoy"></i><span class="menu-title" data-i18n="Data List">{{__('dashboard.promo-code')}}</span></a>
                     <ul class="menu-content">
                             <li class="{{Route::is('admin.promoCodes.index')? 'active':''}}"><a href="{{route('admin.promoCodes.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List View">{{__('dashboard.promo-code list')}}</span></a>

@@ -49,7 +49,7 @@
                                         <ul class="list-group list-group-flush">
                                             @foreach($order->services as $key => $service)
                                             <li class="list-group-item text-center">
-                                                <span class="badge badge-pill bg-{{$key%2==0?'info':'warning'}} float-right">{{$service->pivot->price}}</span>
+                                                <span class="badge badge-pill bg-{{$key%2==0?'info':'warning'}} float-right">{{$service->pivot->price . ' ' . __('dashboard.SAR')}}</span>
                                                 <span>{{$order->sizes[$key]->name}}</span>
                                                 <span class="float-left">{{$service->name}}</span>
                                             </li>
@@ -130,7 +130,7 @@
                                         <div class="detail-title detail-total d-inline-block float-left m-2"><strong>{{__('dashboard.total price')}}</strong></div>
                                         <div class="detail-amt total-amt d-inline-block float-right m-2">{{$order->total_after_discount_and_tax}}</div>
                                     </div>
-                                    <div class="btn btn-primary btn-block m-1" style="width: 94%">{{__('dashboard.invoice')}}</div>
+                                    <a class="btn btn-primary btn-block m-1" href="{{route('admin.orders.invoice',$order->id)}}" target="_blank" style="width: 94%">{{__('dashboard.invoice')}}</a>
                                 </div>
                             </div>
                         </div>

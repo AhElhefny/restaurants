@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponRequest;
 use App\Models\Coupon;
+use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 
 class CouponController extends Controller
@@ -16,8 +17,10 @@ class CouponController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
         if (\request()->ajax()){
-            return DataTables::of(Coupon::all())->make(true);
+            $coupons = $user->type == User::ADMIN ? Coupon::all() : Coupon::where('user_id',$user->id)->get();
+            return DataTables::of($coupons)->make(true);
         }
         return view('dashboard.promoCodes.index');
     }
@@ -41,6 +44,7 @@ class CouponController extends Controller
     public function store(CouponRequest $request)
     {
         $data = $request->except(['_token']);
+        $data['user_id'] = auth()->user()->id;
         Coupon::create($data);
         return response()->json(['success'=>'added successfully']);
     }
