@@ -15,6 +15,7 @@ class AuthController extends Controller
 {
     use HelperTrait;
     public function index(){
+
         return view('dashboard.auth-login');
     }
 
@@ -46,7 +47,7 @@ class AuthController extends Controller
                 abort(403);
             }
             session()->regenerate();
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.home')->with('alert','hello');
         }
         return back()->with(['error'=>__('dashboard.email or password or both are wrong')]);
     }

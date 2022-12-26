@@ -103,6 +103,53 @@
 <div class="sidenav-overlay"></div>
 <div class="drag-target"></div>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAKYL_WxuH0krn4e1wbwwJTUUEWoIZbQIY",
+        authDomain: "restaurants-f7a7e.firebaseapp.com",
+        projectId: "restaurants-f7a7e",
+        storageBucket: "restaurants-f7a7e.appspot.com",
+        messagingSenderId: "747019248975",
+        appId: "1:747019248975:web:9869b9fbac45d09fecd13a",
+        measurementId: "G-YNGG55V1CK"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+
+    function initFirebaseMessagingRegistration() {
+        messaging.requestPermission().then(function () {
+            return messaging.getToken()
+        }).then(function(token) {
+
+            axios.post("{{ route('admin.fcmToken') }}",{
+                _method:"PATCH",
+                token
+            }).then(({data})=>{
+                console.log(data)
+            }).catch(({response:{data}})=>{
+                console.error(data)
+            })
+
+        }).catch(function (err) {
+            console.log(`Token Error :: ${err}`);
+        });
+    }
+
+    initFirebaseMessagingRegistration();
+
+    messaging.onMessage(function({data:{body,title}}){
+        new Notification(title, {body});
+    });
+</script>
 <x-dashboard.layouts.footer />
 </body>
 <!-- END: Body-->

@@ -4,6 +4,7 @@ namespace App\Http\services;
 
 trait pushTrait
 {
+
     public function send_notification($title,$body ,$notification ,$userToken){
         $fcmMsg = array(
             'body' => $body,
@@ -15,13 +16,13 @@ trait pushTrait
             'registration_ids' => $userToken,
             'priority' => 'high',
             'content_available' => true,
-            'mutable_content' => true,
+            'mutable_content' => false,
             'notification' => $fcmMsg,
             'data' => $notification
         );
-        $API_ACCESS_KEY='';
+//        $API_ACCESS_KEY='AAAAre3RJU8:APA91bHeonKredCDpy_HnNYl07_MLz4VAS8UnOzHCYrw6AacgtWu7YndAQx-gFPnIlSBoJTNtGM9UvEpU9ExwnGFmzSnOsq5lvHPLQFjJCigOv9YgZpz2xRczfxL2V4sQmgH5wHf8uEX';
         $headers = array(
-            'Authorization: key=' . env('FCM_SERVER_KEY',$API_ACCESS_KEY),
+            'Authorization: key=' . env('FCM_SERVER_KEY',env('SERVER_KEY')),
             'Content-Type: application/json'
         );
         $req = json_encode($fcmFields,true);

@@ -212,7 +212,7 @@ return [
     'Invoice' => 'Invoice',
     'Issued' => 'Issued',
     'welcome' => 'Welcome',
-    '' => '',
+    'Read all notifications' => 'Read all notifications',
     '' => '',
     '' => '',
     '' => '',

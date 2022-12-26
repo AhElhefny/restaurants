@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\ContactUsController;
 use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\DeliveryManController;
 use App\Http\Controllers\Dashboard\DeliveryTypesController;
+use App\Http\Controllers\Dashboard\NotificationsController;
 use App\Http\Controllers\Dashboard\OfferController;
 use App\Http\Controllers\Dashboard\OrdersController;
 use App\Http\Controllers\Dashboard\PaymentMethodsControllr;
@@ -130,7 +131,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::delete('profile/{bank}/delete',[BankController::class,'destroy_from_profile'])->name('users.bank_profile.destroy');
                 Route::get('profile/{bank}/edit',[BankController::class,'edit_from_profile'])->name('users.bank_profile.edit');
                 Route::put('profile/{bank}/update/bank',[BankController::class,'update_from_profile'])->name('users.bank_profile.update');
+
+                Route::get('notifications/read-all',[NotificationsController::class,'read'])->name('notifications.read_all');
+                Route::patch('/fcm-token', [NotificationsController::class, 'updateToken'])->name('fcmToken');
             });
         });
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

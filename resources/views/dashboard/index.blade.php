@@ -541,4 +541,11 @@
         </div>
     </div>
     <!-- END: Content-->
+    @section('script')
+        <script>
+            @if(app('router')->getRoutes(url()->previous())->match(app('request')->create(url()->previous()))->getName() == 'admin.login')
+                initFirebaseMessagingRegistration();
+            @endif
+        </script>
+    @endsection
 </x-dashboard.layouts.master>
