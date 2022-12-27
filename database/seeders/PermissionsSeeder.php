@@ -89,6 +89,10 @@ class PermissionsSeeder extends Seeder
             ['guard_name' => 'web', 'name' => 'delete admin'],
             ['guard_name' => 'web', 'name' => 'edit delivery-man'],
             ['guard_name' => 'web', 'name' => 'show delivery-man'],
+            ['guard_name' => 'web', 'name' => 'additions'],
+            ['guard_name' => 'web', 'name' => 'edit addition'],
+            ['guard_name' => 'web', 'name' => 'add addition'],
+
         ];
         $Admin_role = Role::create([
             'name' => 'super_admin'
@@ -99,7 +103,7 @@ class PermissionsSeeder extends Seeder
             'services', 'add service', 'edit service', 'delete service', 'show service', 'sizes', 'add size', 'edit size',
             'delete size', 'sub-categories', 'add sub-category', 'edit sub-category', 'delete sub-category', 'show sub-category',
             'works-time', 'edit works-time', 'delete works-time', 'add works-time', 'orders', 'edit-order', 'show-order',
-            'offers', 'add offer', 'edit offer',
+            'offers', 'add offer', 'edit offer', 'additions', 'add addition', 'edit addition'
         ];
         $vendor_role = Role::create([
             'name' => 'vendor'
