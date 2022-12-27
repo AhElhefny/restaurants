@@ -25,13 +25,13 @@ class RolesController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     *->where('id','>',3)
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         if (\request()->ajax()) {
-            $data =Role::withCount('users')->where('id','>',3)->get();
+            $data =Role::withCount('users')->get();
             return Datatables::of($data)->make(true);
         }
         return view('dashboard.roles.list');

@@ -102,6 +102,10 @@ return [
     'add admin' => 'Add Admin' ,
     'edit admin' => 'Edit Admin' ,
     'delete admin' => 'Delete Admin' ,
+
+    'additions' => 'Additions' ,
+    'add addition' => 'Add Addition' ,
+    'edit addition' => 'Edit Addition' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

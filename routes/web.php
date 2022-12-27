@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Dashboard\AdditionController;
 use App\Http\Controllers\Dashboard\AppNotificationController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BankController;
@@ -134,6 +135,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::get('notifications/read-all',[NotificationsController::class,'read'])->name('notifications.read_all');
                 Route::patch('/fcm-token', [NotificationsController::class, 'updateToken'])->name('fcmToken');
+
+                Route::resource('addition',AdditionController::class);
+                Route::get('addition/{addition}/changeStatus',[AdditionController::class,'changeStatus'])->name('addition.changeStatus');
             });
         });
     });

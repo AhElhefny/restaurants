@@ -545,8 +545,8 @@
     @section('script')
         <script>
 {{--            @if(app('router')->getRoutes(url()->previous())->match(app('request')->create(url()->previous()))->getName() == 'admin.login')--}}
-{{--            @if(url()->previous()== 'http://127.0.0.1:8000/'.\app()->getLocale().'/admin')--}}
-            @if(url()->previous()== 'https://restaurants.badee.com.sa/'.\app()->getLocale().'/admin')
+            @if(url()->previous()== 'http://127.0.0.1:8000/'.\app()->getLocale().'/admin')
+{{--            @if(url()->previous()== 'https://restaurants.badee.com.sa/'.\app()->getLocale().'/admin')--}}
                 initFirebaseMessagingRegistration();
             @endif
         </script>

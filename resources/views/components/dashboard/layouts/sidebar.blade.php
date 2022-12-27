@@ -155,6 +155,14 @@
                 </ul>
             </li>
             @endcan
+            @can('additions')
+            <li class=" nav-item"><a href="#"><i class="feather icon-alert-circle"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.additions')}}</span></a>
+                <ul class="menu-content">
+                    <li class="{{Route::is('admin.addition.index')? 'active':''}}"><a href="{{route('admin.addition.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">{{__('dashboard.additions list')}}</span></a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
             @can('services')
             <li class=" nav-item"><a href="#"><i class="feather icon-briefcase"></i><span class="menu-title" data-i18n="Ecommerce">{{__('dashboard.services')}}</span></a>
                 <ul class="menu-content">

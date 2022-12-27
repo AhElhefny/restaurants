@@ -1,11 +1,11 @@
-<x-dashboard.layouts.master title="{{__('dashboard.add size')}}">
+<x-dashboard.layouts.master title="{{__('dashboard.sizes list')}}">
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
             <div class="content-header row">
             </div>
-            <x-dashboard.layouts.breadcrumb now="{{__('dashboard.add size')}}">
+            <x-dashboard.layouts.breadcrumb now="{{__('dashboard.sizes list')}}">
             </x-dashboard.layouts.breadcrumb>
             @can('add size')
                 <div class="col-12 mt-3">

@@ -9,7 +9,8 @@ trait pushTrait
         $fcmMsg = array(
             'body' => $body,
             'title' => $title,
-            'sound' => "default"
+            'sound' => "default",
+            'icon' => asset('dashboardAssets/images/thumbnail.png')
         );
 
         $fcmFields = array(
@@ -18,7 +19,7 @@ trait pushTrait
             'content_available' => true,
             'mutable_content' => false,
             'notification' => $fcmMsg,
-            'data' => $notification
+            'data' => $notification,
         );
         $API_ACCESS_KEY='AAAAre3RJU8:APA91bHeonKredCDpy_HnNYl07_MLz4VAS8UnOzHCYrw6AacgtWu7YndAQx-gFPnIlSBoJTNtGM9UvEpU9ExwnGFmzSnOsq5lvHPLQFjJCigOv9YgZpz2xRczfxL2V4sQmgH5wHf8uEX';
         $headers = array(

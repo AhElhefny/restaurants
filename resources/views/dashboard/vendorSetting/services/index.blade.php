@@ -1,11 +1,11 @@
-<x-dashboard.layouts.master title="{{__('dashboard.add service')}}">
+<x-dashboard.layouts.master title="{{__('dashboard.service list')}}">
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
             <div class="content-header row">
             </div>
-            <x-dashboard.layouts.breadcrumb now="{{__('dashboard.add service')}}">
+            <x-dashboard.layouts.breadcrumb now="{{__('dashboard.service list')}}">
             </x-dashboard.layouts.breadcrumb>
             @can('add service')
             <div class="col-12 mt-3">
