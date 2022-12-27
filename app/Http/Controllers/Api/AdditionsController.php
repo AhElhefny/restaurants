@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ServiceResource;
+use App\Http\Resources\AdditionsResource;
 use App\Http\services\ApiResponseTrait;
+use App\Models\Addition;
 use App\Models\Branch;
-use App\Models\Service;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class AdditionsController extends Controller
 {
     use ApiResponseTrait;
     public function index(Request $request){
-        $request->merge(['with_available'=>true]);
         if($request->branch_id){
             $branch = Branch::find($request->branch_id);
             if(!$branch){
@@ -21,17 +20,18 @@ class ServiceController extends Controller
             }else{
                 if ($request->subCategory){
 
-                    $query = $branch->services->where('vendor_category_id',$request->subCategory);
+                    $query = $branch->vendor->additions->where('vendor_category_id',$request->subCategory);
                 }else
-                    $query = $branch->services;
+                    $query = $branch->vendor->additions;
             }
-
-            return $this->ApiResponse(true,__('api.data retrieved successfully'),200,ServiceResource::collection($query));
+            $slugs = $query->pluck('slug')->toArray();
+            $slugs = array_unique($slugs);
+            foreach ($slugs as $key=>$slug){
+                $q[$key]['slug'] = $slug;
+                $q[$key]['additions'] = $query->where('slug',$slug);
+            }
+            return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$q);
         }
         return $this->ApiResponse(false,__('api.no such this data'),401);
-    }
-
-    public function show(Service $service){
-        return $this->ApiResponse(true,__('api.data retrieved successfully'),200,new ServiceResource($service));
     }
 }

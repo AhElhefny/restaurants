@@ -34,13 +34,6 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-6">
-                                                <label for="name">{{__('dashboard.slug')}}</label>
-                                                <input type="text" class="form-control" name="slug" placeholder="{{__('dashboard.slug')}}" value="{{old('slug')}}">
-                                                @error('slug')
-                                                <span style="font-size: 14px;" class="text-danger">{{$message}}</span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-6">
                                                 <label for="name">{{__('dashboard.min')}}</label>
                                                 <input type="number" class="form-control" name="min" placeholder="{{__('dashboard.min')}}" value="{{old('min')}}" min="0" max="20">
                                                 @error('min')
@@ -173,7 +166,6 @@
                                         <thead>
                                         <tr class="text text-center">
                                             <th>{{__('dashboard.table name')}}</th>
-                                            <th>{{__('dashboard.slug')}}</th>
                                             @if(auth()->user()->type == App\Models\User::ADMIN)
                                                 <th>{{__('dashboard.vendors')}}</th>
                                             @endif
@@ -212,11 +204,10 @@
                             d.page = 1;
                         },
                     },
-                    order: [[{{auth()->user()->type == App\Models\User::ADMIN ? 9 : 8}} , 'desc']],
+                    order: [[{{auth()->user()->type == App\Models\User::ADMIN ? 8 : 7}} , 'desc']],
                     "paging": true,
                     columns: [
                         {data: 'name', name: 'name'},
-                        {data: 'slug', name: 'slug'},
                             @if(auth()->user()->type == App\Models\User::ADMIN)
                         {data: 'vendor', render:function (data){
                                 return data.name

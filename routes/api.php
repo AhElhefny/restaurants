@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdditionsController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\CategoryController;
@@ -36,6 +37,7 @@ Route::get('services',[ServiceController::class,'index']);
 Route::get('service/{service}/show',[ServiceController::class,'show']);
 Route::get('delivery_types',DeliveryTypesControllr::class);
 Route::get('payment_methods',PaymentMethodsControllr::class);
+Route::get('additions',[AdditionsController::class,'index']);
 
 Route::group(['middleware'=>'auth:sanctum'],function (){
 

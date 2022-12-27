@@ -36,13 +36,6 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-6">
-                                                <label for="name">{{__('dashboard.slug')}}</label>
-                                                <input type="text" class="form-control" name="slug" placeholder="{{__('dashboard.slug')}}" value="{{old('slug',$addition->slug)}}">
-                                                @error('slug')
-                                                <span style="font-size: 14px;" class="text-danger">{{$message}}</span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-6">
                                                 <label for="name">{{__('dashboard.min')}}</label>
                                                 <input type="number" class="form-control" name="min" placeholder="{{__('dashboard.min')}}" value="{{old('min',$addition->min)}}" min="0" max="20">
                                                 @error('min')

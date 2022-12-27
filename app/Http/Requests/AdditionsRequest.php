@@ -28,7 +28,7 @@ class AdditionsRequest extends FormRequest
         return [
             'name_ar' => ['required','min:3','max:100'],
             'name_en' => ['required','min:3','max:100'],
-            'slug' => ['required','min:3','max:55'],
+//            'slug' => ['required','min:3','max:55'],
             'min' => ['required','numeric'],
             'max' => ['nullable','numeric','min:'.request('min')],
             'price' => ['required','numeric'],

@@ -48,6 +48,11 @@ class Vendor extends Model
         return $this->hasMany(Service::class);
     }
 
+    public function additions()
+    {
+        return $this->hasMany(Addition::class)->where('active',1);
+    }
+
     public function worksTime()
     {
         return $this->hasMany(WorksTime::class);
