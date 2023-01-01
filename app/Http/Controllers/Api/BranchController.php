@@ -14,7 +14,7 @@ class BranchController extends Controller
     use ApiResponseTrait;
 
     public function index(Request $request){
-        $query = Branch::with(['vendor'])->where('active',1);
+        $query = Branch::with(['vendor'])->where(['active'=>1,'is_open'=>1]);
         if ($request->category_id){
             $query->whereHas('vendor',function ($query)use ($request){
                 $query->where('category_id',$request->category_id);

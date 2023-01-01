@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\services\pushTrait;
 use App\Models\Branch;
+use App\Models\FcmToken;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -14,6 +16,7 @@ use function Symfony\Component\String\b;
 
 class OrdersController extends Controller
 {
+    use pushTrait;
     public function __construct()
     {
         $this->middleware('permission:orders',['only'=>['index']]);
@@ -57,6 +60,9 @@ class OrdersController extends Controller
         $data['body_en']= 'The status of your request has changed from '. $oldStatus->name_en . ' to ' . $newStatus->name_en;
         $data['user_id']= $order->user_id;
         $notification = Notification::create($data);
+        $token = FcmToken::where('user_id',$order->user_id)->pluck('tokens')->toArray();
+        $res_ar = $this->send_notification($notification->title_ar,$notification->body_ar,$notification,$token);
+        $res_en = $this->send_notification($notification->title_en,$notification->body_en,$notification,$token);
         $order->update(['order_status_id'=>$request->order_status]);
         return back()->with(['success'=>__('dashboard.item updated successfully')]);
     }

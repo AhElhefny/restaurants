@@ -10,11 +10,15 @@ use App\Models\User;
 class Cart extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+
 
     protected $guarded=[''];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function items(){
+        return $this->hasMany(CartItem::class);
     }
 }
