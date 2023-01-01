@@ -28,6 +28,8 @@ class AdditionsController extends Controller
             $slugs = array_unique($slugs);
             foreach ($slugs as $key=>$slug){
                 $q[$key]['slug'] = $slug;
+                $q[$key]['min'] = $query->where('slug',$slug)->pluck('min')->toArray()[0];
+                $q[$key]['max'] = $query->where('slug',$slug)->pluck('max')->toArray()[0];
                 $q[$key]['additions'] = $query->where('slug',$slug);
             }
             return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$q);

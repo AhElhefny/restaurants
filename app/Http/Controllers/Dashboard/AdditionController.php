@@ -62,7 +62,7 @@ class AdditionController extends Controller
     {
         $data = $request->except(['_token','image','active']);
         $data['active'] = $request->active == 'on' ? 1 : 0 ;
-        $data['slug'] = 'min choice is '.($request->min??0) . ' & max choice is '.($request->max??0);
+        $data['slug'] = 'min choice is '.($request->min??0) . ' & max choice is '.($request->max??'-');
         $data['vendor_category_id'] = $request->sub_category_id;
         if($request->hasFile('image')){
             $data['image'] = $this->storeImage($request->file('image'),'additions');
@@ -113,7 +113,7 @@ class AdditionController extends Controller
         $data = $request->except(['_token','image','active']);
         $data['active'] = $request->active == 'on' ? 1 : 0 ;
         $data['vendor_category_id'] = $request->sub_category_id;
-        $data['slug'] = 'min choice is '.$request->min??0 . ' & max choice is '.$request->max??0;
+        $data['slug'] = 'min choice is '.($request->min??0) . ' & max choice is '.($request->max??'-');
         if($request->hasFile('image')){
             $data['image'] = $this->storeImage($request->file('image'),'additions');
         }
