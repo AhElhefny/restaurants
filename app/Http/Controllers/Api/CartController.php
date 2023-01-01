@@ -82,7 +82,7 @@ class CartController extends Controller
             return $this->ApiResponse(false,__('api.no such this data'),404,['item not found']);
         }
         $item->delete();
-        return $this->ApiResponse(true,__('api.item deleted successfully'),200,$cart);
+        return $this->ApiResponse(true,__('api.item deleted successfully'),200,['cart' => $cart]);
     }
 
     public function ClearCart(Request $request){
@@ -91,7 +91,7 @@ class CartController extends Controller
             return $this->ApiResponse(false,__('api.no such this data'),404,['cart not found']);
         }
         $cart->items()->delete();
-        return $this->ApiResponse(true,__('api.cart cleared successfully'),200,$cart->id);
+        return $this->ApiResponse(true,__('api.cart cleared successfully'),200,['cart' => $cart->id]);
     }
 
     public function CartItems(Request $request){
@@ -118,6 +118,6 @@ class CartController extends Controller
         if (!$cart){
             return $this->ApiResponse(false,__('api.no such this data'),404,['cart not found']);
         }
-        return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$cart);
+        return $this->ApiResponse(true,__('api.data retrieved successfully'),200,['cart' => $cart]);
     }
 }
