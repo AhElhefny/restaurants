@@ -24,7 +24,7 @@ return [
     'item added successfully' => 'Item Added Successfully' ,
     'cart cleared successfully' => 'Cart Cleared Successfully' ,
     'cart is empty' => 'Cart Is Empty' ,
-    '' => '' ,
+    'item deleted successfully' => 'Item Deleted Successfully' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

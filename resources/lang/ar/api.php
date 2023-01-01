@@ -24,7 +24,7 @@ return [
     'item added successfully' => 'تمت الإضافة في العربه بنجاح' ,
     'cart cleared successfully' => 'تم تفريغ العربه بنجاح' ,
     'cart is empty' => 'العربه فارغه' ,
-    '' => '' ,
+    'item deleted successfully' => 'تم الحذف من العربه بنجاح' ,
     '' => '' ,
     '' => '' ,
     '' => '' ,

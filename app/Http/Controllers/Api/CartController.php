@@ -7,6 +7,7 @@ use App\Http\Resources\ItemResource;
 use App\Http\services\ApiResponseTrait;
 use App\Models\Branch;
 use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -70,8 +71,18 @@ class CartController extends Controller
         return $this->ApiResponse(true,__('api.item added successfully'),200);
     }
 
-    public function RemoveFromCart(){
+    public function RemoveFromCart(Request $request){
+        $cart = Cart::find($request->cart_id);
+        if(!$cart){
+            return $this->ApiResponse(false,__('api.no such this data'),404,['cart not found']);
+        }
 
+        $item = $cart->items()->where('id',$request->item_id)->first();
+        if(!$item){
+            return $this->ApiResponse(false,__('api.no such this data'),404,['item not found']);
+        }
+        $item->delete();
+        return $this->ApiResponse(true,__('api.item deleted successfully'),200,$cart);
     }
 
     public function ClearCart(Request $request){

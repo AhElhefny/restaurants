@@ -45,15 +45,15 @@ Route::group(['prefix'=>'cart','controller'=>CartController::class],function (){
     Route::post('service/add','AddToCart');
     Route::post('empty','ClearCart');
     Route::post('items','CartItems');
+    Route::post('remove/item','RemoveFromCart');
 });
 
 
 Route::group(['middleware'=>'auth:sanctum'],function (){
-
    Route::post('logout',[AuthController::class,'logout']);
-
    Route::post('FCMToken/store',[NotificationsController::class,'storeFCMToken']);
    Route::get('user/notifications',[NotificationsController::class,'index']);
    Route::get('user/cart',[CartController::class,'UserCart']);
+   Route::post('addCartToUser',[CartController::class,'AddCartToUser']);
 });
 
