@@ -40,7 +40,13 @@ Route::get('service/{service}/show',[ServiceController::class,'show']);
 Route::get('delivery_types',DeliveryTypesControllr::class);
 Route::get('payment_methods',PaymentMethodsControllr::class);
 Route::get('additions',[AdditionsController::class,'index']);
-Route::post('cart/service/add',[CartController::class,'AddToCart']);
+
+Route::group(['prefix'=>'cart','controller'=>CartController::class],function (){
+    Route::post('service/add','AddToCart');
+    Route::post('empty','ClearCart');
+    Route::post('items','CartItems');
+});
+
 
 Route::group(['middleware'=>'auth:sanctum'],function (){
 
@@ -48,5 +54,6 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
 
    Route::post('FCMToken/store',[NotificationsController::class,'storeFCMToken']);
    Route::get('user/notifications',[NotificationsController::class,'index']);
+   Route::get('user/cart',[CartController::class,'UserCart']);
 });
 

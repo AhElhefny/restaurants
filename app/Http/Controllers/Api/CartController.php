@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ItemResource;
 use App\Http\services\ApiResponseTrait;
 use App\Models\Branch;
 use App\Models\Cart;
@@ -12,6 +13,7 @@ class CartController extends Controller
 {
     use ApiResponseTrait;
     public function AddToCart(Request $request){
+
         $branch = Branch::where(['id'=>$request->branch_id,'active'=>1,'is_open'=>1])->first();
         if(!$branch){
             return $this->ApiResponse(false,__('api.no such this data'),404,['branch not found']);
@@ -72,15 +74,39 @@ class CartController extends Controller
 
     }
 
-    public function ClearCart(){
-
+    public function ClearCart(Request $request){
+        $cart = Cart::find($request->cart_id);
+        if (!$cart){
+            return $this->ApiResponse(false,__('api.no such this data'),404,['cart not found']);
+        }
+        $cart->items()->delete();
+        return $this->ApiResponse(true,__('api.cart cleared successfully'),200,$cart->id);
     }
 
-    public function CartItems(){
+    public function CartItems(Request $request){
+        $cart = Cart::find($request->cart_id);
+        if (!$cart){
+            return $this->ApiResponse(false,__('api.no such this data'),404,['cart not found']);
+        }
 
+        $items = $cart->items;
+
+        if ($items->count()<=0){
+            return $this->ApiResponse(true,__('api.cart is empty'),200,[__('api.cart is empty')]);
+        }
+
+        return $this->ApiResponse(true,__('api.data retrieved successfully'),200,ItemResource::collection($items));
     }
 
     public function AddCartToUser(){
 
+    }
+
+    public function UserCart(){
+        $cart = auth('api')->user()->cart;
+        if (!$cart){
+            return $this->ApiResponse(false,__('api.no such this data'),404,['cart not found']);
+        }
+        return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$cart);
     }
 }
