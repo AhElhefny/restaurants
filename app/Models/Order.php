@@ -16,6 +16,8 @@ class Order extends Model
     use DefaultModelAttributesTrait;
 
     protected $guarded = [''];
+    const FINISHED = 4;
+    const CANCELED = 5;
 
     public function user(){
         return $this->belongsTo(User::class);

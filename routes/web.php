@@ -23,6 +23,7 @@ use App\Http\Controllers\Dashboard\TermsConditionsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
 use App\Http\Controllers\Dashboard\WorksTimeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -54,7 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::post('', [AuthController::class, 'login'])->name('startSession');
 
             Route::group(['middleware' => 'auth'],function (){
-                Route::view('home','dashboard.index')->name('home');
+                Route::get('home',[HomeController::class,'index'])->name('home');
                 Route::get('destroy',[AuthController::class,'logout'])->name('logout');
 
                 Route::resource('category',CategoryController::class);

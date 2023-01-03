@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\services\pushTrait;
+use App\Models\FcmToken;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -46,7 +47,9 @@ class AppNotificationController extends Controller
             $data['user_id'] =$id;
             $notification =Notification::create($data);
         }
-//        $res = $this->send_notification($data['title_ar'],$data['body_ar'],$notification,$useraTokens);
+        $usersTokens = FcmToken::whereIn('user_id',$user_ids)->pluck('tokens')->toArray();
+        $res = $this->send_notification($data['title_ar'],$data['body_ar'],$notification,$usersTokens);
+        $res = $this->send_notification($data['title_en'],$data['body_en'],$notification,$usersTokens);
         return back()->with(['success'=>__('dashboard.notification send successfully')]);
     }
 }
