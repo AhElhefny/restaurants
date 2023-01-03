@@ -77,15 +77,16 @@ class HomeController extends Controller
     private function getUsersCountLatestMonths(int $num):int {
        return DB::table('users')
             ->select('*')
-            ->join('orders','orders.user_id','=','users.id')
             ->where('type','=',User::USER)
             ->whereYear('users.created_at','=',Carbon::now()->subMonths($num)->format('Y'))
             ->whereMonth('users.created_at','=',Carbon::now()->subMonths($num)->format('m'))
             ->when(auth()->user()->type != User::ADMIN,function ($q){
                 $q->when(auth()->user()->type == User::VENDOR,function ($q){
-                    $q->whereIn('branch_id',auth()->user()->vendor->branches()->pluck('id')->toArray());
+                    $q->join('orders','orders.user_id','=','users.id')
+                        ->whereIn('branch_id',auth()->user()->vendor->branches()->pluck('id')->toArray());
                 })->when(auth()->user()->type == User::BRANCH_MANAGER,function ($q){
-                   $q->where('branch_id',auth()->user()->branch->id);
+                   $q->join('orders','orders.user_id','=','users.id')
+                       ->where('branch_id',auth()->user()->branch->id);
                 });
             })
             ->count();
