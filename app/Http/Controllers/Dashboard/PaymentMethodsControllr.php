@@ -16,7 +16,7 @@ class PaymentMethodsControllr extends Controller
     {
         $this->middleware('permission:payment-methods',['only'=>['index']]);
         $this->middleware('permission:add payment-methods',['only'=>['store']]);
-        $this->middleware('permission: edit payment-methods',['only'=>['edit','update','changeStatus']]);
+        $this->middleware('permission:edit payment-methods',['only'=>['edit','update','changeStatus']]);
     }
 
     use HelperTrait;
