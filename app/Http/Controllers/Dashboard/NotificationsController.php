@@ -11,11 +11,13 @@ use Illuminate\Http\Request;
 class NotificationsController extends Controller
 {
     use pushTrait;
-    public function read(){
+    public function readAll(){
         Notification::where('user_id',auth()->user()->id)->update(['seen'=>1]);
-//        $token = FcmToken::where('user_id',1)->pluck('tokens')->toArray();
-//        $res = $this->send_notification('test','test for web',Notification::find(1),$token);
-//        dd($res);
+        return back();
+    }
+
+    public function read(Notification $notification){
+        $notification->update(['seen'=>1]);
         return back();
     }
 

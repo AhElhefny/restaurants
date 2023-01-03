@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string('title_en')->nullable();
             $table->text('body_ar')->nullable();
             $table->text('body_en')->nullable();
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->boolean('seen')->default(0);
             $table->softDeletes();

@@ -134,7 +134,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::get('profile/{bank}/edit',[BankController::class,'edit_from_profile'])->name('users.bank_profile.edit');
                 Route::put('profile/{bank}/update/bank',[BankController::class,'update_from_profile'])->name('users.bank_profile.update');
 
-                Route::get('notifications/read-all',[NotificationsController::class,'read'])->name('notifications.read_all');
+                Route::get('notifications/read-all',[NotificationsController::class,'readAll'])->name('notifications.read_all');
+                Route::get('notifications/{notification}/read',[NotificationsController::class,'read'])->name('notifications.read');
                 Route::patch('/fcm-token', [NotificationsController::class, 'updateToken'])->name('fcmToken');
 
                 Route::resource('addition',AdditionController::class);

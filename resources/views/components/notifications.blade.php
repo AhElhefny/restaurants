@@ -1,4 +1,4 @@
-<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">{{$notifications->where('seen',0)->count()}}</span></a>
+<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up" id="notification-counter">{{$notifications->where('seen',0)->count()}}</span></a>
     <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
         <li class="dropdown-menu-header">
             <div class="dropdown-header m-0 p-2">
@@ -7,7 +7,7 @@
         </li>
         <li class="scrollable-container media-list">
             @foreach($notifications->where('seen',0) as $notification)
-            <a class="d-flex justify-content-between notification-link" id="{{$notification->id}}" href="javascript:void(0)">
+            <a class="d-flex justify-content-between notification-link" id="{{$notification->id}}" href="{{$notification->order_id > 0?route('admin.orders.show',$notification->order_id):route('admin.notifications.read',$notification->id)}}">
                 <div class="media d-flex align-items-start">
                     <div class="media-left"><i class="feather icon-x-circle font-medium-5 primary"></i></div>
                     <div class="media-body">
@@ -19,7 +19,7 @@
             </a>
             @endforeach
             @foreach($notifications->where('seen',1) as $notification)
-            <a class="d-flex justify-content-between notification-link" id="{{$notification->id}}" href="javascript:void(0)">
+            <a class="d-flex justify-content-between notification-link" id="{{$notification->id}}" href="{{$notification->order_id > 0?route('admin.orders.show',$notification->order_id):route('admin.notifications.read',$notification->id)}}">
                 <div class="media d-flex align-items-start">
                     <div class="media-left"><i class="feather icon-check-circle font-medium-5 info"></i></div>
                     <div class="media-body">

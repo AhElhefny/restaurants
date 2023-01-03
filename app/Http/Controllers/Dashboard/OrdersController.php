@@ -48,6 +48,7 @@ class OrdersController extends Controller
     }
 
     public function show(Order $order){
+        Notification::where('order_id',$order->id)->update(['seen'=>1]);
         return view('dashboard.orders.details',['order'=>$order]);
     }
 
@@ -59,6 +60,7 @@ class OrdersController extends Controller
         $data['title_en'] = 'The status of your request has changed';
         $data['body_en']= 'The status of your request has changed from '. $oldStatus->name_en . ' to ' . $newStatus->name_en;
         $data['user_id']= $order->user_id;
+        $data['order_id'] = $order->id;
         $notification = Notification::create($data);
         $token = FcmToken::where('user_id',$order->user_id)->pluck('tokens')->toArray();
         $res_ar = $this->send_notification($notification->title_ar,$notification->body_ar,$notification,$token);
