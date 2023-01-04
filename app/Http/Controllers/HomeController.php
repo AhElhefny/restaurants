@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offer;
 use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
@@ -65,12 +66,15 @@ class HomeController extends Controller
         $usersCount['LatestThreeMonth'] = $this->getUsersCountLatestMonths(3);
         $usersCount['LatestFourMonth'] = $this->getUsersCountLatestMonths(4);
 
+        $offers = Offer::where('owner',$authUser->id)->get();
+
         return view('dashboard.index',[
             'orders' => $orders,
             'orderDetail' => $orderDetail,
             'ordersCountLatestSevenDays' => $ordersCount,
             'users' => $users,
             'usersCountLatestFourMonth' => $usersCount,
+            'offers' => $offers
         ]);
     }
 

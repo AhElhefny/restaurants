@@ -3,65 +3,63 @@
         <div class="card-content">
             <div class="card-body">
                 <div class="row pb-50">
-                    <div
-                            class="col-lg-6 col-12 d-flex justify-content-between flex-column order-lg-1 order-2 mt-lg-0 mt-2">
+                    <div class="col-lg-6 col-12 d-flex justify-content-between flex-column order-lg-1 order-2 mt-lg-0 mt-2">
                         <div>
-                            <h2 class="text-bold-700 mb-25">2.7K</h2>
-                            <p class="text-bold-500 mb-75">Avg Sessions</p>
-                            <h5 class="font-medium-2">
-                                <span class="text-success">+5.2% </span>
-                                <span>vs last 7 days</span>
+                            <h2 class="text-bold-700 mb-25">{{$offers->count()}}</h2>
+                            <p class="text-bold-500 mb-75">{{__('dashboard.offers')}}</p>
+                            <h5 class="font-small-2">
+                                <span class="text-success">{{__('dashboard.users attract')}} </span>
                             </h5>
                         </div>
-                        <a href="#" class="btn btn-primary shadow">View Details <i
-                                    class="feather icon-chevrons-right"></i></a>
-                    </div>
-                    <div
-                            class="col-lg-6 col-12 d-flex justify-content-between flex-column text-right order-lg-2 order-1">
-                        <div class="dropdown chart-dropdown">
-                            <button class="btn btn-sm border-0 dropdown-toggle p-0"
-                                    type="button" id="dropdownItem5" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Last 7 Days
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right"
-                                 aria-labelledby="dropdownItem5">
-                                <a class="dropdown-item" href="#">Last 28 Days</a>
-                                <a class="dropdown-item" href="#">Last Month</a>
-                                <a class="dropdown-item" href="#">Last Year</a>
-                            </div>
-                        </div>
-                        <div id="avg-session-chart"></div>
+                        <a href="{{route('admin.offers.index')}}" class="btn btn-primary shadow">{{__('dashboard.View More')}} <i class="feather icon-chevrons-right"></i></a>
                     </div>
                 </div>
                 <hr/>
-                <div class="row avg-sessions pt-50">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height: 375px">
+                    <ol class="carousel-indicators">
+                        @foreach($offers as $key=>$offer)
+                            <li data-target="#carousel-example-generic" data-slide-to="{{$key}}"></li>
+                        @endforeach
+                    </ol>
+
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <img src="{{$offers[0]->image}}" class="d-block w-100" height="250px" alt="1 slide">
+                            <hr/>
+                            <p class="card-text">{{$offers[0]->description}}.</p>
+                        </div>
+                        @foreach($offers as $key=>$offer)
+                            @if($key != 0)
+                                <div class="carousel-item">
+                                    <img src="{{$offer->image}}" class="d-block w-100" height="250px" alt="{{$offer->id}} slide">
+                                    <hr/>
+                                    <p class="card-text">{{$offer->description}}.</p>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="fa fa-angle-left icon-prev" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="fa fa-angle-right icon-next" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div class="row avg-sessions pt-50 ">
                     <div class="col-6">
-                        <p class="mb-0">Goal: $100000</p>
+                        <p class="mb-0">Active : {{$offers->where('active',1)->count()}}</p>
                         <div class="progress progress-bar-primary mt-25">
                             <div class="progress-bar" role="progressbar" aria-valuenow="50"
-                                 aria-valuemin="50" aria-valuemax="100" style="width:50%"></div>
+                                 aria-valuemin="50" aria-valuemax="100" style="width:{{$offers->where('active',1)->count()}}0%"></div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <p class="mb-0">Users: 100K</p>
+                        <p class="mb-0">In-Active : {{$offers->where('active',0)->count()}}</p>
                         <div class="progress progress-bar-warning mt-25">
                             <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                                 aria-valuemin="60" aria-valuemax="100" style="width:60%"></div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <p class="mb-0">Retention: 90%</p>
-                        <div class="progress progress-bar-danger mt-25">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                 aria-valuemin="70" aria-valuemax="100" style="width:70%"></div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <p class="mb-0">Duration: 1yr</p>
-                        <div class="progress progress-bar-success mt-25">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="90"
-                                 aria-valuemin="90" aria-valuemax="100" style="width:90%"></div>
+                                 aria-valuemin="60" aria-valuemax="100" style="width:{{$offers->where('active',0)->count()}}0%"></div>
                         </div>
                     </div>
                 </div>

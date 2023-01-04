@@ -37,7 +37,7 @@ class AppNotificationController extends Controller
             return back()->withErrors($validator->errors());
         }
 
-        $query = User::where(['block'=>0]);//,'type'=>User::USER
+        $query = User::where(['block'=>0]);//TODO,'type'=>User::USER
         $user_ids = $request->send_to == 0 ? $query->pluck('id')->toArray() : $query->find($request->users_select)->pluck('id')->toArray();
         $data['title_ar'] = $request->title_ar;
         $data['title_en'] = $request->title_en;
