@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="card-content">
-                                    <img class="" src="{{$offer->image}}" alt="Card image cap" height="294px" width="100%">
+                                    <img class="" src="{{$offer->image??asset('dashboardAssets/images/defaultOffers.jpg')}}" alt="Card image cap" height="294px" width="100%">
                                     <div class="card-body" style="height: 100px; overflow: hidden">
                                         <p class="card-text">{{$offer->description}}.</p>
                                     </div>

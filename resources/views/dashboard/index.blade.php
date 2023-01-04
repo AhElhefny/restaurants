@@ -23,7 +23,9 @@
 
                     <div class="row match-height">
                         <x-dashboard.home.ordersRadialChart :orderDetail="$orderDetail"/>
-                        <x-dashboard.home.offers :offers="$offers"/>
+                        @if(auth()->user()->type != \App\Models\User::BRANCH_MANAGER)
+                            <x-dashboard.home.offers :offers="$offers"/>
+                        @endif
                         <x-dashboard.home.activityTimeLine />
 
                     </div>

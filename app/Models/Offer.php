@@ -15,7 +15,7 @@ class Offer extends Model
     public $folder = 'offers';
 
     public function getImageAttribute($value){
-        return asset('dashboardAssets/images/'.$this->folder.'/'.$value);
+        return $value?asset('dashboardAssets/images/'.$this->folder.'/'.$value):asset('dashboardAssets/images/defaultOffers.jpg');
     }
 
 
