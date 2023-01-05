@@ -237,7 +237,7 @@ return [
     'latest orders' => 'Latest Orders',
     'users attract' => 'A tool to attract a customer',
     'View More' => 'View More',
-    '' => '',
+    'add delivery-type' => 'Add Delivery-Type',
     '' => '',
     '' => '',
     '' => '',
