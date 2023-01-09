@@ -18,7 +18,7 @@ return [
     'you are logged in successfully' => 'You Are Logged In Successfully' ,
     'you are logged out successfully' => 'You Are Logged Out Successfully' ,
     'continue to complete the registration process' => 'Continue To Complete The Registration Process' ,
-    'no such this data' => 'No such branches equal this data' ,
+    'no such this data' => 'No such output equal this data' ,
     'token is invalid' => 'Token is Invalid' ,
     'something went wrong' => 'Something Went Wrong' ,
     'item added successfully' => 'Item Added Successfully' ,

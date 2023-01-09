@@ -109,8 +109,54 @@ class CartController extends Controller
         return $this->ApiResponse(true,__('api.data retrieved successfully'),200,ItemResource::collection($items));
     }
 
-    public function AddCartToUser(){
+    public function AddCartToUser(Cart $cart){
 
+        $oldCart = Cart::where(['user_id' => auth('api')->user()->id])->first();
+
+        //new and old not exist
+        if(!$cart && !$oldCart){
+            return $this->ApiResponse(true,__('api.cart is empty'),200);
+        }
+
+        // new exist and old not exist
+        if(!isset($oldCart) && $cart){
+            $cart->update(['user_id'=>auth('api')->user()->id]);
+            return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$cart);
+        }
+
+        // new not exist and old exist
+        if(!isset($cart) && $oldCart){
+            return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$oldCart);
+        }
+
+        // new and old exist
+        if($cart && $oldCart){
+            if($cart->branch_id != $oldCart->branch_id){
+                $oldCart->items()->delete();
+                $oldCart->delete();
+                $cart->update(['user_id'=>auth('api')->user()->id]);
+                return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$cart);
+            }
+            else{
+                $cartItems = CartItem::whereIn('cart_id',[$cart->id,$oldCart->id])->get();
+                foreach ($cartItems as $item){
+                    if(!in_array($item->service_id,$oldCart->items->pluck('service_id')->toArray()))
+                        $item->update(['cart_id'=>$oldCart->id]);
+                }
+                $cart->items()->delete();
+                $cart->delete();
+            }
+        }
+        return $this->ApiResponse(true,__('api.data retrieved successfully'),200,$oldCart);
+    }
+
+    public function UpdateItem(Request $request){
+        $item = CartItem::find($request->item_id);
+        if (!$item){
+            return $this->ApiResponse(false,__('api.no such this data'),404,['item not found']);
+        }
+        $item->update(['quantity'=>$request->quantity??$item->quantity]);
+        return $this->ApiResponse(true,__('api.data retrieved successfully'),200);
     }
 
     public function UserCart(){
