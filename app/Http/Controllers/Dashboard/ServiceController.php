@@ -111,7 +111,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        return view('dashboard.vendorSetting.services.details',['service'=>$service]);
     }
 
     /**

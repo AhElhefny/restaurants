@@ -56,6 +56,13 @@
                                                 <span style="font-size: 14px;" class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group col-6">
+                                                <label for="name">{{__('dashboard.slug')}}</label>
+                                                <input type="text" class="form-control" name="slug" placeholder="like cheese, soda, etc... " value="{{old('slug',$addition->slug)}}" >
+                                                @error('slug')
+                                                <span style="font-size: 14px;" class="text-danger">{{$message}}</span>
+                                                @enderror
+                                            </div>
                                             @if(auth()->user()->type == App\Models\User::ADMIN)
                                                 <div class="col-6">
                                                     <div class="form-group">

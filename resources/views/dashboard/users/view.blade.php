@@ -17,7 +17,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="card-title">{{__('dashboard.account')}}</div>
+                                    <div class="card-title">{{__('dashboard.customer details')}}</div>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">

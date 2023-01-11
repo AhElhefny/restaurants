@@ -85,6 +85,8 @@ return [
     'branch manager' => 'Branch Manager',
     'add service' => 'Add service',
     'edit service' => 'Edit service',
+    'show service' => 'Service Details',
+    'Details' => 'Details',
     'vendors settings' => 'ٍVendors Settings',
     'service list' => 'Services List',
     'add size' => 'Add Size',

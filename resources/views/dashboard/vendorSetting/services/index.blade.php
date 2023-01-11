@@ -220,12 +220,12 @@
                         {data: 'created_at', name: 'created_at'},
 
                             {data: 'id', render: function (data, two, three) {
-                                    @if(!auth()->user()->can('edit service') && !auth()->user()->can('delete service'))
+                                    @if(!auth()->user()->can('edit service') && !auth()->user()->can('show service'))
                                     return '';
                                     @endif
                                     let edit = 'services/' + data + '/edit';
                                     let changeStatus = 'service/'+data+'/changeStatus';
-                                    // let deleting = 'services/' + data;
+                                    let show = 'services/' + data;
 
                                         return `<div class="btn-group">
                                         <div class="dropdown">
@@ -238,6 +238,9 @@
                                             <a class="dropdown-item" href="${edit}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.edit')}}</a>
                                             @endif
                                             <a class="dropdown-item" href="${changeStatus}"><i class="fa fa-edit mr-1"></i>{{__('dashboard.change status')}}</a>
+                                        @endcan
+                                        @can('show service')
+                                        <a class="dropdown-item" href="${show}"><i class="fa fa-eye mr-1"></i>{{__('dashboard.show')}}</a>
                                         @endcan
 {{--                                        @can('delete service')--}}
 {{--                                        <form action='${deleting}' method='POST' class="role-${data}">--}}

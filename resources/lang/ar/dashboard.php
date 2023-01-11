@@ -84,6 +84,8 @@ return [
     'branch manager' => 'مدير الفرع' ,
     'add service' => 'إضافة خدمه' ,
     'edit service' => 'تعديل خدمه' ,
+    'show service' => 'معاينة خدمه' ,
+    'Details' => 'التفاصيل' ,
     'vendors settings' => 'إعدادات مزودي الخدمه' ,
     'service list' => 'قائمة الخدمات' ,
     'add size' => 'إضافة حجم' ,
