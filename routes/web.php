@@ -51,9 +51,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::group(['prefix' => 'admin'],function (){
         Route::name('admin.')->group(function (){
 
-            Route::get('',[AuthController::class,'index'])->name('login')->middleware('guest');
-            Route::post('', [AuthController::class, 'login'])->name('startSession');
-
+            Route::group(['controller'=>AuthController::class],function(){
+                Route::get('','index')->name('login')->middleware('guest');
+                Route::post('','login')->name('startSession');
+            });
+            
             Route::group(['middleware' => 'auth'],function (){
                 Route::get('home',[HomeController::class,'index'])->name('home');
                 Route::get('destroy',[AuthController::class,'logout'])->name('logout');
