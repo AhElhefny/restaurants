@@ -17,8 +17,9 @@ class CreateCartItemsTable extends Migration
             $table->id();
             $table->foreignId('cart_id')->constrained();
             $table->foreignId('service_id')->constrained();
-            $table->foreignId('size_id')->constrained();
+            $table->foreignId('size_id')->nullable()->constrained();
             $table->tinyInteger('quantity')->default(1);
+            $table->enum('type',['service','addition'])->default('service');
             $table->timestamps();
         });
     }

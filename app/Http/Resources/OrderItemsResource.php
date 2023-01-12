@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Addition;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ItemResource extends JsonResource
+class OrderItemsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,10 +20,11 @@ class ItemResource extends JsonResource
         }else
             $addition = Addition::where('id',$this->service_id)->first();
         return [
-            'item_id' => $this->id,
-            'service_name' => $this->type == 'service'?$this->service->name:$addition->name,
-            'size_name' => $size->name??null,
-            'price' =>$this->type == 'service'?$size->pivot->price:$addition->price ,
+            'id' => $this->id,
+            'service' => $this->type == 'service'?$this->service->name:$addition->name,
+            'service_image' => $this->type == 'service'?$this->service->image:$addition->image,
+            'size' => $size->name??null,
+            'price' => $this->type == 'service'?$size->pivot->price:$addition->price ,
             'quantity' => $this->quantity,
             'type' => $this->type
         ];

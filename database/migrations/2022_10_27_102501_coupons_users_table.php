@@ -16,7 +16,7 @@ class CouponsUsersTable extends Migration
         Schema::create('coupons_users',function(Blueprint $table){
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('coupon_id');
-            $table->dateTime('expire_at');
+            $table->dateTime('expire_at')->nullable();
             $table->timestamps();
         });
     }

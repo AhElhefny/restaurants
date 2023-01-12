@@ -11,7 +11,11 @@ class OrderItems extends Model
 
     protected $guarded=[''];
 
-//    public function service(){
-//        return $this->belongsTo(Service::class,'service_id');
-//    }
+    public function service(){
+        return $this->belongsTo(Service::class,'service_id');
+    }
+
+    public function size(){
+        return $this->belongsTo(Size::class,'size_id');
+    }
 }

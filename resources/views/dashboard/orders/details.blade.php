@@ -25,14 +25,19 @@
 
                                         <div class="carousel-inner" role="listbox">
                                             <div class="carousel-item active">
-                                                <img src="{{$order->services[0]->image}}" class="d-block w-100" height="250px" alt="1 slide">
+                                                <img src="{{$services->first()->service->image}}" class="d-block w-100" height="250px" alt="1 slide">
                                             </div>
-                                            @foreach($order->services as $key=>$service)
+                                            @foreach($services as $key=>$item)
                                                 @if($key != 0)
                                                     <div class="carousel-item">
-                                                        <img src="{{$service->image}}" class="d-block w-100" height="250px" alt="{{$service->id}} slide">
+                                                        <img src="{{$item->service->image}}" class="d-block w-100" height="250px" alt="{{$item->service->id}} slide">
                                                     </div>
                                                 @endif
+                                            @endforeach
+                                            @foreach($additions as $key=>$item)
+                                                <div class="carousel-item">
+                                                    <img src="{{$item->image}}" class="d-block w-100" height="250px" alt="{{$item->id}} slide">
+                                                </div>
                                             @endforeach
                                         </div>
 
@@ -47,12 +52,27 @@
                                     </div>
                                     <div class="card-body">
                                         <ul class="list-group list-group-flush">
-                                            @foreach($order->services as $key => $service)
+                                            <li class="list-group-item font-medium-3 text-center"><span class=" text-muted  ">{{__('dashboard.services')}}</span></li>
+                                            @foreach($services as $key => $item)
                                             <li class="list-group-item text-center">
-                                                <span class="badge badge-pill bg-{{$key%2==0?'info':'warning'}} float-right">{{$service->pivot->price . ' ' . __('dashboard.SAR')}}</span>
-                                                <span>{{$order->sizes[$key]->name}}</span>
-                                                <span class="float-left">{{$service->name}}</span>
+                                                <span class="badge badge-pill bg-{{$key%2==0?'info':'warning'}} float-right">{{$item->price/$item->quantity . ' ' . __('dashboard.SAR')}}
+                                                <span class="badge badge-pill bg-gradient-primary">{{$item->quantity}}</span>
+                                                </span>
+                                                <span>{{$item->service->sizes->where('id',$item->size_id)->first()->name}}</span>
+                                                <span class="float-left">{{$item->service->name}} </span>
                                             </li>
+                                            @endforeach
+                                            <li class="list-group-item font-medium-3 text-center"><span class=" text-muted  ">{{__('dashboard.additions')}}</span></li>
+                                            @foreach($additions as $key => $item)
+                                                <li class="list-group-item text-center">
+                                                <span class="badge badge-pill bg-{{$key%2==0?'info':'warning'}} float-right">{{$item->price . ' ' . __('dashboard.SAR')}}
+                                                <span class="badge badge-pill bg-gradient-primary">
+                                                    {{$order->orderItems->where('service_id',$item->id)->where('type','addition')->first()->quantity}}
+                                                </span>
+                                                </span>
+                                                    <span>-</span>
+                                                    <span class="float-left">{{$item->name}} </span>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>

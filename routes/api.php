@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DeliveryTypesControllr;
 use App\Http\Controllers\Api\NotificationsController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentMethodsControllr;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SubCategoryController;
@@ -56,5 +57,15 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
    Route::get('user/notifications',[NotificationsController::class,'index']);
    Route::get('user/cart',[CartController::class,'UserCart']);
    Route::get('addCartToUser/{cart}',[CartController::class,'AddCartToUser']);
+   Route::controller(OrderController::class)->group(function (){
+       Route::get('orders','index');
+       Route::get('promoCode/validation','checkPromoCode');
+       Route::group(['prefix' => 'order'],function (){
+           Route::get('{order}','show');
+           Route::post('{order}/changeState','changeStatus');
+           Route::post('store','store');
+       });
+   });
+
 });
 

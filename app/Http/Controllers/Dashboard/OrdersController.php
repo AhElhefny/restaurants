@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\services\pushTrait;
+use App\Models\Addition;
 use App\Models\Branch;
 use App\Models\FcmToken;
 use App\Models\Notification;
@@ -49,7 +50,11 @@ class OrdersController extends Controller
 
     public function show(Order $order){
         Notification::where('order_id',$order->id)->update(['seen'=>1]);
-        return view('dashboard.orders.details',['order'=>$order]);
+        $services = $order->orderItems->where('type','service');
+        $additionsIds = $order->orderItems->where('type','addition')->pluck('service_id')->toArray();
+        $additions = Addition::find($additionsIds);
+//        dd($services,$additions);
+        return view('dashboard.orders.details',['order'=>$order,'additions'=>$additions,'services'=>$services]);
     }
 
     public function changeStatus(Request $request,Order $order){

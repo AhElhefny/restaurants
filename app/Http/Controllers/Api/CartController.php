@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
 use App\Http\services\ApiResponseTrait;
+use App\Models\Addition;
 use App\Models\Branch;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -20,14 +21,18 @@ class CartController extends Controller
             return $this->ApiResponse(false,__('api.no such this data'),404,['branch not found']);
         }
 
-        $service = $branch->services()->where('service_id',$request->service_id)->first();
+        $service = $request->itemType == 'service' ?
+            $branch->services()->where('service_id',$request->service_id)->first():
+            Addition::where(['vendor_id'=>$branch->vendor_id,'id'=>$request->service_id])->first();
         if(!$service){
             return $this->ApiResponse(false,__('api.no such this data'),404,['service not found at this branch']);
         }
 
-        $size = $service->sizes()->where('size_id',$request->size_id)->first();
-        if (!$size){
-            return $this->ApiResponse(false,__('api.no such this data'),404,['size not available with this service']);
+        if($request->itemType =='service'){
+            $size = $service->sizes()->where('size_id',$request->size_id)->first();
+            if (!$size){
+                return $this->ApiResponse(false,__('api.no such this data'),404,['size not available with this service']);
+            }
         }
 
         $authUser = auth('api')->user();
@@ -51,8 +56,11 @@ class CartController extends Controller
             $userCart->update(['branch_id' => $request->branch_id]);
         }
 
-        $item = $userCart->items()->where(['service_id'=>$service->id,'size_id'=>$size->id])->first();
-
+        if($request->itemType == 'service'){
+            $item = $userCart->items()->where(['service_id'=>$service->id,'size_id'=>$size->id])->first();
+        }else{
+            $item = $userCart->items()->where(['service_id'=>$service->id,'type'=>$request->itemType])->first();
+        }
 
         if ($item){
             $res = $item->update(['quantity'=>$item->quantity+($request->quantity??1)]);
@@ -60,8 +68,9 @@ class CartController extends Controller
         else{
             $res = $userCart->items()->create([
                 'service_id' => $service->id,
-                'size_id' => $size->id,
+                'size_id' => $size->id??null,
                 'quantity' => $request->quantity,
+                'type' => $request->itemType
             ]);
         }
 

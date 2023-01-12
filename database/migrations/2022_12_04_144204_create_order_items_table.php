@@ -17,7 +17,7 @@ class CreateOrderItemsTable extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained();
             $table->foreignId('service_id')->constrained();
-            $table->foreignId('size_id')->constrained();
+            $table->foreignId('size_id')->nullable()->constrained();
             $table->float('price')->default(1);
             $table->tinyInteger('quantity')->default(1);
             $table->timestamps();
