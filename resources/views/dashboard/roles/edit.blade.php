@@ -31,7 +31,7 @@
                                         <div class="form-group row offset-1 mt-2">
 {{--                                            <div class="col-md-2"></div>--}}
                                             @foreach($permissions as $key => $value)
-                                                <div class="form-check  col-md-2 {{$key == 0 || $key % 5 == 0 ? 'offset-1':''}}">
+                                                <div class="form-check  col-md-2 mb-1 {{$key == 0 || $key % 5 == 0 ? 'offset-1':''}}">
                                                     <label class="form-check-label">
                                                         <input type="checkbox"
                                                                {{in_array($value->id,$role->getAllPermissions()->pluck('id')->toArray())?'checked':''}}

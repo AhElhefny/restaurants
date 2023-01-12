@@ -127,7 +127,7 @@
                                 let edit ='roles/'+data+'/edit';
                                 // let show ='roles/'+data;
                                 let deleting ='roles/'+data;
-                                if(data <= 3){
+                                if(data <= 1){ // TODO make condition more or equal 3
                                     return ``;
                                 }
                                 @if(auth()->user()->can('edit role')||auth()->user()->can('delete role'))

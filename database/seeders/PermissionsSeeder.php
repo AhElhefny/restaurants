@@ -110,8 +110,8 @@ class PermissionsSeeder extends Seeder
         ]);
 
         $BM_permissions = [
-            'users', 'edit user', 'show user', 'orders', 'edit-order', 'show-order', 'services', 'edit service', 'show service',
-             'sub-categories', 'show sub-category',
+            'orders', 'edit-order', 'show-order', 'services', 'edit service', 'show service',
+            'sub-categories', 'show sub-category', 'additions'
         ];
         $BM_role = Role::create([
             'name' => 'branch_manager'

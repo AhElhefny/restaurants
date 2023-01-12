@@ -31,7 +31,7 @@ class RolesController extends Controller
     public function index()
     {
         if (\request()->ajax()) {
-            $data =Role::withCount('users')->where('id','>',3)->get();
+            $data =Role::withCount('users')->where('id','>',1)->get(); // TODO make condition more or equal 3
             return Datatables::of($data)->make(true);
         }
         return view('dashboard.roles.list');

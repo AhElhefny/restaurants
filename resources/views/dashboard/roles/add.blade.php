@@ -29,17 +29,13 @@
                                         <strong>{{__('dashboard.Permissions')}}:</strong>
                                         <div class="form-group row offset-1 mt-2">
                                             @foreach($permissions as $key => $value)
-
-                                                <div class="form-check  col-md-2 {{$key == 0 || $key % 5 == 0 ? 'offset-1':''}} ">
+                                                <div class="form-check  col-md-2 mb-1 {{$key == 0 || $key % 5 == 0 ? 'offset-1':''}} ">
                                                     <label class="form-check-label mt-1">
                                                         <input type="checkbox" class="form-check-input" name="permission[]" value="{{$value->id}}">
                                                         {{__('roles_permissions.'.$value->name)}}
                                                     </label>
                                                 </div>
-
                                             @endforeach
-
-
                                         </div>
                                     </div>
                                 </div>

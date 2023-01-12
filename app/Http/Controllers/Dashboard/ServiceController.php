@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
+use App\Models\Addition;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Vendor;
@@ -19,7 +20,7 @@ class ServiceController extends Controller
     {
         $this->middleware('permission:services',['only'=>['index']]);
         $this->middleware('permission:add service',['only'=>['create','store']]);
-        $this->middleware('permission:edit service',['only'=>['edit','update','changeStatus']]);
+        $this->middleware('permission:edit service',['only'=>['edit','update','changeStatus','serviceAdditions']]);
         $this->middleware('permission:delete service',['only'=>['destroy']]);
         $this->middleware('permission:show service',['only'=>['show']]);
     }
@@ -60,9 +61,10 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function serviceAdditions(Request $request, Service $service)
     {
-        //
+        $service->additions()->sync($request->additions);
+        return back()->with(['success'=>__('dashboard.item updated successfully')]);
     }
 
     /**
@@ -111,7 +113,8 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        return view('dashboard.vendorSetting.services.details',['service'=>$service]);
+        $additions = Addition::where('vendor_category_id',$service->vendor_category_id)->get();
+        return view('dashboard.vendorSetting.services.details',['service'=>$service,'additions'=>$additions]);
     }
 
     /**

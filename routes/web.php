@@ -55,7 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::get('','index')->name('login')->middleware('guest');
                 Route::post('','login')->name('startSession');
             });
-            
+
             Route::group(['middleware' => 'auth'],function (){
                 Route::get('home',[HomeController::class,'index'])->name('home');
                 Route::get('destroy',[AuthController::class,'logout'])->name('logout');
@@ -77,6 +77,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 Route::resource('services',ServiceController::class);
                 Route::get('service/{service}/changeStatus',[ServiceController::class,'changeStatus'])->name('change_service_status');
+                Route::post('service/{service}/additions',[ServiceController::class,'serviceAdditions'])->name('services.serviceAdditions');
 
                 Route::resource('subCategories',SubCategoryController::class);
                 Route::get('subCategories/{vendorCategory}/changeStatus',[SubCategoryController::class,'changeStatus']);
